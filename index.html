@@ -661,7 +661,9 @@
     // ── JSONBin Cloud Sync ──
     const JSONBIN_KEY = '$2a$10$rkJwuFm6CQYGT0xS8jLZrOh80qsO7Q7Hz0VaNdLIGRnxtOcImy6Aa';
     const BIN_NAME = 'fc-tracker-joao';
-    let BIN_ID = localStorage.getItem('fc_bin_id') || null;
+    const FIXED_BIN_ID = '6a19ee8921f9ee59d29b5db1';
+    let BIN_ID = FIXED_BIN_ID;
+    localStorage.setItem('fc_bin_id', FIXED_BIN_ID);
     let syncTimeout = null;
     let isSyncing = false;
 
