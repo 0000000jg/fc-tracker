@@ -114,59 +114,8 @@
 
 <script>
     const OBJETIVOS = [
-        // ── TOTS - Conexões ──
-        { cat: "TOTS - Conexões", player: "TOTS HM: Conexão África-Europa", expira: "27 abr 2026", tasks: [
-            { nome: "Jogue 5 partidas em qualquer modo de jogo do Ultimate Team", total: 5 },
-            { nome: "Dê 3 assistências no Squad Battles (Semipro+)", total: 3 },
-            { nome: "Marque 3 gols usando Chute Colocado no Squad Battles (Semipro+)", total: 3 },
-            { nome: "Marque 3 gols usando Superchute no Squad Battles (Semipro+) com pelo menos 1 jogador da Bósnia e Herzegovina no seu 11 inicial", total: 3 },
-            { nome: "Vença 4 partidas no Squad Battles (Semipro+)", total: 4 }
-        ]},
 
-        // ── TOTS - Silver HM ──
-        { cat: "TOTS - Silver HM", player: "TOTS Silver HM: Trenskow", expira: "26 abr 2026", tasks: [
-            { nome: "Vença 2 partidas no Squad Battles (Semipro+) com pelo menos 1 jogador da Dinamarca no seu 11 inicial", total: 2 },
-            { nome: "Marque pelo menos 1 gol em 2 partidas separadas no Squad Battles (Semipro+) usando um jogador da Eredivisie", total: 2 },
-            { nome: "Jogue 2 partidas em qualquer modo de jogo do Ultimate Team com pelo menos 1 jogador da Dinamarca no seu 11 inicial", total: 2 }
-        ]},
-        { cat: "TOTS - Silver HM", player: "TOTS Silver HM: Robinson", expira: "29 abr 2026", tasks: [
-            { nome: "Jogue 2 partidas em qualquer modo de jogo do Ultimate Team com pelo menos 1 jogador dos Estados Unidos no seu 11 inicial", total: 2 },
-            { nome: "Dê assistência em pelo menos 1 gol em 2 partidas separadas de Squad Battles (Semipro+) usando um jogador da MLS", total: 2 },
-            { nome: "Vença 2 partidas no Squad Battles (Semipro+) com pelo menos 1 jogador da MLS no seu 11 inicial", total: 2 }
-        ]},
-
-        // ── TOTS - Eventos ──
-        { cat: "TOTS - Eventos", player: "Get Rich Quick League", expira: "4 mai 2026", tasks: [
-            { nome: "Jogue 6 partidas no Evento ao Vivo 'Get Rich Quick League' com pelo menos 1 jogador TOTS/HM/Breakthrough no seu 11 inicial", total: 6 },
-            { nome: "Vença 3 partidas no Evento ao Vivo 'Get Rich Quick League' com pelo menos 1 jogador TOTS/HM/Breakthrough no seu 11 inicial", total: 3 },
-            { nome: "Marque 10 gols no Evento ao Vivo 'Get Rich Quick League' usando um jogador TOTS/HM/Breakthrough", total: 10 },
-            { nome: "Vença 7 partidas no Evento ao Vivo 'Get Rich Quick League' com pelo menos 1 jogador TOTS/HM/Breakthrough no seu 11 inicial", total: 7 },
-            { nome: "Jogue 12 partidas no Evento ao Vivo 'Get Rich Quick League' com pelo menos 1 jogador TOTS/HM/Breakthrough no seu 11 inicial", total: 12 }
-        ]},
-
-        // ── TOTS - Exibições ──
-        { cat: "TOTS - Exibições", player: "Ultimate TOTS Finale Entry", expira: "22 mai 2026", tasks: [
-            { nome: "Jogue 5 partidas na Exibição TOTS Serie A", total: 5 },
-            { nome: "Jogue 5 partidas na Exibição TOTS Premier League", total: 5 },
-            { nome: "Jogue 5 partidas na Exibição TOTS Bundesliga", total: 5 },
-            { nome: "Jogue 5 partidas na Exibição TOTS Ligue 1", total: 5 },
-            { nome: "Jogue 5 partidas na Exibição TOTS LALIGA", total: 5 }
-        ]},
-        { cat: "TOTS - Exibições", player: "Exibição TOTS Serie A", expira: "24 abr 2026", tasks: [
-            { nome: "Jogue 10 partidas na Exibição TOTS Serie A", total: 10 },
-            { nome: "Vença 5 partidas na Exibição TOTS Serie A", total: 5 },
-            { nome: "Marque um gol em 10 partidas separadas na Exibição TOTS Serie A", total: 10 },
-            { nome: "Vença 8 partidas na Exibição TOTS Serie A", total: 8 },
-            { nome: "Dê assistência em 10 partidas separadas na Exibição TOTS Serie A", total: 10 }
-        ]},
-
-        // ── TOTS - Oportunidades ──
-        { cat: "TOTS - Oportunidades", player: "Aceleração Máxima", expira: "30 abr 2026", tasks: [
-            { nome: "Ataques Velozes: Marque pelo menos 20 gols na mesma partida usando um jogador com no mínimo 90 de Ritmo no Squad Battles (Iniciante+)", total: 20 },
-            { nome: "Passe de Precisão: Dê assistência em pelo menos 20 gols na mesma partida usando um jogador com no mínimo 90 de Ritmo no Squad Battles (Iniciante+)", total: 20 }
-        ]},
-
-        // ── Marco dos TOTS ──
+        // ── Marco dos TOTS (não expira) ──
         { cat: "Marco dos TOTS", player: "Marco dos TOTS", expira: null, tasks: [
             { nome: "Herança Defensiva: Sofra 1 gol ou menos em 15 partidas separadas de Squad Battles (Semipro+) com pelo menos 1 jogador TOTS da Serie A na sua defesa (LD/LE/ZAG)", total: 15 },
             { nome: "Foguetes de Chuteira: Marque 10 Gols de Superchute no Squad Battles (Semipro+) com um jogador TOTS da MLS", total: 10 },
@@ -186,83 +135,14 @@
             { nome: "Suba no Alto: Marque um gol de cabeça em 8 partidas separadas no Squad Battles (Semipro+) usando um jogador TOTS da Liga Portugal", total: 8 }
         ]},
 
-        // ── TOTS - Novos ──
-        { cat: "TOTS - HM & Silver", player: "TOTS HM: EFL Grind", expira: "1 mai 2026", tasks: [
-            { nome: "Jogue 8 partidas no Squad Battles (Semipro+) com pelo menos 1 jogador do Marrocos no seu 11 inicial", total: 8 },
-            { nome: "Dê 6 assistências no Squad Battles (Semipro+) com um Meio-campista (VOL/MC/MEI/ME/MD)", total: 6 },
-            { nome: "Marque 10 gols no Squad Battles (Semipro+) usando um jogador da Inglaterra", total: 10 },
-            { nome: "Vença 5 partidas no Squad Battles (Semipro+) com pelo menos 2 jogadores da Holanda no seu 11 inicial", total: 5 },
-            { nome: "Marque 1 gol em 5 partidas separadas no Squad Battles (Semipro+) usando um jogador da EFL Championship", total: 5 }
-        ]},
-        { cat: "TOTS - HM & Silver", player: "TOTS Silver HM: Eli Junior Kroupi", expira: "1 mai 2026", tasks: [
-            { nome: "Jogue 2 partidas em qualquer modo de jogo do Ultimate Team com pelo menos 1 jogador da França no seu 11 inicial", total: 2 },
-            { nome: "Marque pelo menos 1 gol em 2 partidas separadas de Squad Battles (Semipro+) usando um jogador da Premier League", total: 2 },
-            { nome: "Vença 2 partidas no Squad Battles (Semipro+) com pelo menos 1 jogador da França no seu 11 inicial", total: 2 }
-        ]},
-
-        // ── TOTS - Champions & Eventos ──
-        { cat: "TOTS - Champions & Eventos", player: "TOTS: Objetivo Champions", expira: "28 abr 2026", tasks: [
-            { nome: "Vença 3 partidas no Champions com pelo menos 3 jogadores da Premier League no seu 11 inicial", total: 3 },
-            { nome: "Vença 5 partidas no Champions com pelo menos 3 jogadores da Premier League no seu 11 inicial", total: 5 },
-            { nome: "Vença 8 partidas no Champions com pelo menos 3 jogadores da Premier League no seu 11 inicial", total: 8 },
-            { nome: "Marque 1 gol em 5 partidas separadas no Champions usando qualquer jogador TOTS", total: 5 },
-            { nome: "Dê assistência em 1 gol em 5 partidas separadas no Champions usando qualquer jogador TOTS", total: 5 }
-        ]},
-        { cat: "TOTS - Champions & Eventos", player: "TOTS Premier League Flash Rush", expira: "27 abr 2026", tasks: [
-            { nome: "Jogue 5 partidas no Evento TOTS Premier League Flash Rush", total: 5 },
-            { nome: "Vença 3 partidas de Rush no Evento TOTS Premier League Flash Rush", total: 3 },
-            { nome: "Dê assistência em pelo menos 1 gol em 5 partidas separadas no Evento TOTS Premier League Flash Rush", total: 5 },
-            { nome: "Marque 5 gols no Evento TOTS Premier League Flash Rush usando qualquer jogador TOTS", total: 5 },
-            { nome: "Ganhe 40.000 Pontos de Rush", total: 1 }
-        ]},
-        { cat: "TOTS - Champions & Eventos", player: "Teste Sua Determinação", expira: "1 mai 2026", tasks: [
-            { nome: "Marque 15 gols em uma única partida de Squad Battles (Semipro+)", total: 15 },
-            { nome: "Dê 7 assistências com um jogador em uma única partida de Squad Battles (Semipro+)", total: 7 },
-            { nome: "Fique 3 partidas sem sofrer gols no Squad Battles (Semipro+)", total: 3 },
-            { nome: "Vença por pelo menos 10 gols de diferença em uma única partida de Squad Battles (Semipro+) com pelo menos um jogador de cada (Premier League, BWSL e EFL) no seu 11 inicial", total: 1 },
-            { nome: "Marque 3 gols de cabeça com um jogador com menos de 183 cm de altura no Squad Battles (Semipro+)", total: 3 }
-        ]},
-
-        // ── TOTS - Exibição Premier League ──
-        { cat: "TOTS - Exibições", player: "Exibição TOTS Premier League", expira: "1 mai 2026", tasks: [
-            { nome: "Jogue 10 partidas na Exibição TOTS Premier League", total: 10 },
-            { nome: "Vença 5 partidas na Exibição TOTS Premier League", total: 5 },
-            { nome: "Marque um gol em 10 partidas separadas na Exibição TOTS Premier League", total: 10 },
-            { nome: "Vença 8 partidas na Exibição TOTS Premier League", total: 8 },
-            { nome: "Dê assistência em 10 partidas separadas na Exibição TOTS Premier League", total: 10 }
-        ]},
-
-        // ── Objetivos Semanais ──
-        { cat: "Objetivos Semanais", player: "Objetivos Semanais", expira: "30 abr 2026", tasks: [
-            { nome: "Liste 10 itens de jogador no Mercado de Transferências", total: 10 },
-            { nome: "Compre 10 itens de jogador no Mercado de Transferências", total: 10 },
-            { nome: "Jogue 10 partidas no Squad Battles (Semipro+) ou Rush/Rivals/Champions/Amistosos ao Vivo", total: 10 },
-            { nome: "Vença 10 partidas no Squad Battles (Semipro+) ou Rush/Rivals/Champions/Amistosos ao Vivo", total: 10 },
-            { nome: "Marque 10 gols em qualquer modo de jogo do Ultimate Team usando um jogador espanhol", total: 10 }
-        ]},
-
         // ── Season 7 ──
-        { cat: "Season 7", player: "S7 Spirit of Africa League", expira: "23 mai 2026", tasks: [
-            { nome: "Jogue 5 partidas na Season 7 Spirit of Africa League", total: 5 },
-            { nome: "Jogue 10 partidas na Season 7 Spirit of Africa League", total: 10 },
-            { nome: "Jogue 20 partidas na Season 7 Spirit of Africa League", total: 20 },
-            { nome: "Marque pelo menos 1 gol em 25 partidas separadas na Season 7 Spirit of Africa League", total: 25 },
-            { nome: "Marque pelo menos 1 gol em 30 partidas separadas na Season 7 Spirit of Africa League", total: 30 }
-        ]},
-        { cat: "Season 7", player: "S7 Spirit of Africa Tournament", expira: "30 abr 2026", tasks: [
+        { cat: "Season 7", player: "S7 Spirit of Africa Tournament (Jun)", expira: "3 jun 2026", tasks: [
             { nome: "Jogue 3 partidas no Season 7 Spirit of Africa Tournament", total: 3 },
             { nome: "Marque 1 gol em 3 partidas separadas no Season 7 Spirit of Africa Tournament", total: 3 },
             { nome: "Marque pelo menos 3 gols em uma única partida no Season 7 Spirit of Africa Tournament", total: 1 },
             { nome: "Vença as Quartas de Final no Season 7 Spirit of Africa Tournament", total: 1 },
             { nome: "Vença a Semifinal no Season 7 Spirit of Africa Tournament", total: 1 },
             { nome: "Vença o Season 7 Spirit of Africa Tournament", total: 1 }
-        ]},
-        { cat: "Season 7", player: "Season 7 Weekly Play 1", expira: "30 abr 2026", tasks: [
-            { nome: "Jogue 5 partidas de Squad Battles no nível mínimo Semiprofissional", total: 5 },
-            { nome: "Jogue 5 partidas no Rivals", total: 5 },
-            { nome: "Jogue 5 partidas no Champions", total: 5 },
-            { nome: "Jogue 5 partidas de Rush no Ultimate Team", total: 5 },
-            { nome: "Jogue 5 partidas em qualquer Amistoso ao Vivo do Ultimate Team", total: 5 }
         ]},
 
         // ── Ícones Espanhóis ──
@@ -309,186 +189,7 @@
             { nome: "O Melhor de Camarões: Vença 25 partidas no Squad Battles (Semipro+) com pelo menos 1 jogador de Camarões no seu 11 inicial", total: 25 }
         ]},
 
-        // ── Season 7 novo torneio ──
-        { cat: "Season 7", player: "S7 Spirit of Africa Tournament (Jun)", expira: "3 jun 2026", tasks: [
-            { nome: "Jogue 3 partidas no Season 7 Spirit of Africa Tournament", total: 3 },
-            { nome: "Marque 1 gol em 3 partidas separadas no Season 7 Spirit of Africa Tournament", total: 3 },
-            { nome: "Marque pelo menos 3 gols em uma única partida no Season 7 Spirit of Africa Tournament", total: 1 },
-            { nome: "Vença as Quartas de Final no Season 7 Spirit of Africa Tournament", total: 1 },
-            { nome: "Vença a Semifinal no Season 7 Spirit of Africa Tournament", total: 1 },
-            { nome: "Vença o Season 7 Spirit of Africa Tournament", total: 1 }
-        ]},
-
-        // ── Ultimate Gauntlet 16 ──
-        { cat: "Ultimate Gauntlet 16", player: "Ultimate Gauntlet 16", expira: "4 mai 2026", minToComplete: 9, tasks: [
-            { nome: "Jogue 1 partida no Ultimate Gauntlet 16", total: 1 },
-            { nome: "Jogue 2 partidas no Ultimate Gauntlet 16", total: 2 },
-            { nome: "Jogue 4 partidas no Ultimate Gauntlet 16", total: 4 },
-            { nome: "Marque pelo menos 1 gol em 3 partidas separadas no Ultimate Gauntlet 16", total: 3 },
-            { nome: "Marque pelo menos 1 gol em 5 partidas separadas no Ultimate Gauntlet 16", total: 5 },
-            { nome: "Marque pelo menos 1 gol em 6 partidas separadas no Ultimate Gauntlet 16", total: 6 },
-            { nome: "Vença 4 partidas no Ultimate Gauntlet 16", total: 4 },
-            { nome: "Vença 5 partidas no Ultimate Gauntlet 16", total: 5 },
-            { nome: "Marque pelo menos 1 gol em 14 partidas separadas no Ultimate Gauntlet 16", total: 14 },
-            { nome: "Vença 7 partidas no Ultimate Gauntlet 16", total: 7 }
-        ]},
-        { cat: "Ultimate Gauntlet 16", player: "Bônus Ultimate Gauntlet 16", expira: "4 mai 2026", tasks: [
-            { nome: "Vença 1 partida em uma rodada do Ultimate Gauntlet 16", total: 1 },
-            { nome: "Vença 2 partidas em uma rodada do Ultimate Gauntlet 16", total: 2 },
-            { nome: "Vença 3 partidas em uma rodada do Ultimate Gauntlet 16", total: 3 },
-            { nome: "Rodada Perfeita: Vença 4 partidas em uma rodada do Ultimate Gauntlet 16", total: 4 }
-        ]},
-
-        // ── TOTS - HM Novos ──
-        { cat: "TOTS - HM & Silver", player: "TOTS HM: Hanson", expira: "4 mai 2026", tasks: [
-            { nome: "Jogue 10 partidas no Squad Battles (Semipro+) com pelo menos 1 jogador da Escócia no seu 11 inicial", total: 10 },
-            { nome: "Marque 4 gols no Squad Battles (Semipro+) usando um ATA (posição preferencial)", total: 4 },
-            { nome: "Dê 6 assistências no Squad Battles (Semipro+) usando um jogador da BWSL", total: 6 },
-            { nome: "Vença 7 partidas no Squad Battles (Semipro+) com pelo menos 2 jogadores da Escócia no seu 11 inicial", total: 7 },
-            { nome: "Marque 1 gol em 5 partidas separadas no Squad Battles (Semipro+) usando um jogador da Escócia", total: 5 }
-        ]},
-        { cat: "TOTS - HM & Silver", player: "TOTS HM: Sebastián Coates", expira: "8 mai 2026", tasks: [
-            { nome: "Marque 1 gol em 5 partidas separadas no Squad Battles (Semipro+) usando um jogador da CONMEBOL Libertadores", total: 5 },
-            { nome: "Vença 7 partidas no Squad Battles (Semipro+) com pelo menos 2 jogadores do Uruguai no seu 11 inicial", total: 7 },
-            { nome: "Fique 4 partidas sem sofrer gols no Squad Battles (Semipro+) com pelo menos 1 jogador da CONMEBOL Libertadores no seu 11 inicial", total: 4 },
-            { nome: "Dê 4 assistências no Squad Battles (Semipro+) usando um Defensor (posição preferencial)", total: 4 },
-            { nome: "Jogue 10 partidas no Squad Battles (Semipro+) com pelo menos 1 jogador do Uruguai no seu 11 inicial", total: 10 }
-        ]},
-        { cat: "TOTS - HM & Silver", player: "TOTS Silver HM: Anna Sandberg", expira: "6 mai 2026", tasks: [
-            { nome: "Vença 2 partidas no Squad Battles (Semipro+) com pelo menos 1 jogador da Suécia no seu 11 inicial", total: 2 },
-            { nome: "Marque pelo menos 1 gol em 2 partidas separadas no Squad Battles (Semipro+) usando um jogador da Barclays WSL", total: 2 },
-            { nome: "Jogue 2 partidas em qualquer modo de jogo do Ultimate Team com pelo menos 1 jogador da Suécia no seu 11 inicial", total: 2 }
-        ]},
-        { cat: "TOTS - HM & Silver", player: "TOTS Silver HM: Lotta Wrede", expira: "8 mai 2026", tasks: [
-            { nome: "Vença 2 partidas no Squad Battles (Semipro+) com pelo menos 1 jogador da Alemanha no seu 11 inicial", total: 2 },
-            { nome: "Marque pelo menos 1 gol em 2 partidas separadas no Squad Battles (Semipro+) usando uma jogadora da Frauen-Bundesliga", total: 2 },
-            { nome: "Jogue 2 partidas em qualquer modo de jogo do Ultimate Team com pelo menos 1 jogador da Alemanha no seu 11 inicial", total: 2 }
-        ]},
-
-        // ── TOTS - Champions & Eventos novos ──
-        { cat: "TOTS - Champions & Eventos", player: "TOTS: Objetivo Champions (Bundesliga)", expira: "8 mai 2026", tasks: [
-            { nome: "Vença 3 partidas no Champions com pelo menos 3 jogadores da Bundesliga no seu 11 inicial", total: 3 },
-            { nome: "Vença 5 partidas no Champions com pelo menos 3 jogadores da Bundesliga no seu 11 inicial", total: 5 },
-            { nome: "Vença 8 partidas no Champions com pelo menos 3 jogadores da Bundesliga no seu 11 inicial", total: 8 },
-            { nome: "Marque 1 gol em 5 partidas separadas no Champions usando qualquer jogador TOTS", total: 5 },
-            { nome: "Dê assistência em 1 gol em 5 partidas separadas no Champions usando qualquer jogador TOTS", total: 5 }
-        ]},
-        { cat: "TOTS - Champions & Eventos", player: "TOTS EFL Flash Rush", expira: "3 mai 2026", tasks: [
-            { nome: "Jogue 5 partidas no Evento TOTS EFL Flash Rush", total: 5 },
-            { nome: "Vença 3 partidas de Rush no Evento TOTS EFL Flash Rush", total: 3 },
-            { nome: "Dê assistência em pelo menos 1 gol em 5 partidas separadas no Evento TOTS EFL Flash Rush", total: 5 },
-            { nome: "Marque 5 gols no Evento TOTS EFL Flash Rush usando qualquer jogador TOTS", total: 5 },
-            { nome: "Ganhe 40.000 Pontos de Rush", total: 1 }
-        ]},
-        { cat: "TOTS - Champions & Eventos", player: "Revolução das Evoluções", expira: "8 mai 2026", tasks: [
-            { nome: "Força Turbo: Vença 7 partidas no Squad Battles (Semipro+) com pelo menos 1 jogador TOTS no seu 11 inicial", total: 7 },
-            { nome: "QI de Passe: Dê assistência em 1 gol usando passe enfiado em 5 partidas separadas no Squad Battles (Semipro+) usando qualquer jogador TOTS", total: 5 },
-            { nome: "De Longe: Marque 5 gols de fora da área no Squad Battles (Semipro+) usando qualquer jogador TOTS", total: 5 },
-            { nome: "Instinto Defensivo: Fique 5 partidas sem sofrer gols no Squad Battles (Semipro+) com pelo menos 1 jogador TOTS no seu 11 inicial", total: 5 },
-            { nome: "Jogue 5 partidas em qualquer modo de jogo do Ultimate Team", total: 5 }
-        ]},
-
-        // ── TOTS - Exibições novas ──
-        { cat: "TOTS - Exibições", player: "Exibição TOTS Bundesliga", expira: "8 mai 2026", tasks: [
-            { nome: "Jogue 10 partidas no Evento de Exibição TOTS Bundesliga", total: 10 },
-            { nome: "Vença 5 partidas no Evento de Exibição TOTS Bundesliga", total: 5 },
-            { nome: "Marque um gol em 10 partidas separadas no Evento de Exibição TOTS Bundesliga", total: 10 },
-            { nome: "Vença 8 partidas no Evento de Exibição TOTS Bundesliga", total: 8 },
-            { nome: "Dê assistência em 10 partidas separadas no Evento de Exibição TOTS Bundesliga", total: 10 }
-        ]},
-
-        // ── Outros ──
-        { cat: "Outros", player: "Uniforme Digital Nacional", expira: "5 mai 2026", tasks: [
-            { nome: "Jogue 5 partidas no Squad Battles (Semipro+) com pelo menos 1 jogador do Uruguai no seu 11 inicial", total: 5 }
-        ]},
-        { cat: "Outros", player: "Desafio Nike Wildcard", expira: "14 mai 2026", tasks: [
-            { nome: "Marque 3 gols em qualquer modo de jogo do Ultimate Team usando um jogador dos EUA", total: 3 },
-            { nome: "Marque 5 gols em qualquer modo de jogo do Ultimate Team usando um jogador dos EUA", total: 5 },
-            { nome: "Vença 3 partidas em qualquer modo de jogo do Ultimate Team com pelo menos 1 jogador dos EUA no seu 11 inicial", total: 3 },
-            { nome: "Jogue 3 partidas em qualquer modo de jogo do Ultimate Team com pelo menos 1 jogador dos EUA no seu 11 inicial", total: 3 }
-        ]},
-
-        // ── TOTS HM & Silver maio ──
-        { cat: "TOTS - HM & Silver", player: "TOTS HM: NWSL Grind", expira: "15 mai 2026", tasks: [
-            { nome: "Jogue 10 partidas no Squad Battles (Semipro+) com pelo menos 1 jogador dos EUA no seu 11 inicial", total: 10 },
-            { nome: "Dê 4 assistências no Squad Battles (Semipro+) usando um PD (posição preferencial)", total: 4 },
-            { nome: "Marque 4 gols no Squad Battles (Semipro+) com pelo menos 1 jogadora da NWSL no seu 11 inicial", total: 4 },
-            { nome: "Vença 7 partidas no Squad Battles (Semipro+) com pelo menos 2 jogadores dos EUA no seu 11 inicial", total: 7 },
-            { nome: "Marque pelo menos 1 gol em 5 partidas separadas no Squad Battles (Semipro+) usando uma jogadora da NWSL", total: 5 }
-        ]},
-        { cat: "TOTS - HM & Silver", player: "TOTS Silver HM: Arsène Kouassi", expira: "15 mai 2026", tasks: [
-            { nome: "Jogue 2 partidas em qualquer modo de jogo do Ultimate Team com pelo menos 1 jogador da Ligue 1 no seu 11 inicial", total: 2 },
-            { nome: "Marque pelo menos 1 gol em 2 partidas separadas de Squad Battles (Semipro+) usando um jogador da Ligue 1", total: 2 },
-            { nome: "Vença 2 partidas no Squad Battles (Semipro+) com pelo menos 1 jogador TOTS no seu 11 inicial", total: 2 }
-        ]},
-
-        // ── TOTS Champions maio ──
-        { cat: "TOTS - Champions & Eventos", player: "TOTS: Objetivo Champions (Ligue 1)", expira: "13 mai 2026", tasks: [
-            { nome: "Vença 2 partidas no Champions com pelo menos 3 jogadores da Ligue 1 no seu 11 inicial", total: 2 },
-            { nome: "Vença 4 partidas no Champions com pelo menos 3 jogadores da Ligue 1 no seu 11 inicial", total: 4 },
-            { nome: "Vença 6 partidas no Champions com pelo menos 3 jogadores da Ligue 1 no seu 11 inicial", total: 6 },
-            { nome: "Marque 1 gol em 5 partidas separadas no Champions usando qualquer jogador TOTS", total: 5 },
-            { nome: "Dê assistência em 1 gol em 5 partidas separadas no Champions usando qualquer jogador TOTS", total: 5 }
-        ]},
-        { cat: "TOTS - Champions & Eventos", player: "TOTS: Pontos de Qualificação do Champions", expira: "13 mai 2026", tasks: [
-            { nome: "Jogue 2 partidas em qualquer Evento ao Vivo", total: 2 },
-            { nome: "Jogue 4 partidas em qualquer Evento ao Vivo", total: 4 },
-            { nome: "Jogue 7 partidas em qualquer Evento ao Vivo", total: 7 }
-        ]},
-
-        // ── TOTS Exibições maio ──
-        { cat: "TOTS - Exibições", player: "Exibição TOTS Ligue 1", expira: "15 mai 2026", tasks: [
-            { nome: "Jogue 10 partidas na Exibição TOTS Ligue 1", total: 10 },
-            { nome: "Vença 5 partidas na Exibição TOTS Ligue 1", total: 5 },
-            { nome: "Marque um gol em 10 partidas separadas na Exibição TOTS Ligue 1", total: 10 },
-            { nome: "Vença 8 partidas na Exibição TOTS Ligue 1", total: 8 },
-            { nome: "Dê assistência em 10 partidas separadas na Exibição TOTS Ligue 1", total: 10 }
-        ]},
-
-        // ── DMEs ──
-        { cat: "DMEs", player: "Colecionador de DMEs de Puzzle TOTS", expira: "17 mai 2026", tasks: [
-            { nome: "Serie A: Complete o DME Desafio TOTS Serie A", total: 1 },
-            { nome: "BWSL: Complete o DME Desafio TOTS BWSL", total: 1 },
-            { nome: "Premier League: Complete o DME Desafio TOTS Premier League", total: 1 },
-            { nome: "Frauen-Bundesliga: Complete o DME Desafio TOTS Frauen-Bundesliga", total: 1 },
-            { nome: "Bundesliga: Complete o DME Desafio TOTS Bundesliga", total: 1 },
-            { nome: "Arkema Première Ligue: Complete o DME Desafio TOTS Arkema Première Ligue", total: 1 },
-            { nome: "Ligue 1: Complete o DME Desafio TOTS Ligue 1", total: 1 }
-        ]},
-
-        // ── TOTS HM & Silver maio ──
-        { cat: "TOTS - HM & Silver", player: "TOTS HM: Hjulmand", expira: "22 mai 2026", tasks: [
-            { nome: "Jogue 10 partidas no Squad Battles (Semipro+) com pelo menos 1 jogador da Dinamarca no seu 11 inicial", total: 10 },
-            { nome: "Dê 4 assistências no Squad Battles (Semipro+) usando um meio-campista (posição preferencial)", total: 4 },
-            { nome: "Segure o Resultado: Sofra 1 gol ou menos em 4 partidas separadas no Squad Battles (Semipro+) com pelo menos 1 jogador da Liga Portugal no seu 11 inicial", total: 4 },
-            { nome: "Vença 7 partidas no Squad Battles (Semipro+) com pelo menos 2 jogadores da Dinamarca no seu 11 inicial", total: 7 },
-            { nome: "Dê assistência em 1 gol em 5 partidas separadas no Squad Battles (Semipro+) usando um jogador da Liga Portugal", total: 5 }
-        ]},
-        { cat: "TOTS - HM & Silver", player: "Trio TOTS Silver HM", expira: "22 mai 2026", tasks: [
-            { nome: "Jogue 2 partidas em qualquer modo de jogo do Ultimate Team com pelo menos 1 jogador da LALIGA no seu 11 inicial", total: 2 },
-            { nome: "Marque pelo menos 1 gol em 2 partidas separadas de Squad Battles (Semipro+) usando um jogador da Liga F", total: 2 },
-            { nome: "Vença 2 partidas no Squad Battles (Semipro+) com pelo menos 1 jogador TOTS no seu 11 inicial", total: 2 }
-        ]},
-
-        // ── TOTS Champions & Eventos maio ──
-        { cat: "TOTS - Champions & Eventos", player: "Adapte Suas Táticas", expira: "22 mai 2026", tasks: [
-            { nome: "Jogue 5 partidas no Squad Battles (Semipro+) usando a formação 4-4-2", total: 5 },
-            { nome: "Defesa Estelar: Sofra 1 gol ou menos em 5 partidas separadas no Squad Battles (Semipro+) usando a formação 5-3-2", total: 5 },
-            { nome: "Chute de Curva: Marque um gol de chute colocado em 5 partidas separadas no Squad Battles (Semipro+) usando a formação 4-1-2-1-2 (2)", total: 5 },
-            { nome: "Na Área: Dê assistência em 1 gol a partir de um cruzamento em 4 partidas separadas no Squad Battles (Semipro+) usando a formação 3-4-2-1", total: 4 },
-            { nome: "Vença 5 partidas no Squad Battles (Semipro+) usando a formação 5-4-1", total: 5 }
-        ]},
-
-        // ── TOTS Exibições maio ──
-        { cat: "TOTS - Exibições", player: "Exibição TOTS LALIGA", expira: "22 mai 2026", tasks: [
-            { nome: "Jogue 10 partidas na Exibição TOTS LALIGA", total: 10 },
-            { nome: "Vença 5 partidas na Exibição TOTS LALIGA", total: 5 },
-            { nome: "Marque um gol em 10 partidas separadas na Exibição TOTS LALIGA", total: 10 },
-            { nome: "Vença 8 partidas na Exibição TOTS LALIGA", total: 8 },
-            { nome: "Dê assistência em 10 partidas separadas na Exibição TOTS LALIGA", total: 10 }
-        ]},
-
-        // ── Lasting Legacy ──
+        // ── Legado & Heróis ──
         { cat: "Legado & Heróis", player: "Lasting Legacy (Legado Duradouro)", expira: "10 jun 2026", tasks: [
             { nome: "Marque 20 gols em qualquer modo", total: 20 },
             { nome: "Firme na Dividida: Sofra 1 gol ou menos em 7 partidas separadas no Squad Battles (Semipro+) com pelo menos 2 defensores da Espanha no seu 11 inicial", total: 7 },
@@ -498,28 +199,6 @@
             { nome: "Marque 10 gols de Chute Colocado no Squad Battles (Semipro+) usando uma jogadora da BWSL", total: 10 },
             { nome: "Sorte dos Irlandeses: Dê 5 assistências usando cruzamentos no Squad Battles (Semipro+) usando um jogador da Irlanda", total: 5 }
         ]},
-
-        // ── Ultimate Gauntlet 18 ──
-        { cat: "Ultimate Gauntlet 18", player: "Ultimate Gauntlet 18", expira: "1 jun 2026", minToComplete: 9, tasks: [
-            { nome: "Jogue 1 partida no Ultimate Gauntlet 18", total: 1 },
-            { nome: "Jogue 2 partidas no Ultimate Gauntlet 18", total: 2 },
-            { nome: "Jogue 4 partidas no Ultimate Gauntlet 18", total: 4 },
-            { nome: "Marque pelo menos 1 gol em 3 partidas separadas no Ultimate Gauntlet 18", total: 3 },
-            { nome: "Marque pelo menos 1 gol em 5 partidas separadas no Ultimate Gauntlet 18", total: 5 },
-            { nome: "Marque pelo menos 1 gol em 6 partidas separadas no Ultimate Gauntlet 18", total: 6 },
-            { nome: "Vença 4 partidas no Ultimate Gauntlet 18", total: 4 },
-            { nome: "Vença 7 partidas no Ultimate Gauntlet 18", total: 7 },
-            { nome: "Marque pelo menos 1 gol em 14 partidas separadas no Ultimate Gauntlet 18", total: 14 },
-            { nome: "Vença 10 partidas no Ultimate Gauntlet 18", total: 10 }
-        ]},
-        { cat: "Ultimate Gauntlet 18", player: "Bônus Ultimate Gauntlet 18", expira: "1 jun 2026", tasks: [
-            { nome: "Vença 1 partida em uma rodada do Ultimate Gauntlet 18", total: 1 },
-            { nome: "Vença 2 partidas em uma rodada do Ultimate Gauntlet 18", total: 2 },
-            { nome: "Vença 3 partidas em uma rodada do Ultimate Gauntlet 18", total: 3 },
-            { nome: "Rodada Perfeita: Vença 4 partidas em uma única rodada do Ultimate Gauntlet 18", total: 4 }
-        ]},
-
-        // ── Get in the Game ──
         { cat: "Legado & Heróis", player: "Get in the Game (Entre no Jogo)", expira: "8 jun 2026", tasks: [
             { nome: "Jogue 5 partidas no Squad Battles (Semipro+) usando a tática 3-5-2", total: 5 },
             { nome: "Assistência 10: Dê 10 assistências no Squad Battles (Semipro+) usando a tática 4-1-4-1", total: 10 },
@@ -527,28 +206,12 @@
             { nome: "4 Jogos sem Sofrer Gols: Fique 4 partidas sem sofrer gols no Squad Battles (Semipro+) usando a tática 3-4-3", total: 4 },
             { nome: "Boa Defesa: Sofra 1 gol ou menos em 8 partidas separadas no Squad Battles (Semipro+) usando a tática 5-2-1-2", total: 8 }
         ]},
-
-        // ── Prime Heroes ──
-        { cat: "Legado & Heróis", player: "Prime Heroes: Champions Objective", expira: "2 jun 2026", tasks: [
-            { nome: "Vença 2 partidas no Champions", total: 2 },
-            { nome: "Vença 4 partidas no Champions", total: 4 },
-            { nome: "Vença 6 partidas no Champions", total: 6 },
-            { nome: "Marque 1 gol em 5 partidas separadas no Champions", total: 5 }
-        ]},
         { cat: "Legado & Heróis", player: "Prime Heroes Events Completionist", expira: "6 jun 2026", tasks: [
             { nome: "Evento Heróis Prime 1: Conclua o grupo de objetivos 'Prime Heroes Event 1'", total: 1 },
             { nome: "Evento Heróis Prime 2: Conclua o grupo de objetivos 'Prime Heroes Event 2'", total: 1 },
             { nome: "Evento Heróis Prime 3: Conclua o grupo de objetivos 'Prime Heroes Event 3'", total: 1 },
             { nome: "Evento Heróis Prime 4: Conclua o grupo de objetivos 'Prime Heroes Event 4'", total: 1 }
         ]},
-        { cat: "Legado & Heróis", player: "Prime Heroes Event 1", expira: "31 mai 2026", tasks: [
-            { nome: "Jogue 3 partidas no Amistoso 'Prime Heroes Event 1' com pelo menos 1 jogador Heróis Prime no seu 11 inicial", total: 3 },
-            { nome: "Vença 2 partidas no Amistoso 'Prime Heroes Event 1' com pelo menos 1 jogador Heróis Prime no seu 11 inicial", total: 2 },
-            { nome: "Marque pelo menos 2 gols em uma única partida no Amistoso 'Prime Heroes Event 1' com pelo menos 1 jogador Heróis Prime no seu 11 inicial", total: 1 },
-            { nome: "Vença 1 partida usando a formação 4-4-2 (2) no Amistoso 'Prime Heroes Event 1' com pelo menos 1 jogador Heróis Prime no seu 11 inicial", total: 1 }
-        ]},
-
-        // ── Marvels in Motion ──
         { cat: "Legado & Heróis", player: "Marvels in Motion (Maravilhas em Movimento)", expira: "5 jun 2026", tasks: [
             { nome: "Jogue 5 partidas em qualquer modo do Ultimate Team com pelo menos 1 jogador alemão no seu 11 inicial", total: 5 },
             { nome: "Vença 5 partidas em qualquer modo do Ultimate Team", total: 5 },
@@ -558,7 +221,7 @@
             { nome: "Marque 5 gols de Chute Colocado em qualquer modo do Ultimate Team", total: 5 }
         ]},
 
-        // ── Copa do Mundo 94 / América do Norte ──
+        // ── Copa América do Norte ──
         { cat: "Copa América do Norte", player: "Brazil '94 Triumph", expira: null, tasks: [
             { nome: "Rose Colored Memories: Vença 3 partidas usando a formação 4-4-2 (2) no Live Events, Rivals ou Champions com pelo menos 1 jogador brasileiro no seu 11 inicial", total: 3 },
             { nome: "Seleção: Vença 6 partidas usando a formação 4-4-2 (2) no Squad Battles (Classe Mundial+), Live Events, Rivals ou Champions com pelo menos 1 jogador brasileiro no seu 11 inicial", total: 6 }
@@ -610,54 +273,49 @@
         ]},
 
         // ── Season 8 ──
-        { cat: "Season 8", player: "Season 8 Weekly Play 1", expira: "10 jun 2026", tasks: [
-            { nome: "Jogue 5 partidas no Champions", total: 5 },
-            { nome: "Jogue 5 partidas em qualquer Amistoso ao Vivo (Live Event)", total: 5 }
-        ]},
-        { cat: "Season 8", player: "Objetivos Semanais S8", expira: "10 jun 2026", tasks: [
-            { nome: "Liste 10 itens no Mercado", total: 10 },
-            { nome: "Compre 10 itens no Mercado", total: 10 },
-            { nome: "Marque 10 gols em qualquer modo usando um jogador do Canadá", total: 10 }
-        ]},
         { cat: "Season 8", player: "Season 8 Weekly Play Completionist", expira: "4 jul 2026", tasks: [
             { nome: "Week 1: Complete o grupo Season 8 Weekly Play 1", total: 1 },
             { nome: "Week 2: Complete o grupo Season 8 Weekly Play 2", total: 1 },
             { nome: "Week 3: Complete o grupo Season 8 Weekly Play 3", total: 1 },
             { nome: "Week 4: Complete o grupo Season 8 Weekly Play 4", total: 1 }
         ]},
-
-        // ── Campanha ──
-        { cat: "Campanha", player: "Marvels of the Pitch", expira: "4 jun 2026", tasks: [
-            { nome: "Marque 3 gols de cabeça em qualquer modo de jogo do UT", total: 3 },
-            { nome: "Marque 4 gols de Superchute em qualquer modo com pelo menos 1 jogador da Premier League no seu 11 inicial", total: 4 },
-            { nome: "Vença 3 partidas em qualquer modo de jogo do UT", total: 3 },
-            { nome: "Jogue 3 partidas em qualquer modo com pelo menos 1 jogador espanhol no seu 11 inicial", total: 3 }
+        { cat: "Season 8", player: "Season 8 Weekly Play 1", expira: "15 jun 2026", tasks: [
+            { nome: "Jogue 5 partidas no Champions", total: 5 },
+            { nome: "Jogue 5 partidas em qualquer Amistoso ao Vivo (Live Event)", total: 5 }
         ]},
-        { cat: "Campanha", player: "VISA Tap In Qualifier", expira: "8 jun 2026", tasks: [
-            { nome: "Visa Player SBC: Complete o DME do jogador Visa Jorge Campos", total: 1 },
-            { nome: "Visa Upgrade SBC: Complete o DME de Melhoria Visa", total: 1 }
+        { cat: "Season 8", player: "Objetivos Semanais S8", expira: "15 jun 2026", tasks: [
+            { nome: "Liste 10 itens no Mercado", total: 10 },
+            { nome: "Compre 10 itens no Mercado", total: 10 },
+            { nome: "Marque 10 gols em qualquer modo usando um jogador do Canadá", total: 10 }
         ]},
 
-        // ── Eventos ao Vivo ──
-        { cat: "Eventos ao Vivo", player: "Prime Heroes Event 3", expira: "4 jun 2026", tasks: [
-            { nome: "Vença 3 partidas no Amistoso 'Prime Heroes Event 3' com pelo menos 2 jogadores Heróis Prime no seu 11 inicial", total: 3 },
-            { nome: "Marque gol em 4 partidas separadas no Amistoso 'Prime Heroes Event 3' com pelo menos 2 jogadores Heróis Prime no seu 11 inicial", total: 4 }
+        // ── Path to Glory ──
+        { cat: "Path to Glory", player: "Path to Glory Week 1", expira: "12 jun 2026", tasks: [
+            { nome: "Level Up: Conclua 1 Evolução", total: 1 },
+            { nome: "Early Favourites: Vença 6 partidas em qualquer modo com pelo menos 1 jogador de cada: Espanha, França, Inglaterra, Brasil e Argentina no seu 11 inicial", total: 6 },
+            { nome: "Path to Glory: Vença 5 partidas em qualquer modo com pelo menos 1 item Path to Glory ou National Pride no seu 11 inicial", total: 5 },
+            { nome: "Kicking Things Off: Marque 1 gol de fora da área com pelo menos 5 jogadores do México, África do Sul, Coreia do Sul ou Chéquia no seu 11 inicial", total: 1 },
+            { nome: "Domination: Vença 4 partidas por 3 gols ou mais de diferença no Squad Battles (Semipro+), Live Events, Rivals ou Champions", total: 4 },
+            { nome: "Goal Getter: Marque um total de 40 gols em qualquer modo do Ultimate Team", total: 40 }
         ]},
-        { cat: "Eventos ao Vivo", player: "Visa Tap In Event", expira: "8 jun 2026", tasks: [
-            { nome: "Marque 1 gol no Amistoso Visa", total: 1 },
-            { nome: "Marque 2 gols no Amistoso Visa", total: 2 },
-            { nome: "Vença 3 partidas no Amistoso Visa", total: 3 }
+        { cat: "Path to Glory", player: "Path to Glory! (Evento ao Vivo)", expira: "14 jun 2026", tasks: [
+            { nome: "Brazil vs. Morocco: Dê 5 assistências no Amistoso 'Path to Glory' com pelo menos 4 jogadores do Brasil ou Marrocos no seu 11 inicial", total: 5 },
+            { nome: "Qatar vs. Switzerland: Vença 3 partidas no Amistoso 'Path to Glory' com pelo menos 4 jogadores do Catar ou Suíça no seu 11 inicial", total: 3 },
+            { nome: "Austria vs. Türkiye: Marque 5 gols no Amistoso 'Path to Glory' com pelo menos 4 jogadores da Áustria ou Turquia no seu 11 inicial", total: 5 },
+            { nome: "Canada vs. Bosnia: Vença 2 partidas no Amistoso 'Path to Glory' com pelo menos 4 jogadores do Canadá ou Bósnia e Herzegovina no seu 11 inicial", total: 2 },
+            { nome: "USA vs. Paraguay: Jogue 2 partidas no Amistoso 'Path to Glory' com pelo menos 4 jogadores dos EUA ou Paraguai no seu 11 inicial", total: 2 },
+            { nome: "Mexico vs. South Africa: Marque 3 gols no Amistoso 'Path to Glory' com pelo menos 4 jogadores do México ou África do Sul no seu 11 inicial", total: 3 },
+            { nome: "South Korea vs. Czechia: Marque 2 gols de Chute Colocado no Amistoso 'Path to Glory' com pelo menos 4 jogadores da Coreia do Sul ou Chéquia no seu 11 inicial", total: 2 },
+            { nome: "Score 10: Marque 10 gols no Amistoso ao Vivo 'Path to Glory'", total: 10 },
+            { nome: "Score 1: Marque 1 gol no Amistoso ao Vivo 'Path to Glory'", total: 1 }
         ]},
-
-        // ── Marcos / Curtain Call ──
-        { cat: "Legado & Heróis", player: "Curtain Call", expira: "4 jun 2026", tasks: [
-            { nome: "A Career of Saves: Sofra 1 gol ou menos em 20 partidas separadas no Squad Battles (Semipro+), Rivals ou Champions", total: 20 },
-            { nome: "The Dutch Finisher: Marque 30 gols de Superchute no Squad Battles (Semipro+)", total: 30 },
-            { nome: "Samba Setup: Dê uma assistência com cruzamento em 15 partidas separadas no Squad Battles (Semipro+), Rivals ou Champions", total: 15 },
-            { nome: "The Final Clean Sheet: Fique 10 partidas sem sofrer gols no Squad Battles (Semipro+)", total: 10 }
+        { cat: "Path to Glory", player: "Week 1 Token Bonus", expira: "10 jun 2026", tasks: [
+            { nome: "Rivals Run: Jogue 7 partidas no modo Rivals", total: 7 },
+            { nome: "Squad Battles Pursuit: Jogue 8 partidas no Squad Battles (Mín. Profissional)", total: 8 }
         ]}
     ];
 
+    // ── JSONBin Cloud Sync ──
     // ── JSONBin Cloud Sync ──
     const JSONBIN_KEY = '$2a$10$rkJwuFm6CQYGT0xS8jLZrOh80qsO7Q7Hz0VaNdLIGRnxtOcImy6Aa';
     const BIN_NAME = 'fc-tracker-joao';
@@ -920,7 +578,9 @@
         let lastCat = '';
         indices.forEach(gIdx => {
             const group = OBJETIVOS[gIdx];
-            if (group.cat !== lastCat) {
+            // Para ativos (sem catClass), não agrupa por categoria — mostra na ordem de expiração
+            // Só mostra o header de categoria se mudar (mas sem quebrar a ordenação)
+            if (catClass !== '' && group.cat !== lastCat) {
                 const catIdxs = indices.filter(i => OBJETIVOS[i].cat === group.cat);
                 let catDone = 0, catTotal = 0;
                 catIdxs.forEach(i => { const p = calcGroupProgress(i); catDone += p.done; catTotal += p.total; });
@@ -930,9 +590,17 @@
                 h.innerHTML = `<span>${group.cat}</span><span class="cat-pct ${catPct === 100 ? 'full' : ''}">${catPct}%</span>`;
                 container.appendChild(h);
                 lastCat = group.cat;
+            } else if (catClass === '' && group.cat !== lastCat) {
+                // Para ativos: header de categoria como separador visual leve, sem quebrar ordem
+                const h = document.createElement('div');
+                h.className = 'category-header';
+                h.style.opacity = '0.5';
+                h.style.fontSize = '0.7rem';
+                h.innerHTML = `<span>${group.cat}</span>`;
+                container.appendChild(h);
+                lastCat = group.cat;
             }
             const card = buildCard(group, gIdx, catClass === 'exp' ? 'expired' : catClass === 'done-cat' ? 'completed' : '', readonly);
-            // Para ativos, respeitar esconder concluídos: só mostra card se tiver tasks visíveis
             if (catClass === '' && esconderAtivo) {
                 const hasTasks = card.querySelectorAll('.sub-obj').length > 0;
                 if (!hasTasks) return;
@@ -954,6 +622,16 @@
             if (isExpired(group)) expirados.push(gIdx);
             else if (isGroupCompleted(gIdx)) concluidos.push(gIdx);
             else ativos.push(gIdx);
+        });
+
+        // Ordenar ativos: mais próximo de expirar primeiro, sem data por último
+        ativos.sort((a, b) => {
+            const dA = parseExpira(OBJETIVOS[a].expira);
+            const dB = parseExpira(OBJETIVOS[b].expira);
+            if (dA && dB) return dA - dB;
+            if (dA) return -1;
+            if (dB) return 1;
+            return 0;
         });
 
         // Badges
