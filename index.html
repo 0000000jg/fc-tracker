@@ -114,70 +114,6 @@
 
 <script>
     const OBJETIVOS = [
-
-        // ── Ásia & Oceania (não expira) ──
-        { cat: "Ásia & Oceania", player: "Asia + Oceania Completionist", expira: null, tasks: [
-            { nome: "Asia/Oceania: Conclua o grupo de objetivos 'Asia/Oceania'", total: 1 },
-            { nome: "Saudi Arabia: Conclua o grupo de objetivos 'Saudi Arabia'", total: 1 },
-            { nome: "Republic of Korea: Conclua o grupo de objetivos 'Republic of Korea'", total: 1 },
-            { nome: "Japan: Conclua o grupo de objetivos 'Japan'", total: 1 },
-            { nome: "Perfect Volley: Conclua o grupo de objetivos 'Perfect Volley'", total: 1 },
-            { nome: "Australia: Conclua o grupo de objetivos 'Australia'", total: 1 },
-            { nome: "New Zealand: Conclua o grupo de objetivos 'New Zealand'", total: 1 },
-            { nome: "Uzbekistan/Qatar: Conclua o grupo de objetivos 'Uzbekistan/Qatar'", total: 1 }
-        ]},
-        { cat: "Ásia & Oceania", player: "Asia/Oceania", expira: null, minToComplete: 2, tasks: [
-            { nome: "Naisu: Dê pelo menos 2 assistências usando um jogador do Japão em 6 vitórias separadas no Squad Battles (Classe Mundial+) com pelo menos 6 jogadores japoneses no seu 11 inicial", total: 6 },
-            { nome: "On the Edge: Marque um gol de Chute Colocado de fora da área usando um jogador da Arábia Saudita no Squad Battles (Classe Mundial+) com pelo menos 6 jogadores sauditas no seu 11 inicial", total: 1 },
-            { nome: "Asia-Pacific Allegiance: Vença 3 partidas no Live Events, Rivals ou Champions com pelo menos 6 jogadores da Ásia + Oceania no seu 11 inicial", total: 3 }
-        ]},
-        { cat: "Ásia & Oceania", player: "Saudi Arabia (Arábia Saudita)", expira: null, tasks: [
-            { nome: "Desert Maradona: Marque um gol usando um jogador com no mínimo 94 de Ritmo com pelo menos 4 jogadores da Arábia Saudita no seu 11 inicial em qualquer modo", total: 1 },
-            { nome: "White and Blue's Nemesis: Vença uma partida com pelo menos 4 jogadores da Arábia Saudita, marcando 2+ gols e sofrendo no máximo 1 gol em qualquer modo", total: 1 },
-            { nome: "The Green Falcons: Vença 2 partidas com pelo menos 1 jogador da Arábia Saudita no seu 11 inicial em qualquer modo", total: 2 },
-            { nome: "Saudi Shot Power: Marque 1 gol de Superchute com pelo menos 1 jogador da Arábia Saudita no seu 11 inicial em qualquer modo", total: 1 },
-            { nome: "Abu Nooran: Dê 1 assistência com Passe Enfiado com pelo menos 1 jogador da Arábia Saudita no seu 11 inicial em qualquer modo", total: 1 }
-        ]},
-        { cat: "Ásia & Oceania", player: "Republic of Korea (Coreia do Sul)", expira: null, tasks: [
-            { nome: "Taegeuk Warriors: Dê uma assistência de cruzamento e vença a partida com pelo menos 4 jogadores da Coreia do Sul no seu 11 inicial em qualquer modo", total: 1 },
-            { nome: "Fighting!: Dê 5 assistências usando um jogador com no mínimo 83 de Passe com pelo menos 4 jogadores da Coreia do Sul no seu 11 inicial em qualquer modo", total: 5 },
-            { nome: "Sonaldo's Legacy: Marque um gol de Chute Colocado usando um jogador sul-coreano em 3 partidas separadas em qualquer modo", total: 3 },
-            { nome: "Red Wave Returns: Marque 3 gols com pelo menos 1 jogador da Coreia do Sul no seu 11 inicial em qualquer modo", total: 3 },
-            { nome: "Three-Lungs Park: Dê 1 assistência usando um jogador MEI com pelo menos 1 jogador da Ásia + Oceania no seu 11 inicial em qualquer modo", total: 1 }
-        ]},
-        { cat: "Ásia & Oceania", player: "Japan (Japão)", expira: null, tasks: [
-            { nome: "Samurai Blue: Marque pelo menos 2 gols em uma única partida vencendo com pelo menos 4 jogadores japoneses no seu 11 inicial em qualquer modo", total: 1 },
-            { nome: "PhD in Dribbling: Dê 5 assistências usando um jogador com no mínimo 86 de Drible com pelo menos 1 jogador japonês no seu 11 inicial em qualquer modo", total: 5 },
-            { nome: "Ōendan: Sofra 2 gols ou menos em 5 partidas separadas com pelo menos 4 jogadores japoneses no seu 11 inicial em qualquer modo", total: 5 },
-            { nome: "Land of the Rising Sun: Marque um gol por cobertura com pelo menos 1 jogador japonês no seu 11 inicial em qualquer modo", total: 1 },
-            { nome: "Hide Nakata: Jogue 1 partida com pelo menos 1 jogador da Ásia + Oceania no seu 11 inicial em qualquer modo", total: 1 }
-        ]},
-        { cat: "Ásia & Oceania", player: "Perfect Volley", expira: null, minToComplete: 2, tasks: [
-            { nome: "Kangaroo Abroad: Vença 5 partidas com qualquer versão de Tim Cahill no seu 11 inicial em qualquer modo", total: 5 },
-            { nome: "The Boxer Strikes: Marque um gol de Voleio com qualquer versão de Tim Cahill em qualquer modo", total: 1 },
-            { nome: "Tiny Tim: Marque um gol em 4 partidas separadas em qualquer modo", total: 4 }
-        ]},
-        { cat: "Ásia & Oceania", player: "Australia (Austrália)", expira: null, tasks: [
-            { nome: "Great Barrier Reef: Fique sem sofrer gols com pelo menos 4 jogadores australianos no seu 11 inicial em qualquer modo", total: 1 },
-            { nome: "OI OI OI!: Vença 3 partidas separadas com pelo menos 4 jogadores australianos no seu 11 inicial em qualquer modo", total: 3 },
-            { nome: "Land Down Under: Dê uma assistência em 5 partidas separadas usando um jogador australiano em qualquer modo", total: 5 },
-            { nome: "Socceroos: Marque 1 gol de Chute Rasteiro Cruzado com pelo menos 1 jogador australiano no seu 11 inicial em qualquer modo", total: 1 },
-            { nome: "Straya: Dê 1 assistência com pelo menos 1 jogador da Ásia + Oceania no seu 11 inicial em qualquer modo", total: 1 }
-        ]},
-        { cat: "Ásia & Oceania", player: "New Zealand (Nova Zelândia)", expira: null, tasks: [
-            { nome: "The All Blacks: Marque 2 gols usando jogadores da Nova Zelândia em qualquer modo", total: 2 },
-            { nome: "Whakahī: Jogue 3 partidas com pelo menos 1 jogador da Nova Zelândia no seu 11 inicial em qualquer modo", total: 3 },
-            { nome: "The Flying Kiwis: Dê uma assistência em 3 partidas separadas com pelo menos 1 jogador da Nova Zelândia no seu 11 inicial em qualquer modo", total: 3 },
-            { nome: "Robin Woods Army: Marque um gol em qualquer modo usando um jogador da Nova Zelândia", total: 1 }
-        ]},
-        { cat: "Ásia & Oceania", player: "Uzbekistan/Qatar", expira: null, tasks: [
-            { nome: "National Pride: Jogue 1 partida com pelo menos 1 jogador do Uzbequistão ou Catar no seu 11 inicial em qualquer modo", total: 1 },
-            { nome: "The Magician: Marque gol em 3 partidas separadas com pelo menos 1 jogador da Ásia + Oceania no seu 11 inicial em qualquer modo", total: 3 },
-            { nome: "Al-Annabi: Dê 3 assistências em uma única partida com pelo menos 1 jogador da Ásia + Oceania no seu 11 inicial em qualquer modo", total: 1 },
-            { nome: "The White Wolves: Jogue 2 partidas com pelo menos 1 jogador da Ásia + Oceania no seu 11 inicial em qualquer modo", total: 2 },
-            { nome: "Uzbeckenbauer and Co.: Sofra menos de 3 gols em uma partida com pelo menos 1 jogador da Ásia + Oceania no seu 11 inicial em qualquer modo", total: 1 }
-        ]},
-
         // ── Season 8 ──
         { cat: "Season 8", player: "Season 8 Weekly Play Completionist", expira: "4 jul 2026", tasks: [
             { nome: "Week 1: Complete o grupo Season 8 Weekly Play 1", total: 1 },
@@ -192,87 +128,10 @@
         { cat: "Season 8", player: "Objetivos Semanais S8 Week 2", expira: "22 jun 2026", tasks: [
             { nome: "Liste 10 itens no Mercado", total: 10 },
             { nome: "Compre 10 itens no Mercado", total: 10 },
-            { nome: "Marque 10 gols em qualquer modo usando um jogador do Canadá", total: 10 }
+            { nome: "Marque 10 gols em qualquer modo usando um jogador do Mexico", total: 10 }
         ]},
-
-        // ── Journey of Nations ──
-        { cat: "Journey of Nations", player: "Journey of Nations Asia & Oceania", expira: "19 jun 2026", tasks: [
-            { nome: "Jogue 1 partida no Amistoso ao Vivo 'Journey of Nations Asia & Oceania'", total: 1 },
-            { nome: "Vença 1 partida no Amistoso ao Vivo 'Journey of Nations Asia & Oceania'", total: 1 },
-            { nome: "Jogue 2 partidas no Amistoso ao Vivo 'Journey of Nations Asia & Oceania'", total: 2 },
-            { nome: "Vença 2 partidas no Amistoso ao Vivo 'Journey of Nations Asia & Oceania'", total: 2 },
-            { nome: "Jogue 3 partidas no Amistoso ao Vivo 'Journey of Nations Asia & Oceania'", total: 3 },
-            { nome: "Vença 3 partidas no Amistoso ao Vivo 'Journey of Nations Asia & Oceania'", total: 3 }
-        ]},
-
-        // ── Path to Glory ──
-        { cat: "Path to Glory", player: "Path to Glory Week 2", expira: "19 jun 2026", tasks: [
-            { nome: "Goal Getter: Marque um total de 40 gols em qualquer modo do Ultimate Team", total: 40 },
-            { nome: "Domination: Vença 4 partidas por 3 gols ou mais de diferença no Squad Battles (Semipro+), Live Events, Rivals, Champions ou Rush", total: 4 },
-            { nome: "Finesse Glory: Marque 3 gols de Chute Colocado em qualquer modo com pelo menos 4 jogadores da Austrália, Uzbequistão, Catar ou Nova Zelândia no seu 11 inicial", total: 3 },
-            { nome: "Path to Glory: Vença 5 partidas em qualquer modo com pelo menos 1 item Path to Glory ou National Pride no seu 11 inicial", total: 5 },
-            { nome: "The Underdogs: Vença 6 partidas em qualquer modo com pelo menos 1 jogador de cada: Arábia Saudita, Coreia do Sul e Japão no seu 11 inicial", total: 6 }
-        ]},
-
-        // ── Festival of Football ──
-        { cat: "Festival of Football", player: "Seleção", expira: "18 jun 2026", minToComplete: 2, tasks: [
-            { nome: "The Rio Wall: Sofra 3 gols ou menos contra o Elenco de Destaque na dificuldade Ultrapassará (Ultimate)", total: 1 },
-            { nome: "Samba Speed Run – Defend: Não sofra gols contra o Elenco de Destaque na dificuldade Mín. Lendário", total: 1 },
-            { nome: "Samba Speed Run – Exactly 30: Marque exatamente 30 gols contra o Elenco de Destaque na dificuldade Iniciante", total: 1 },
-            { nome: "Samba Speed Run – 25: Marque 25 gols contra o Elenco de Destaque na dificuldade Iniciante", total: 1 },
-            { nome: "Samba Speed Run – 20: Marque 20 gols contra o Elenco de Destaque na dificuldade Iniciante", total: 1 },
-            { nome: "Samba Speed Run – 15: Marque 15 gols contra o Elenco de Destaque na dificuldade Iniciante", total: 1 },
-            { nome: "Win 1 - World Class: Vença 1 partida contra o Elenco de Destaque na dificuldade Mín. Classe Mundial", total: 1 },
-            { nome: "Win 1 - Professional: Vença 1 partida contra o Elenco de Destaque na dificuldade Mín. Profissional", total: 1 }
-        ]},
-        { cat: "Festival of Football", player: "Festival of Football Gauntlet", expira: "19 jun 2026", tasks: [
-            { nome: "Round Runner: Jogue 5 partidas no Festival of Football Gauntlet", total: 5 },
-            { nome: "Hat Trick: Vença pelo menos 3 partidas em uma única rodada no Gauntlet", total: 1 },
-            { nome: "Double Down: Vença pelo menos 3 partidas em uma única rodada, por duas vezes", total: 1 },
-            { nome: "Triple Crown: Vença pelo menos 3 partidas em uma única rodada, por três vezes", total: 1 },
-            { nome: "Quad Strike: Vença pelo menos 4 partidas em uma única rodada no Gauntlet", total: 1 },
-            { nome: "Double Quad: Vença pelo menos 4 partidas em uma única rodada, por duas vezes", total: 1 },
-            { nome: "Quad Dynasty: Vença pelo menos 4 partidas em uma única rodada, por três vezes", total: 1 },
-            { nome: "Perfect Round: Conclua uma Rodada Perfeita no Festival of Football Gauntlet", total: 1 },
-            { nome: "Double Perfect: Conclua uma Rodada Perfeita por duas vezes", total: 1 },
-            { nome: "Triple Perfect: Conclua uma Rodada Perfeita por três vezes", total: 1 }
-        ]},
-        { cat: "Festival of Football", player: "Festival of Football Gauntlet Bonus", expira: "19 jun 2026", tasks: [
-            { nome: "Score 1: Marque 1 gol no Festival of Football Gauntlet", total: 1 },
-            { nome: "Play 3: Jogue 3 partidas no Festival of Football Gauntlet", total: 3 },
-            { nome: "Complete 2 series: Jogue 10 partidas no Festival of Football Gauntlet", total: 10 },
-            { nome: "Score 14: Marque pelo menos 1 gol em 14 partidas separadas no Festival of Football Gauntlet", total: 14 },
-            { nome: "Complete 4 series with 1 win: Conclua pelo menos 4 séries do Gauntlet vencendo pelo menos 1 rodada em cada série", total: 4 }
-        ]},
-
-        // ── Festival of Football - Greats of the Game ──
-        { cat: "Festival of Football", player: "Greats of the Game: Football Royalty", expira: "26 jun 2026", tasks: [
-            { nome: "Icons Take the Field: Jogue 5 partidas em qualquer modo com pelo menos 1 jogador Ídolo no seu 11 inicial", total: 5 },
-            { nome: "Heroic Victories: Vença 5 partidas em qualquer modo com pelo menos 1 jogador Herói no seu 11 inicial", total: 5 },
-            { nome: "The Art of Defending: Fique 4 partidas sem sofrer gols em qualquer modo com pelo menos 1 defensor italiano no seu 11 inicial", total: 4 },
-            { nome: "Samba Long Shots: Marque 5 gols de fora da área em qualquer modo com pelo menos 1 jogador brasileiro no seu 11 inicial", total: 5 },
-            { nome: "Architect of Attack: Dê 6 assistências com passes enfiados em qualquer modo com pelo menos 1 jogador espanhol no seu 11 inicial", total: 6 },
-            { nome: "Above the Rest: Marque 3 gols de cabeça em qualquer modo com pelo menos 1 jogador alemão no seu 11 inicial", total: 3 },
-            { nome: "Cross & Crown: Dê 4 assistências com cruzamentos em qualquer modo com pelo menos 1 jogador inglês no seu 11 inicial", total: 4 },
-            { nome: "Full Throttle Finisher: Marque 5 gols com Superchute em qualquer modo", total: 5 },
-            { nome: "Precision Perfection: Marque 5 gols com Chute Colocado em qualquer modo", total: 5 },
-            { nome: "From Distance: Marque 5 gols de fora da área em qualquer modo", total: 5 }
-        ]},
-        { cat: "Festival of Football", player: "Festival of Football: Home Colours League", expira: "26 jun 2026", tasks: [
-            { nome: "Play 5: Jogue 5 partidas no Amistoso ao Vivo 'Home Colours League'", total: 5 },
-            { nome: "Play 10: Jogue 10 partidas no Amistoso ao Vivo 'Home Colours League'", total: 10 },
-            { nome: "Win 3: Vença 3 partidas no Amistoso ao Vivo 'Home Colours League'", total: 3 },
-            { nome: "Win 5: Vença 5 partidas no Amistoso ao Vivo 'Home Colours League'", total: 5 },
-            { nome: "Win 12: Vença 12 partidas no Amistoso ao Vivo 'Home Colours League'", total: 12 },
-            { nome: "Score 3 in 1: Marque pelo menos 3 gols em uma única partida no Amistoso ao Vivo 'Home Colours League'", total: 1 },
-            { nome: "Score in 4: Marque pelo menos 1 gol em 4 partidas separadas no Amistoso ao Vivo 'Home Colours League'", total: 4 },
-            { nome: "Score in 6: Marque pelo menos 1 gol em 6 partidas separadas no Amistoso ao Vivo 'Home Colours League'", total: 6 },
-            { nome: "Score in 12: Marque pelo menos 1 gol em 12 partidas separadas no Amistoso ao Vivo 'Home Colours League'", total: 12 },
-            { nome: "Win 2 [4-4-2 (2)]: Vença 2 partidas usando apenas a formação 4-4-2 (2) no Amistoso ao Vivo 'Home Colours League'", total: 2 }
-        ]},
-
-        // ── Journey of Nations Africa ──
-        { cat: "Journey of Nations", player: "Journey of Nations Africa", expira: "26 jun 2026", tasks: [
+        // ── Journey of Nations South America ──
+        { cat: "Journey of Nations", player: "Journey of Nations South America", expira: "03 jul 2026", tasks: [
             { nome: "Play 2: Jogue 2 partidas no Amistoso 'Journey of Nations Africa'", total: 2 },
             { nome: "Win 1: Vença 1 partida no Amistoso 'Journey of Nations Africa'", total: 1 },
             { nome: "Play 4: Jogue 4 partidas no Amistoso 'Journey of Nations Africa'", total: 4 },
@@ -281,18 +140,17 @@
             { nome: "Win 3: Vença 3 partidas no Amistoso 'Journey of Nations Africa'", total: 3 }
         ]},
 
-        // ── África ──
-        { cat: "África", player: "Africa Completionist", expira: null, tasks: [
-            { nome: "South Africa: Conclua o grupo 'South Africa'", total: 1 },
-            { nome: "Egypt+Tunisia: Conclua o grupo 'Egypt+Tunisia'", total: 1 },
-            { nome: "Target Man: Conclua o grupo 'Target Man'", total: 1 },
-            { nome: "DR Congo+Cape Verde: Conclua o grupo 'DR Congo+Cape Verde'", total: 1 },
-            { nome: "Côte d'Ivoire: Conclua o grupo 'Côte d'Ivoire'", total: 1 },
-            { nome: "Ghana+Morocco: Conclua o grupo 'Ghana+Morocco'", total: 1 },
-            { nome: "Senegal: Conclua o grupo 'Senegal'", total: 1 },
-            { nome: "African Pride: Conclua o grupo 'African Pride'", total: 1 }
+        // ── AMERICA DO SUL ──
+        { cat: "AMERICA DO SUL", player: "AMERICA DO SUL", expira: null, tasks: [
+            { nome: "PARAGUAI + EQUADOR: Conclua o grupo 'PARAGUAI + EQUADOR'", total: 1 },
+            { nome: "Uruguay: Conclua o grupo 'Uruguay", total: 1 },
+            { nome: "Colombia: Conclua o grupo 'Colombia'", total: 1 },
+            { nome: "Brazil: Conclua o grupo 'Brazil'", total: 1 },
+            { nome: "Argentina: Conclua o grupo 'Argentina'", total: 1 },
+            { nome: "the Wizard (O Mago): Conclua o grupo 'The Wizard (O Mago)'", total: 1 },
+            { nome: "Strikers Mindset: Conclua o grupo 'Strikers Mindset'", total: 1 },
         ]},
-        { cat: "África", player: "South Africa (África do Sul)", expira: null, tasks: [
+        { cat: "America do Sul", player: "South Africa (África do Sul)", expira: null, tasks: [
             { nome: "Dance and Spin: Dê uma assistência usando um jogador com no mínimo 4 estrelas de Perna Ruim em qualquer modo", total: 1 },
             { nome: "Goal Bafana Bafana: Marque um gol usando um jogador PE (LW) sul-africano em qualquer modo", total: 1 },
             { nome: "Goal for South Africa: Marque um gol usando um jogador sul-africano PE (LW) com no mínimo 92 de Ritmo em qualquer modo", total: 1 },
