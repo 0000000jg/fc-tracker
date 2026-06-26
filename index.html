@@ -391,4 +391,450 @@ const OBJETIVOS = [
     { nome: "El Bota de Oro", desc: "Marque 2 gols de fora da área com qualquer Diego Forlán (SB Classe Mundial+, Live, Rivals ou Champions)", recompensa: "Pacote Jog. 85+ & 30 Tokens", total: 2 },
     { nome: "Spot Kick Specialist", desc: "Marque 2 gols de pênalti com qualquer Diego Forlán", recompensa: "Pacote Jog. 85+ & 30 Tokens", total: 2 },
     { nome: "Cachavacha", desc: "Dê 1 assistência com qualquer Diego Forlán (SB Classe Mundial+, Live, Rivals ou Champions)", recompensa: "Pacote Jog. 85+ & 30 Tokens", total: 1 },
-    { nome: "Deadball Danger", desc: "Marque 1 gol de falta direta com qualquer Diego Forlán", recom
+    { nome: "Deadball Danger", desc: "Marque 1 gol de falta direta com qualquer Diego Forlán", recompensa: "Pacote Jog. 85+", total: 1 },
+    { nome: "Vicious Volley", desc: "Marque um gol de voleio com qualquer Diego Forlán", recompensa: "Pacote Jog. 85+", total: 1 }
+  ]},
+
+  // ───────────── Campaign ─────────────
+  { cat: "Campaign", player: "Glory Hunters · Week 1", expira: "03 jul 2026",
+    recompensaFinal: "2.000 XP (SP) & 40 Tokens", tasks: [
+    { nome: "Play 3", desc: "Jogue 3 partidas (SB Semiprofissional+, Live, Rivals ou Champions)", recompensa: "300 XP (SP) & 2.000 XP do grupo", total: 3 },
+    { nome: "Score in 5", desc: "Marque em 5 partidas separadas (SB Semiprofissional+, Live, Rivals ou Champions)", recompensa: "30 Tokens & 300 XP (SP)", total: 5 },
+    { nome: "Play 10", desc: "Jogue 10 partidas (SB Semiprofissional+, Live, Rivals ou Champions)", recompensa: "30 Tokens & 300 XP (SP)", total: 10 },
+    { nome: "Score in 15", desc: "Marque em 15 partidas separadas (SB Semiprofissional+, Live, Rivals ou Champions)", recompensa: "30 Tokens & 300 XP (SP)", total: 15 }
+  ]},
+  { cat: "Campaign", player: "Chase the Glory", expira: null,
+    recompensaFinal: "Consumíveis Evo: GH 4th Finesse Shot+ & GH 4th Intercept+", tasks: [
+    { nome: "Assist in 10", desc: "Dê 1 assistência em 10 partidas com no mín. 3 'Glory Hunters' no 11 inicial", recompensa: "GH 4th Pinged Pass+ & Incisive Pass+", total: 10 },
+    { nome: "Defiant Defender", desc: "Sofra 3 gols ou menos em 15 partidas com no mín. 3 'Glory Hunters' no 11 inicial", recompensa: "GH 4th Anticipate+ & Bruiser+", total: 15 },
+    { nome: "Win in 30", desc: "Vença 30 partidas separadas com no mín. 3 'Glory Hunters' no 11 inicial", recompensa: "GH 4th Rapid+ & Quick Step+", total: 30 },
+    { nome: "Score in 50", desc: "Marque gol em 50 partidas separadas com no mín. 3 'Glory Hunters' no 11 inicial", recompensa: "GH 4th Technical+ & Low Driven Shot", total: 50 }
+  ]}
+];
+
+const CAT_ICONS = {
+  "Season 8": "📅",
+  "Live Events": "🔴",
+  "Marcos: América do Sul": "🌎",
+  "Campaign": "🏆"
+};
+
+/* ── JSONBin Cloud Sync ── */
+const JSONBIN_KEY = '$2a$10$rkJwuFm6CQYGT0xS8jLZrOh80qsO7Q7Hz0VaNdLIGRnxtOcImy6Aa';
+const BIN_NAME = 'fc-tracker-joao';
+const FIXED_BIN_ID = '6a19ee8921f9ee59d29b5db1';
+let BIN_ID = FIXED_BIN_ID;
+localStorage.setItem('fc_bin_id', FIXED_BIN_ID);
+let syncTimeout = null;
+let isSyncing = false;
+
+function setSyncStatus(status) {
+  const el = document.getElementById('sync-status');
+  if (!el) return;
+  const map = {
+    ok:      { icon: '☁️', text: 'Salvo', color: '#00e676' },
+    saving:  { icon: '⏳', text: 'Salvando...', color: '#ffc928' },
+    loading: { icon: '⏳', text: 'Carregando...', color: '#ffc928' },
+    error:   { icon: '⚠️', text: 'Erro de sinc', color: '#ff2d55' },
+    offline: { icon: '📴', text: 'Offline', color: '#8a909c' }
+  };
+  const s = map[status] || map.ok;
+  el.innerHTML = `<span class="sync-dot" style="background:${s.color}"></span><span style="color:${s.color}">${s.text}</span>`;
+}
+
+async function criarBin(dados) {
+  try {
+    const res = await fetch('https://api.jsonbin.io/v3/b', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY, 'X-Bin-Name': BIN_NAME, 'X-Bin-Private': 'true' },
+      body: JSON.stringify(dados)
+    });
+    const json = await res.json();
+    BIN_ID = json.metadata.id;
+    localStorage.setItem('fc_bin_id', BIN_ID);
+    return true;
+  } catch(e) { return false; }
+}
+
+async function carregarNuvem() {
+  if (!BIN_ID) return false;
+  try {
+    setSyncStatus('loading');
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+      headers: { 'X-Master-Key': JSONBIN_KEY }
+    });
+    if (!res.ok) { setSyncStatus('error'); return false; }
+    const json = await res.json();
+    const dados = json.record;
+    progresso  = dados.progresso  || {};
+    subFavs    = dados.subFavs    || [];
+    requisitos = dados.requisitos || {};
+    localStorage.setItem('fc_joao_full_v1', JSON.stringify(progresso));
+    localStorage.setItem('fc_favs_full_v1',  JSON.stringify(subFavs));
+    localStorage.setItem('fc_reqs_full_v1',  JSON.stringify(requisitos));
+    setSyncStatus('ok');
+    return true;
+  } catch(e) { setSyncStatus('offline'); return false; }
+}
+
+async function salvarNuvem() {
+  isSyncing = true;
+  setSyncStatus('saving');
+  const dados = { progresso, subFavs, requisitos };
+  try {
+    if (!BIN_ID) {
+      await criarBin(dados);
+    } else {
+      const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
+        body: JSON.stringify(dados)
+      });
+      if (!res.ok) throw new Error('Falha');
+    }
+    localStorage.setItem('fc_joao_full_v1', JSON.stringify(progresso));
+    localStorage.setItem('fc_favs_full_v1',  JSON.stringify(subFavs));
+    localStorage.setItem('fc_reqs_full_v1',  JSON.stringify(requisitos));
+    localStorage.setItem('fc_bin_id', BIN_ID);
+    setSyncStatus('ok');
+  } catch(e) {
+    setSyncStatus('error');
+    localStorage.setItem('fc_joao_full_v1', JSON.stringify(progresso));
+    localStorage.setItem('fc_favs_full_v1',  JSON.stringify(subFavs));
+    localStorage.setItem('fc_reqs_full_v1',  JSON.stringify(requisitos));
+  }
+  isSyncing = false;
+}
+
+function salvar() {
+  localStorage.setItem('fc_joao_full_v1', JSON.stringify(progresso));
+  localStorage.setItem('fc_favs_full_v1',  JSON.stringify(subFavs));
+  localStorage.setItem('fc_reqs_full_v1',  JSON.stringify(requisitos));
+  clearTimeout(syncTimeout);
+  syncTimeout = setTimeout(salvarNuvem, 1500);
+}
+
+/* ── Datas / Estado ── */
+const MESES = {jan:0,fev:1,mar:2,abr:3,mai:4,jun:5,jul:6,ago:7,set:8,out:9,nov:10,dez:11};
+function parseExpira(str) {
+  if (!str) return null;
+  const p = str.trim().toLowerCase().split(' ');
+  if (p.length < 3) return null;
+  const d = parseInt(p[0]), m = MESES[p[1]], y = parseInt(p[2]);
+  if (isNaN(d) || m === undefined || isNaN(y)) return null;
+  return new Date(y, m, d, 5, 0, 0);
+}
+function isExpired(group) {
+  const d = parseExpira(group.expira);
+  return d ? new Date() >= d : false;
+}
+function diasRestantes(group) {
+  const d = parseExpira(group.expira);
+  if (!d) return null;
+  return Math.ceil((d - new Date()) / 86400000);
+}
+function isGroupCompleted(gIdx) {
+  const group = OBJETIVOS[gIdx];
+  const needed = group.minToComplete || group.tasks.length;
+  let done = 0;
+  group.tasks.forEach((t, tIdx) => { if ((progresso[`g${gIdx}t${tIdx}`] || 0) >= t.total) done++; });
+  return done >= needed;
+}
+
+let progresso  = JSON.parse(localStorage.getItem('fc_joao_full_v1')) || {};
+let subFavs    = JSON.parse(localStorage.getItem('fc_favs_full_v1')) || [];
+let requisitos = JSON.parse(localStorage.getItem('fc_reqs_full_v1')) || {};
+let esconderAtivo = false;
+let termoBusca = '';
+
+async function limparTudo() {
+  if (!confirm("Deseja resetar TODO o progresso? Isso não pode ser desfeito.")) return;
+  progresso = {}; subFavs = []; requisitos = {};
+  await salvarNuvem();
+  localStorage.clear();
+  location.reload();
+}
+
+async function iniciar() {
+  setSyncStatus('loading');
+  const ok = await carregarNuvem();
+  if (!ok && !BIN_ID) {
+    await criarBin({ progresso, subFavs, requisitos });
+    setSyncStatus('ok');
+  }
+  render();
+}
+
+function setTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.querySelector(`.tab-btn[data-tab="${tab}"]`).classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+
+function toggleFiltro() {
+  esconderAtivo = !esconderAtivo;
+  document.getElementById('toggleTaskBtn').classList.toggle('active', esconderAtivo);
+  render();
+}
+
+function onSearch(v) {
+  termoBusca = v.trim().toLowerCase();
+  render();
+}
+
+function matchBusca(group) {
+  if (!termoBusca) return true;
+  if (group.player.toLowerCase().includes(termoBusca)) return true;
+  if (group.cat.toLowerCase().includes(termoBusca)) return true;
+  if ((group.recompensaFinal || '').toLowerCase().includes(termoBusca)) return true;
+  return group.tasks.some(t =>
+    (t.nome || '').toLowerCase().includes(termoBusca) ||
+    (t.desc || '').toLowerCase().includes(termoBusca) ||
+    (t.recompensa || '').toLowerCase().includes(termoBusca)
+  );
+}
+
+function toggleSubFav(id) {
+  subFavs = subFavs.includes(id) ? subFavs.filter(f => f !== id) : [...subFavs, id];
+  salvar(); render();
+}
+
+function verificarAutoCompletar(gIdx) {
+  const group = OBJETIVOS[gIdx];
+  if (!group.minToComplete) return;
+  let done = group.tasks.filter((t, tIdx) => (progresso[`g${gIdx}t${tIdx}`] || 0) >= t.total).length;
+  if (done >= group.minToComplete) group.tasks.forEach((t, tIdx) => progresso[`g${gIdx}t${tIdx}`] = t.total);
+}
+
+function calcGroupProgress(gIdx) {
+  const group = OBJETIVOS[gIdx];
+  let done = 0;
+  group.tasks.forEach((t, tIdx) => { if ((progresso[`g${gIdx}t${tIdx}`] || 0) >= t.total) done++; });
+  const total = group.minToComplete || group.tasks.length;
+  const counted = Math.min(done, total);
+  return { done: counted, total, pct: Math.round((counted / total) * 100) };
+}
+
+function setProgresso(id, val, gIdx) {
+  progresso[id] = Math.max(0, val);
+  verificarAutoCompletar(gIdx);
+  salvar(); render();
+}
+
+/* ── Render de uma tarefa ── */
+function createTaskHTML(task, id, player, gIdx, isFavContext, readonly) {
+  const valor = progresso[id] || 0;
+  const isDone = valor >= task.total;
+  if (!readonly && esconderAtivo && isDone && !isFavContext) return null;
+  const isFav = subFavs.includes(id);
+  const pct = Math.min(100, Math.round((valor / task.total) * 100));
+
+  const div = document.createElement('div');
+  div.className = 'sub-obj' + (isDone ? ' done' : '');
+
+  const rewardHTML = task.recompensa
+    ? `<div class="reward-text"><span class="r-ico">🎁</span><span>${task.recompensa}</span></div>` : '';
+  const descHTML = task.desc ? `<div class="desc-text">${task.desc}</div>` : '';
+
+  div.innerHTML = `
+    <div class="fav-sub-star ${isFav ? 'active' : ''}" onclick="event.stopPropagation();toggleSubFav('${id}')">★</div>
+    <div class="info">
+      <span class="nome-text">${isFavContext ? '<span class="ctx">[' + player + ']</span> ' : ''}${task.nome}</span>
+      ${descHTML}
+      ${rewardHTML}
+      <span class="count ${isDone ? 'full' : ''}"><b>${valor}/${task.total}</b> &bull; ${pct}%</span>
+    </div>
+    <div class="progress-bg"><div class="progress-bar ${isDone ? 'full' : ''}" style="width:${pct}%"></div></div>
+    <div class="counter-zone"></div>
+  `;
+
+  const zone = div.querySelector('.counter-zone');
+
+  if (task.total <= 12) {
+    // Grid de bolinhas
+    const grid = document.createElement('div');
+    grid.className = 'balls-grid';
+    for (let i = 1; i <= task.total; i++) {
+      const ball = document.createElement('div');
+      ball.className = 'ball' + (i <= valor ? ' active' : '') + (readonly ? ' readonly' : '');
+      ball.innerText = '⚽';
+      if (!readonly) ball.onclick = () => setProgresso(id, (valor === i) ? i - 1 : i, gIdx);
+      grid.appendChild(ball);
+    }
+    zone.appendChild(grid);
+  } else {
+    // Stepper para metas grandes
+    const stp = document.createElement('div');
+    stp.className = 'stepper';
+    const jump = task.total >= 30 ? 10 : 5;
+    stp.innerHTML = `
+      <button class="step-btn minus ${readonly ? 'readonly' : ''}" data-act="dec">−</button>
+      <button class="step-jump ${readonly ? 'readonly' : ''}" data-act="dec5">-${jump}</button>
+      <div class="step-val">${valor}<small>/${task.total}</small></div>
+      <button class="step-jump ${readonly ? 'readonly' : ''}" data-act="inc5">+${jump}</button>
+      <button class="step-btn plus ${readonly ? 'readonly' : ''}" data-act="inc">+</button>
+    `;
+    if (!readonly) {
+      stp.querySelectorAll('[data-act]').forEach(btn => {
+        btn.onclick = () => {
+          const act = btn.dataset.act;
+          let v = valor;
+          if (act === 'inc') v = Math.min(task.total, valor + 1);
+          else if (act === 'dec') v = Math.max(0, valor - 1);
+          else if (act === 'inc5') v = Math.min(task.total, valor + jump);
+          else if (act === 'dec5') v = Math.max(0, valor - jump);
+          setProgresso(id, v, gIdx);
+        };
+      });
+    }
+    zone.appendChild(stp);
+  }
+  return div;
+}
+
+/* ── Render de um card ── */
+function buildCard(group, gIdx, extraClass, readonly) {
+  const gp = calcGroupProgress(gIdx);
+  const expired = isExpired(group);
+  const dias = diasRestantes(group);
+
+  const card = document.createElement('div');
+  card.className = 'card' + (extraClass ? ' ' + extraClass : '');
+
+  let expiLabel;
+  if (!group.expira) expiLabel = `<span class="expira-label never">∞ Não expira</span>`;
+  else if (expired) expiLabel = `<span class="expira-label expired-lbl">💀 ${group.expira}</span>`;
+  else if (dias !== null && dias <= 1) expiLabel = `<span class="expira-label urgent">🔥 ${dias <= 0 ? 'Hoje' : '1 dia'}</span>`;
+  else expiLabel = `<span class="expira-label soon">⏳ ${dias} dias</span>`;
+
+  const head = document.createElement('div');
+  head.className = 'card-head';
+  head.innerHTML = `
+    <span class="player-name">${group.minToComplete ? `<span class="min-badge">${group.minToComplete}/${group.tasks.length}</span>` : ''}${group.player}</span>
+    ${expiLabel}
+  `;
+  card.appendChild(head);
+
+  if (group.recompensaFinal) {
+    const rf = document.createElement('div');
+    rf.className = 'reward-final';
+    rf.innerHTML = `<span class="rf-ico">🏅</span><span class="rf-txt"><b>Recompensa final:</b> ${group.recompensaFinal}</span>`;
+    card.appendChild(rf);
+  }
+
+  const progRow = document.createElement('div');
+  progRow.className = 'card-progress-row';
+  progRow.innerHTML = `
+    <div class="card-progress-bar-bg"><div class="card-progress-bar ${gp.pct === 100 ? 'full' : ''}" style="width:${gp.pct}%"></div></div>
+    <span class="card-pct-label ${gp.pct === 100 ? 'full' : ''}">${gp.done}/${gp.total} · ${gp.pct}%</span>
+  `;
+  card.appendChild(progRow);
+
+  const req = document.createElement('textarea');
+  req.className = 'req-box';
+  req.placeholder = "📝 Notas / combos / lembretes...";
+  req.value = requisitos['req-' + gIdx] || '';
+  req.oninput = (e) => { requisitos['req-' + gIdx] = e.target.value; salvar(); };
+  card.appendChild(req);
+
+  group.tasks.forEach((task, tIdx) => {
+    const html = createTaskHTML(task, `g${gIdx}t${tIdx}`, group.player, gIdx, false, readonly);
+    if (html) card.appendChild(html);
+  });
+  return card;
+}
+
+/* ── Render de uma seção ── */
+function renderSection(indices, container, catClass, readonly) {
+  let lastCat = '';
+  indices.forEach(gIdx => {
+    const group = OBJETIVOS[gIdx];
+    if (group.cat !== lastCat) {
+      const catIdxs = indices.filter(i => OBJETIVOS[i].cat === group.cat);
+      let catDone = 0, catTotal = 0;
+      catIdxs.forEach(i => { const p = calcGroupProgress(i); catDone += p.done; catTotal += p.total; });
+      const catPct = catTotal > 0 ? Math.round((catDone / catTotal) * 100) : 0;
+      const h = document.createElement('div');
+      h.className = 'category-header ' + catClass;
+      h.innerHTML = `<span class="cat-left">${CAT_ICONS[group.cat] || '📁'} ${group.cat}</span><span class="cat-pct ${catPct === 100 ? 'full' : ''}">${catPct}%</span>`;
+      container.appendChild(h);
+      lastCat = group.cat;
+    }
+    const card = buildCard(group, gIdx, catClass === 'exp' ? 'expired' : catClass === 'done-cat' ? 'completed' : '', readonly);
+    if (catClass === '' && esconderAtivo) {
+      const hasTasks = card.querySelectorAll('.sub-obj').length > 0;
+      if (!hasTasks) return;
+    }
+    container.appendChild(card);
+  });
+}
+
+/* ── Render principal ── */
+function render() {
+  const appAtivos = document.getElementById('app-ativos');
+  const appConcluidos = document.getElementById('app-concluidos');
+  const appExpirados = document.getElementById('app-expirados');
+  const favCont = document.getElementById('fav-container');
+  appAtivos.innerHTML = ''; appConcluidos.innerHTML = ''; appExpirados.innerHTML = ''; favCont.innerHTML = '';
+
+  const ativos = [], concluidos = [], expirados = [];
+  OBJETIVOS.forEach((group, gIdx) => {
+    if (!matchBusca(group)) return;
+    if (isExpired(group)) expirados.push(gIdx);
+    else if (isGroupCompleted(gIdx)) concluidos.push(gIdx);
+    else ativos.push(gIdx);
+  });
+
+  ativos.sort((a, b) => {
+    const dA = parseExpira(OBJETIVOS[a].expira);
+    const dB = parseExpira(OBJETIVOS[b].expira);
+    if (dA && dB) return dA - dB;
+    if (dA) return -1;
+    if (dB) return 1;
+    return 0;
+  });
+
+  document.getElementById('badge-ativos').textContent = ativos.length;
+  document.getElementById('badge-concluidos').textContent = concluidos.length;
+  document.getElementById('badge-expirados').textContent = expirados.length;
+
+  let gDone = 0, gTotal = 0;
+  ativos.forEach(gIdx => { const p = calcGroupProgress(gIdx); gDone += p.done; gTotal += p.total; });
+  const gPct = gTotal > 0 ? Math.round((gDone / gTotal) * 100) : 0;
+  document.getElementById('global-pct-text').textContent = gPct + '%';
+  document.getElementById('global-bar').style.width = gPct + '%';
+
+  // Favoritos
+  if (subFavs.length > 0) {
+    const card = document.createElement('div'); card.className = 'card';
+    let hasFavs = false;
+    OBJETIVOS.forEach((group, gIdx) => group.tasks.forEach((task, tIdx) => {
+      const id = `g${gIdx}t${tIdx}`;
+      if (subFavs.includes(id)) {
+        const html = createTaskHTML(task, id, group.player, gIdx, true, false);
+        if (html) { card.appendChild(html); hasFavs = true; }
+      }
+    }));
+    if (hasFavs) {
+      const head = document.createElement('div'); head.className = 'category-header fav';
+      head.innerHTML = `<span class="cat-left">⭐ Em Foco</span>`;
+      favCont.appendChild(head);
+      favCont.appendChild(card);
+    }
+  }
+
+  if (ativos.length === 0) appAtivos.innerHTML = '<div class="empty-state"><span class="es-ico">🎉</span>Nenhum objetivo ativo no momento</div>';
+  else renderSection(ativos, appAtivos, '', false);
+
+  if (concluidos.length === 0) appConcluidos.innerHTML = '<div class="empty-state"><span class="es-ico">⚽</span>Nenhum objetivo concluído ainda.<br>Vai jogar!</div>';
+  else renderSection(concluidos, appConcluidos, 'done-cat', false);
+
+  if (expirados.length === 0) appExpirados.innerHTML = '<div class="empty-state"><span class="es-ico">👍</span>Nenhum objetivo expirado. Boa!</div>';
+  else renderSection(expirados, appExpirados, 'exp', true);
+}
+
+iniciar();
+</script>
+</body>
+</html>
