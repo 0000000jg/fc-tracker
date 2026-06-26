@@ -1,513 +1,394 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FC Tracker PRO - João</title>
-    <style>
-        :root { --fc-red: #fe0000; --fc-green: #00ff85; --bg: #050505; --card-bg: #121212; --text: #ffffff; --star: #f1c40f; --border: #2a2a2a; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background-color: var(--bg); color: var(--text); padding: 10px; margin: 0; padding-bottom: 80px; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0a0c10" />
+<title>FC Tracker PRO - João</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0c10;
+    --bg-soft: #0f1217;
+    --surface: #14171d;
+    --surface-2: #1b1f28;
+    --surface-3: #232834;
+    --border: #262b35;
+    --border-soft: #1e222b;
+    --text: #eef0f3;
+    --muted: #8a909c;
+    --muted-2: #5e636e;
+    --green: #00e676;
+    --green-dim: #0a3d29;
+    --red: #ff2d55;
+    --red-dim: #3d0f1a;
+    --gold: #ffc928;
+    --blue: #3b9dff;
+    --radius: 18px;
+    --shadow: 0 8px 24px rgba(0,0,0,0.45);
+  }
 
-        .header-container { position: sticky; top: 0; background: rgba(5,5,5,0.97); backdrop-filter: blur(10px); z-index: 100; padding: 12px 0 0; border-bottom: 1px solid var(--border); margin-bottom: 20px; text-align: center; }
-        h1 { color: #fff; text-transform: uppercase; font-size: 1rem; letter-spacing: 3px; margin: 0 0 8px; font-weight: 900; }
-        h1 span { color: var(--fc-red); }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-        .global-progress { margin: 0 8px 8px; }
-        .global-progress-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-        .global-progress-label span { font-size: 0.6rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
-        .global-progress-label strong { font-size: 0.95rem; font-weight: 900; color: var(--fc-green); }
-        .global-bar-bg { background: #1a1a1a; height: 5px; border-radius: 3px; overflow: hidden; }
-        .global-bar { background: linear-gradient(90deg, var(--fc-red), var(--fc-green)); height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+  html { background: var(--bg); }
 
-        .tabs { display: flex; border-top: 1px solid var(--border); margin-top: 8px; }
-        .tab-btn { flex: 1; padding: 10px 2px; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; background: transparent; color: #444; border: none; cursor: pointer; border-top: 2px solid transparent; transition: all 0.2s; }
-        .tab-btn.active { color: #fff; border-top-color: var(--fc-red); }
-        .tab-btn.tab-done.active { border-top-color: var(--fc-green); color: var(--fc-green); }
-        .tab-btn.tab-exp.active { border-top-color: #555; color: #777; }
-        .tab-badge { display: inline-block; background: #222; border-radius: 20px; padding: 1px 6px; font-size: 0.55rem; margin-left: 3px; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background:
+      radial-gradient(900px 500px at 80% -10%, rgba(0,230,118,0.06), transparent 60%),
+      radial-gradient(800px 500px at -10% 0%, rgba(255,45,85,0.05), transparent 55%),
+      var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0 0 110px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
 
-        .toggle-row { text-align: center; padding: 8px 0 12px; }
-        .toggle-btn { background: #1a1a1a; color: #fff; border: 1px solid var(--border); padding: 7px 16px; border-radius: 25px; font-size: 0.65rem; font-weight: 600; cursor: pointer; }
-        .toggle-btn.active { background: var(--fc-red); border-color: var(--fc-red); }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 14px; }
 
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+  /* ── Header ── */
+  .header-container {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,12,16,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 14px 0;
+  }
+  .header-inner { max-width: 720px; margin: 0 auto; }
+  .header-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+  h1 {
+    font-size: 1.05rem; font-weight: 900; letter-spacing: 1px;
+    margin: 0; display: flex; align-items: center; gap: 9px;
+  }
+  h1 .logo {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--green), #00b85f);
+    display: grid; place-items: center; font-size: 1rem;
+    box-shadow: 0 4px 14px rgba(0,230,118,0.35);
+  }
+  h1 span { color: var(--green); }
+  .sync-pill {
+    font-size: 0.62rem; font-weight: 600; padding: 5px 11px; border-radius: 999px;
+    border: 1px solid var(--border); background: var(--surface);
+    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  }
+  .sync-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
 
-        .category-header { border-left: 5px solid var(--fc-red); padding: 10px 15px; margin: 25px 0 10px; font-weight: 800; text-transform: uppercase; font-size: 0.85rem; background: linear-gradient(90deg, #1a1a1a, transparent); display: flex; justify-content: space-between; align-items: center; }
-        .category-header.fav { border-left-color: var(--star); color: var(--star); }
-        .category-header.exp { border-left-color: #444; color: #555; }
-        .category-header.done-cat { border-left-color: var(--fc-green); }
-        .cat-pct { font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; background: #1a1a1a; border: 1px solid var(--border); }
-        .cat-pct.full { color: var(--fc-green); border-color: var(--fc-green); }
+  .global-progress { margin-bottom: 12px; }
+  .global-progress-label { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 7px; }
+  .global-progress-label span { font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1.4px; font-weight: 600; }
+  .global-progress-label strong { font-size: 1.15rem; font-weight: 900; color: var(--green); line-height: 1; }
+  .global-bar-bg { background: var(--surface-2); height: 8px; border-radius: 999px; overflow: hidden; border: 1px solid var(--border-soft); }
+  .global-bar { background: linear-gradient(90deg, var(--green), #6fffb0); height: 100%; border-radius: 999px; transition: width 0.5s cubic-bezier(.4,0,.2,1); box-shadow: 0 0 14px rgba(0,230,118,0.5); }
 
-        .card { background: var(--card-bg); border-radius: 16px; padding: 18px; margin-bottom: 15px; border: 1px solid var(--border); }
-        .card.expired { opacity: 0.55; }
-        .card.completed { border-color: #003322; }
-        .player-name { font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 2px; display: block; }
+  .tabs { display: flex; gap: 6px; }
+  .tab-btn {
+    flex: 1; padding: 11px 4px 13px; font-size: 0.68rem; font-weight: 700;
+    background: transparent; color: var(--muted-2); border: none; cursor: pointer;
+    border-bottom: 2px solid transparent; transition: color .2s, border-color .2s;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .tab-btn .ico { font-size: 0.9rem; }
+  .tab-btn.active { color: var(--text); border-bottom-color: var(--green); }
+  .tab-btn.tab-exp.active { color: var(--muted); border-bottom-color: var(--muted-2); }
+  .tab-badge {
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px;
+    padding: 1px 7px; font-size: 0.6rem; font-weight: 700; min-width: 20px; color: var(--muted);
+  }
+  .tab-btn.active .tab-badge { color: var(--text); border-color: var(--green); }
 
-        .card-progress-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .card-progress-bar-bg { flex: 1; background: #1a1a1a; height: 3px; border-radius: 2px; margin-right: 8px; overflow: hidden; }
-        .card-progress-bar { height: 100%; border-radius: 2px; background: var(--fc-red); transition: width 0.3s; }
-        .card-progress-bar.full { background: var(--fc-green); }
-        .card-pct-label { font-size: 0.65rem; font-weight: 700; min-width: 60px; text-align: right; color: #888; }
-        .card-pct-label.full { color: var(--fc-green); }
+  /* ── Toolbar ── */
+  .toolbar { display: flex; gap: 8px; align-items: center; padding: 16px 0 4px; flex-wrap: wrap; }
+  .search-box { position: relative; flex: 1; min-width: 160px; }
+  .search-box input {
+    width: 100%; padding: 11px 14px 11px 38px; border-radius: 12px;
+    background: var(--surface); border: 1px solid var(--border); color: var(--text);
+    font-size: 0.82rem; font-family: inherit; outline: none;
+  }
+  .search-box input:focus { border-color: var(--green); }
+  .search-box .s-ico { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--muted-2); font-size: 0.85rem; }
+  .toggle-btn {
+    background: var(--surface); color: var(--muted); border: 1px solid var(--border);
+    padding: 11px 15px; border-radius: 12px; font-size: 0.72rem; font-weight: 600;
+    cursor: pointer; white-space: nowrap; transition: all .2s;
+  }
+  .toggle-btn.active { background: var(--green-dim); border-color: var(--green); color: var(--green); }
 
-        .expira-label { font-size: 0.6rem; font-weight: 600; display: block; margin-bottom: 6px; }
-        .expira-label.soon { color: #ff6600; }
-        .expira-label.expired-lbl { color: #555; }
-        .expira-label.never { color: #333; }
+  .tab-content { display: none; animation: fade .25s ease; }
+  .tab-content.active { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
-        .req-box { background: #1e1e1e; border: 1px solid var(--border); border-radius: 8px; padding: 10px; margin-bottom: 15px; font-size: 0.75rem; color: #bbb; width: 100%; box-sizing: border-box; font-family: inherit; resize: none; }
-        .sub-obj { background: #1a1a1a; margin-bottom: 12px; padding: 12px; border-radius: 10px; border: 1px solid #252525; position: relative; }
-        .sub-obj.done { opacity: 0.5; border-color: var(--fc-green); }
-        .fav-sub-star { position: absolute; top: 10px; right: 12px; font-size: 1.2rem; color: #333; cursor: pointer; }
-        .fav-sub-star.active { color: var(--star); }
-        .info { margin-bottom: 10px; padding-right: 30px; }
-        .nome-text { font-size: 0.75rem; color: #eee; font-weight: 600; display: block; margin-bottom: 4px; line-height: 1.3; }
-        .count { font-weight: bold; font-family: monospace; color: var(--fc-red); font-size: 0.7rem; }
-        .progress-bg { background: #000; height: 4px; border-radius: 2px; margin-bottom: 12px; }
-        .progress-bar { background: var(--fc-red); height: 100%; border-radius: 2px; transition: width 0.3s; }
-        .progress-bar.full { background: var(--fc-green); }
-        .balls-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(28px, 1fr)); gap: 8px; }
-        .ball { aspect-ratio: 1/1; border: 1px solid #333; border-radius: 50%; background: #000; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; opacity: 0.3; }
-        .ball.active { opacity: 1; border-color: var(--fc-green); background: #002211; }
-        .ball.readonly { cursor: default; }
+  /* ── Category header ── */
+  .category-header {
+    display: flex; justify-content: space-between; align-items: center; gap: 10px;
+    padding: 11px 15px; margin: 26px 0 12px; border-radius: 12px;
+    background: linear-gradient(90deg, var(--surface-2), transparent 85%);
+    border-left: 4px solid var(--green);
+    font-weight: 800; font-size: 0.82rem; letter-spacing: 0.4px;
+  }
+  .category-header.fav { border-left-color: var(--gold); color: var(--gold); }
+  .category-header.exp { border-left-color: var(--muted-2); color: var(--muted); }
+  .category-header.done-cat { border-left-color: var(--green); }
+  .cat-left { display: flex; align-items: center; gap: 9px; text-transform: uppercase; }
+  .cat-pct { font-size: 0.7rem; font-weight: 800; padding: 3px 10px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); color: var(--muted); }
+  .cat-pct.full { color: var(--green); border-color: var(--green); }
 
-        .empty-state { text-align: center; padding: 50px 20px; color: #444; font-size: 0.85rem; line-height: 2; }
-        .reset-btn { display: block; width: 80%; margin: 40px auto; padding: 12px; background: transparent; border: 1px solid #333; color: #666; border-radius: 8px; font-size: 0.7rem; cursor: pointer; }
-    </style>
+  /* ── Card ── */
+  .card {
+    background: linear-gradient(180deg, var(--surface), var(--bg-soft));
+    border-radius: var(--radius); padding: 18px; margin-bottom: 16px;
+    border: 1px solid var(--border); box-shadow: var(--shadow);
+  }
+  .card.expired { opacity: 0.6; }
+  .card.completed { border-color: rgba(0,230,118,0.35); }
+
+  .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+  .player-name { font-size: 1.08rem; font-weight: 800; display: block; margin-bottom: 5px; line-height: 1.25; }
+  .min-badge { display: inline-block; font-size: 0.6rem; font-weight: 800; color: var(--green); background: var(--green-dim); border: 1px solid rgba(0,230,118,0.3); padding: 2px 7px; border-radius: 6px; margin-right: 7px; vertical-align: middle; }
+  .expira-label { font-size: 0.66rem; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; border-radius: 999px; }
+  .expira-label.soon { color: var(--red); background: var(--red-dim); }
+  .expira-label.urgent { color: #fff; background: var(--red); }
+  .expira-label.expired-lbl { color: var(--muted); background: var(--surface-2); }
+  .expira-label.never { color: var(--muted-2); background: var(--surface-2); }
+
+  .reward-final {
+    display: flex; gap: 9px; align-items: flex-start;
+    background: linear-gradient(90deg, rgba(255,201,40,0.1), transparent);
+    border: 1px solid rgba(255,201,40,0.25); border-radius: 12px;
+    padding: 10px 12px; margin-bottom: 13px;
+  }
+  .reward-final .rf-ico { font-size: 0.95rem; line-height: 1.4; }
+  .reward-final .rf-txt { font-size: 0.72rem; color: #f0d98a; font-weight: 600; line-height: 1.4; }
+  .reward-final .rf-txt b { color: var(--gold); }
+
+  .card-progress-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .card-progress-bar-bg { flex: 1; background: var(--surface-2); height: 7px; border-radius: 999px; overflow: hidden; border: 1px solid var(--border-soft); }
+  .card-progress-bar { height: 100%; border-radius: 999px; background: var(--red); transition: width .4s ease; }
+  .card-progress-bar.full { background: var(--green); }
+  .card-pct-label { font-size: 0.7rem; font-weight: 800; color: var(--muted); white-space: nowrap; }
+  .card-pct-label.full { color: var(--green); }
+
+  .req-box {
+    background: var(--bg-soft); border: 1px solid var(--border-soft); border-radius: 10px;
+    padding: 10px 12px; margin-bottom: 14px; font-size: 0.74rem; color: var(--muted);
+    width: 100%; font-family: inherit; resize: vertical; min-height: 38px; outline: none;
+  }
+  .req-box:focus { border-color: var(--green); }
+
+  /* ── Sub objective ── */
+  .sub-obj { background: var(--surface-2); margin-bottom: 11px; padding: 13px 14px; border-radius: 13px; border: 1px solid var(--border-soft); position: relative; transition: opacity .2s; }
+  .sub-obj.done { border-color: rgba(0,230,118,0.4); background: rgba(0,230,118,0.04); }
+  .sub-obj.done .nome-text { color: var(--muted); }
+  .fav-sub-star { position: absolute; top: 11px; right: 12px; font-size: 1.15rem; color: var(--muted-2); cursor: pointer; transition: transform .15s, color .15s; }
+  .fav-sub-star:active { transform: scale(1.3); }
+  .fav-sub-star.active { color: var(--gold); }
+
+  .info { margin-bottom: 9px; padding-right: 30px; }
+  .nome-text { font-size: 0.84rem; color: var(--text); font-weight: 700; display: block; margin-bottom: 3px; line-height: 1.3; }
+  .nome-text .ctx { color: var(--green); font-weight: 800; }
+  .desc-text { font-size: 0.7rem; color: var(--muted); line-height: 1.45; margin-bottom: 5px; }
+  .reward-text { font-size: 0.68rem; color: #f0d98a; line-height: 1.4; display: flex; gap: 5px; align-items: flex-start; }
+  .reward-text .r-ico { color: var(--gold); }
+  .count { font-weight: 800; font-family: 'Inter', monospace; color: var(--muted); font-size: 0.7rem; }
+  .count b { color: var(--red); }
+  .count.full b { color: var(--green); }
+
+  .progress-bg { background: var(--bg); height: 5px; border-radius: 999px; margin: 9px 0 12px; overflow: hidden; }
+  .progress-bar { background: var(--red); height: 100%; border-radius: 999px; transition: width .3s; }
+  .progress-bar.full { background: var(--green); }
+
+  /* balls */
+  .balls-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(34px, 1fr)); gap: 8px; }
+  .ball {
+    aspect-ratio: 1/1; border: 1px solid var(--border); border-radius: 50%; background: var(--bg);
+    display: grid; place-items: center; font-size: 15px; cursor: pointer; opacity: 0.35; transition: all .15s;
+  }
+  .ball.active { opacity: 1; border-color: var(--green); background: rgba(0,230,118,0.12); box-shadow: 0 0 8px rgba(0,230,118,0.25); }
+  .ball:not(.readonly):active { transform: scale(0.88); }
+  .ball.readonly { cursor: default; }
+
+  /* stepper */
+  .stepper { display: flex; align-items: center; gap: 8px; }
+  .step-btn {
+    width: 40px; height: 40px; border-radius: 11px; border: 1px solid var(--border);
+    background: var(--surface-3); color: var(--text); font-size: 1.2rem; font-weight: 800;
+    cursor: pointer; display: grid; place-items: center; transition: all .15s; flex-shrink: 0;
+  }
+  .step-btn:active { transform: scale(0.92); }
+  .step-btn.plus { border-color: var(--green); color: var(--green); }
+  .step-btn.minus { border-color: var(--red); color: var(--red); }
+  .step-btn.readonly { opacity: 0.4; cursor: default; pointer-events: none; }
+  .step-val { flex: 1; text-align: center; font-size: 1.05rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .step-val small { color: var(--muted); font-weight: 600; font-size: 0.8rem; }
+  .step-jump { font-size: 0.62rem; padding: 0 9px; height: 40px; border-radius: 11px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); font-weight: 700; cursor: pointer; flex-shrink: 0; }
+  .step-jump:active { transform: scale(0.92); }
+
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--muted-2); font-size: 0.9rem; line-height: 1.9; }
+  .empty-state .es-ico { font-size: 2.4rem; display: block; margin-bottom: 10px; opacity: 0.6; }
+
+  .reset-btn { display: block; width: 90%; max-width: 360px; margin: 36px auto 0; padding: 13px; background: transparent; border: 1px solid var(--border); color: var(--muted-2); border-radius: 12px; font-size: 0.72rem; font-weight: 600; cursor: pointer; transition: all .2s; }
+  .reset-btn:active { border-color: var(--red); color: var(--red); }
+</style>
 </head>
 <body>
 
 <div class="header-container">
-    <h1>⚽ FC TRACKER <span>PRO</span></h1>
+  <div class="header-inner">
+    <div class="header-top">
+      <h1><span class="logo">⚽</span> FC TRACKER <span>PRO</span></h1>
+      <div class="sync-pill" id="sync-status"><span class="sync-dot"></span> —</div>
+    </div>
     <div class="global-progress">
-        <div class="global-progress-label">
-            <span>Progresso Geral (Ativos)</span>
-            <strong id="global-pct-text">0%</strong>
-        </div>
-        <div class="global-bar-bg"><div class="global-bar" id="global-bar" style="width:0%"></div></div>
+      <div class="global-progress-label">
+        <span>Progresso Geral · Ativos</span>
+        <strong id="global-pct-text">0%</strong>
+      </div>
+      <div class="global-bar-bg"><div class="global-bar" id="global-bar" style="width:0%"></div></div>
     </div>
-    <div id="sync-status" style="font-size:0.6rem;padding:4px 0 2px;text-align:center;"></div>
     <div class="tabs">
-        <button class="tab-btn active" onclick="setTab('ativos')">🎯 Ativos <span class="tab-badge" id="badge-ativos">0</span></button>
-        <button class="tab-btn tab-done" onclick="setTab('concluidos')">✅ Concluídos <span class="tab-badge" id="badge-concluidos">0</span></button>
-        <button class="tab-btn tab-exp" onclick="setTab('expirados')">💀 Expirados <span class="tab-badge" id="badge-expirados">0</span></button>
+      <button class="tab-btn active" data-tab="ativos" onclick="setTab('ativos')"><span class="ico">🎯</span> Ativos <span class="tab-badge" id="badge-ativos">0</span></button>
+      <button class="tab-btn tab-done" data-tab="concluidos" onclick="setTab('concluidos')"><span class="ico">✅</span> Feitos <span class="tab-badge" id="badge-concluidos">0</span></button>
+      <button class="tab-btn tab-exp" data-tab="expirados" onclick="setTab('expirados')"><span class="ico">💀</span> Expirados <span class="tab-badge" id="badge-expirados">0</span></button>
     </div>
+  </div>
 </div>
 
-<div id="tab-ativos" class="tab-content active">
+<div class="wrap">
+  <div class="toolbar">
+    <div class="search-box">
+      <span class="s-ico">🔍</span>
+      <input type="text" id="searchInput" placeholder="Buscar objetivo, time, recompensa..." oninput="onSearch(this.value)" />
+    </div>
+    <button id="toggleTaskBtn" class="toggle-btn" onclick="toggleFiltro()">Esconder feitos</button>
+  </div>
+
+  <div id="tab-ativos" class="tab-content active">
     <div id="fav-container"></div>
     <div id="app-ativos"></div>
-    <div class="toggle-row">
-        <button id="toggleTaskBtn" class="toggle-btn" onclick="toggleFiltro()">Esconder Concluídos</button>
-    </div>
-</div>
-<div id="tab-concluidos" class="tab-content">
+  </div>
+  <div id="tab-concluidos" class="tab-content">
     <div id="app-concluidos"></div>
-</div>
-<div id="tab-expirados" class="tab-content">
+  </div>
+  <div id="tab-expirados" class="tab-content">
     <div id="app-expirados"></div>
-</div>
+  </div>
 
-<button class="reset-btn" onclick="limparTudo()">LIMPAR TUDO E REINICIAR</button>
+  <button class="reset-btn" onclick="limparTudo()">LIMPAR TUDO E REINICIAR</button>
+</div>
 
 <script>
-    const OBJETIVOS = [
-        // ── Season 8 ──
-        { cat: "Season 8", player: "Season 8 Weekly Play Completionist", expira: "4 jul 2026", tasks: [
-            { nome: "Week 1: Complete o grupo Season 8 Weekly Play 1", total: 1 },
-            { nome: "Week 2: Complete o grupo Season 8 Weekly Play 2", total: 1 },
-            { nome: "Week 3: Complete o grupo Season 8 Weekly Play 3", total: 1 },
-            { nome: "Week 4: Complete o grupo Season 8 Weekly Play 4", total: 1 }
-        ]},
-        { cat: "Season 8", player: "Season 8 Weekly Play 2", expira: "04 jul 2026", tasks: [
-            { nome: "Jogue 5 partidas no Champions", total: 5 },
-            { nome: "Jogue 5 partidas em qualquer Amistoso ao Vivo (Live Event)", total: 5 }
-        ]},
-        { cat: "Season 8", player: "Objetivos Semanais S8 Week 2", expira: "04 jul 2026", tasks: [
-            { nome: "Liste 10 itens no Mercado", total: 10 },
-            { nome: "Compre 10 itens no Mercado", total: 10 },
-            { nome: "Marque 10 gols em qualquer modo usando um jogador do Mexico", total: 10 }
-        ]},
-        // ── Journey of Nations South America ──
-        { cat: "Journey of Nations", player: "Journey of Nations South America", expira: "03 jul 2026", tasks: [
-            { nome: "Play 2: Jogue 2 partidas no Amistoso 'Journey of Nations Africa'", total: 2 },
-            { nome: "Win 1: Vença 1 partida no Amistoso 'Journey of Nations Africa'", total: 1 },
-            { nome: "Play 4: Jogue 4 partidas no Amistoso 'Journey of Nations Africa'", total: 4 },
-            { nome: "Win 2: Vença 2 partidas no Amistoso 'Journey of Nations Africa'", total: 2 },
-            { nome: "Score 5: Marque 5 gols no Amistoso 'Journey of Nations Africa'", total: 5 },
-            { nome: "Win 3: Vença 3 partidas no Amistoso 'Journey of Nations Africa'", total: 3 }
-        ]},
+/* =========================================================
+   DADOS DOS OBJETIVOS
+   Campos por tarefa: nome (título), desc (requisito), recompensa, total
+   Campos por grupo: cat, player, expira, minToComplete, recompensaFinal
+   ========================================================= */
+const OBJETIVOS = [
+  // ───────────── Season 8 ─────────────
+  { cat: "Season 8", player: "Season 8 Weekly Play Completionist", expira: "04 jul 2026", tasks: [
+    { nome: "Week 1", desc: "Complete o grupo Season 8 Weekly Play 1", total: 1 },
+    { nome: "Week 2", desc: "Complete o grupo Season 8 Weekly Play 2", total: 1 },
+    { nome: "Week 3", desc: "Complete o grupo Season 8 Weekly Play 3", total: 1 },
+    { nome: "Week 4", desc: "Complete o grupo Season 8 Weekly Play 4", total: 1 }
+  ]},
+  { cat: "Season 8", player: "Season 8 Weekly Play 2", expira: "04 jul 2026", tasks: [
+    { nome: "Champions", desc: "Jogue 5 partidas no Champions", total: 5 },
+    { nome: "Live Event", desc: "Jogue 5 partidas em qualquer Amistoso ao Vivo (Live Event)", total: 5 }
+  ]},
+  { cat: "Season 8", player: "Objetivos Semanais S8 · Week 2", expira: "04 jul 2026", tasks: [
+    { nome: "Listar no Mercado", desc: "Liste 10 itens no Mercado", total: 10 },
+    { nome: "Comprar no Mercado", desc: "Compre 10 itens no Mercado", total: 10 },
+    { nome: "Gols México", desc: "Marque 10 gols em qualquer modo usando um jogador do México", total: 10 }
+  ]},
 
-        // ── AMERICA DO SUL ──
-        { cat: "AMERICA DO SUL", player: "AMERICA DO SUL", expira: null, tasks: [
-            { nome: "PARAGUAI + EQUADOR: Conclua o grupo 'PARAGUAI + EQUADOR'", total: 1 },
-            { nome: "Uruguay: Conclua o grupo 'Uruguay", total: 1 },
-            { nome: "Colombia: Conclua o grupo 'Colombia'", total: 1 },
-            { nome: "Brazil: Conclua o grupo 'Brazil'", total: 1 },
-            { nome: "Argentina: Conclua o grupo 'Argentina'", total: 1 },
-            { nome: "the Wizard (O Mago): Conclua o grupo 'The Wizard (O Mago)'", total: 1 },
-            { nome: "Strikers Mindset: Conclua o grupo 'Strikers Mindset'", total: 1 },
-        ]},
-    // ── JSONBin Cloud Sync ──
-    // ── JSONBin Cloud Sync ──
-    const JSONBIN_KEY = '$2a$10$rkJwuFm6CQYGT0xS8jLZrOh80qsO7Q7Hz0VaNdLIGRnxtOcImy6Aa';
-    const BIN_NAME = 'fc-tracker-joao';
-    const FIXED_BIN_ID = '6a19ee8921f9ee59d29b5db1';
-    let BIN_ID = FIXED_BIN_ID;
-    localStorage.setItem('fc_bin_id', FIXED_BIN_ID);
-    let syncTimeout = null;
-    let isSyncing = false;
+  // ───────────── Live Events ─────────────
+  { cat: "Live Events", player: "Journey of Nations: América do Sul", expira: "03 jul 2026",
+    recompensaFinal: "Pacote de 3 Jogadores Ouro Raro 84+ (Inegociável)", tasks: [
+    { nome: "Play 2", desc: "Jogue 2 partidas no Amistoso 'Journey of Nations South America'", recompensa: "Estilo de Entrosamento: Caçador (Hunter)", total: 2 },
+    { nome: "Win 1", desc: "Vença 1 partida no Amistoso 'Journey of Nations South America'", recompensa: "Pacote de 3 Jogadores Ouro Raro 83+", total: 1 },
+    { nome: "Play 4", desc: "Jogue 4 partidas no Amistoso 'Journey of Nations South America'", recompensa: "Estilo de Entrosamento: Sombra (Shadow)", total: 4 },
+    { nome: "Win 2", desc: "Vença 2 partidas no Amistoso 'Journey of Nations South America'", recompensa: "Pacote de 3 Jogadores Ouro Raro 83+", total: 2 },
+    { nome: "Score 5", desc: "Marque 5 gols no Amistoso 'Journey of Nations South America'", recompensa: "Item de Celebração (Award)", total: 5 },
+    { nome: "Win 3", desc: "Vença 3 partidas no Amistoso 'Journey of Nations South America'", recompensa: "Pacote de 3 Jogadores Ouro Raro 83+", total: 3 }
+  ]},
+  { cat: "Live Events", player: "Moment of Glory", expira: "03 jul 2026",
+    recompensaFinal: "Pacote de 7 Jog. Ouro Raro 87+, Escolha de 2 de 8 Playstyles+ & 150 Tokens (Inegociável)", tasks: [
+    { nome: "Score 1", desc: "Marque 1 gol no Amistoso 'Moment of Glory'", recompensa: "5.000 Moedas", total: 1 },
+    { nome: "Score 5", desc: "Marque 5 gols no Amistoso 'Moment of Glory'", recompensa: "Escolha de 2 de 8 Playstyles+", total: 5 },
+    { nome: "Score 10", desc: "Marque 10 gols no Amistoso 'Moment of Glory'", recompensa: "Item de Celebração (Award)", total: 10 },
+    { nome: "Score in 3 · Ásia/Oceania", desc: "Marque em 3 partidas separadas com no mín. 6 jogadores da Ásia/Oceania no 11 inicial", recompensa: "Pacote de 3 Jogadores Ouro Raro 85+", total: 3 },
+    { nome: "Score in 3 · África", desc: "Marque em 3 partidas separadas com no mín. 6 jogadores da África no 11 inicial", recompensa: "Pacote de 3 Jogadores Ouro Raro 85+", total: 3 },
+    { nome: "Score in 3 · Europa", desc: "Marque em 3 partidas separadas com no mín. 6 jogadores da Europa no 11 inicial", recompensa: "Playstyle+: Implacável (Anticipate+)", total: 3 },
+    { nome: "Win 3 · Europa", desc: "Vença 3 partidas com no mín. 6 jogadores da Europa no 11 inicial", recompensa: "Pacote de 3 Jogadores Ouro Raro 86+", total: 3 },
+    { nome: "Win 3 · América do Sul", desc: "Vença 3 partidas com no mín. 6 jogadores da América do Sul no 11 inicial", recompensa: "Pacote de 3 Jogadores Ouro Raro 86+", total: 3 },
+    { nome: "Win 3 · América do Norte", desc: "Vença 3 partidas com no mín. 6 jogadores da América do Norte no 11 inicial", recompensa: "Playstyle+: Passe Guiado (Given the Keys)", total: 3 }
+  ]},
 
-    function setSyncStatus(status) {
-        const el = document.getElementById('sync-status');
-        if (!el) return;
-        const map = {
-            ok:      { icon: '☁️', text: 'Salvo', color: '#00ff85' },
-            saving:  { icon: '⏳', text: 'Salvando...', color: '#f1c40f' },
-            loading: { icon: '⏳', text: 'Carregando...', color: '#f1c40f' },
-            error:   { icon: '⚠️', text: 'Erro de sinc', color: '#fe0000' },
-            offline: { icon: '📴', text: 'Offline', color: '#888' }
-        };
-        const s = map[status] || map.ok;
-        el.innerHTML = `<span style="color:${s.color}">${s.icon} ${s.text}</span>`;
-    }
-
-    async function criarBin(dados) {
-        try {
-            const res = await fetch('https://api.jsonbin.io/v3/b', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY, 'X-Bin-Name': BIN_NAME, 'X-Bin-Private': 'true' },
-                body: JSON.stringify(dados)
-            });
-            const json = await res.json();
-            BIN_ID = json.metadata.id;
-            localStorage.setItem('fc_bin_id', BIN_ID);
-            return true;
-        } catch(e) { return false; }
-    }
-
-    async function carregarNuvem() {
-        if (!BIN_ID) return false;
-        try {
-            setSyncStatus('loading');
-            const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-                headers: { 'X-Master-Key': JSONBIN_KEY }
-            });
-            if (!res.ok) { setSyncStatus('error'); return false; }
-            const json = await res.json();
-            const dados = json.record;
-            progresso  = dados.progresso  || {};
-            subFavs    = dados.subFavs    || [];
-            requisitos = dados.requisitos || {};
-            // espelhar no localStorage como cache offline
-            localStorage.setItem('fc_joao_full_v1', JSON.stringify(progresso));
-            localStorage.setItem('fc_favs_full_v1',  JSON.stringify(subFavs));
-            localStorage.setItem('fc_reqs_full_v1',  JSON.stringify(requisitos));
-            setSyncStatus('ok');
-            return true;
-        } catch(e) { setSyncStatus('offline'); return false; }
-    }
-
-    async function salvarNuvem() {
-        isSyncing = true;
-        setSyncStatus('saving');
-        const dados = { progresso, subFavs, requisitos };
-        try {
-            if (!BIN_ID) {
-                await criarBin(dados);
-            } else {
-                const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
-                    body: JSON.stringify(dados)
-                });
-                if (!res.ok) throw new Error('Falha');
-            }
-            // cache offline
-            localStorage.setItem('fc_joao_full_v1', JSON.stringify(progresso));
-            localStorage.setItem('fc_favs_full_v1',  JSON.stringify(subFavs));
-            localStorage.setItem('fc_reqs_full_v1',  JSON.stringify(requisitos));
-            localStorage.setItem('fc_bin_id', BIN_ID);
-            setSyncStatus('ok');
-        } catch(e) {
-            setSyncStatus('error');
-            // salva local mesmo assim
-            localStorage.setItem('fc_joao_full_v1', JSON.stringify(progresso));
-            localStorage.setItem('fc_favs_full_v1',  JSON.stringify(subFavs));
-            localStorage.setItem('fc_reqs_full_v1',  JSON.stringify(requisitos));
-        }
-        isSyncing = false;
-    }
-
-    // Debounce: salva 1.5s após última alteração
-    function salvar() {
-        localStorage.setItem('fc_joao_full_v1', JSON.stringify(progresso));
-        localStorage.setItem('fc_favs_full_v1',  JSON.stringify(subFavs));
-        localStorage.setItem('fc_reqs_full_v1',  JSON.stringify(requisitos));
-        clearTimeout(syncTimeout);
-        syncTimeout = setTimeout(salvarNuvem, 1500);
-    }
-
-    // Parser de datas "23 abr 2026" → Date
-    const MESES = {jan:0,fev:1,mar:2,abr:3,mai:4,jun:5,jul:6,ago:7,set:8,out:9,nov:10,dez:11};
-    function parseExpira(str) {
-        if (!str) return null;
-        const p = str.trim().toLowerCase().split(' ');
-        if (p.length < 3) return null;
-        const d = parseInt(p[0]), m = MESES[p[1]], y = parseInt(p[2]);
-        if (isNaN(d) || m === undefined || isNaN(y)) return null;
-        return new Date(y, m, d, 5, 0, 0);
-    }
-
-    function isExpired(group) {
-        const d = parseExpira(group.expira);
-        return d ? new Date() >= d : false;
-    }
-
-    function isGroupCompleted(gIdx) {
-        const group = OBJETIVOS[gIdx];
-        const needed = group.minToComplete || group.tasks.length;
-        let done = 0;
-        group.tasks.forEach((t, tIdx) => { if ((progresso[`g${gIdx}t${tIdx}`] || 0) >= t.total) done++; });
-        return done >= needed;
-    }
-
-    // Carregar dados: tenta nuvem, fallback localStorage
-    let progresso  = JSON.parse(localStorage.getItem('fc_joao_full_v1')) || {};
-    let subFavs    = JSON.parse(localStorage.getItem('fc_favs_full_v1')) || [];
-    let requisitos = JSON.parse(localStorage.getItem('fc_reqs_full_v1')) || {};
-    let esconderAtivo = false;
-
-    async function limparTudo() {
-        if (!confirm("Deseja resetar todo o progresso?")) return;
-        progresso = {}; subFavs = []; requisitos = {};
-        await salvarNuvem();
-        localStorage.clear();
-        location.reload();
-    }
-
-    async function iniciar() {
-        setSyncStatus('loading');
-        const ok = await carregarNuvem();
-        if (!ok && !BIN_ID) {
-            // primeira vez: cria o bin com dados locais
-            await criarBin({ progresso, subFavs, requisitos });
-            setSyncStatus('ok');
-        }
-        render();
-    }
-
-    function setTab(tab) {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        document.querySelector(`.tab-btn[onclick="setTab('${tab}')"]`).classList.add('active');
-        document.getElementById('tab-' + tab).classList.add('active');
-    }
-
-    function toggleFiltro() {
-        esconderAtivo = !esconderAtivo;
-        document.getElementById('toggleTaskBtn').classList.toggle('active', esconderAtivo);
-        render();
-    }
-
-    function toggleSubFav(id) {
-        subFavs = subFavs.includes(id) ? subFavs.filter(f => f !== id) : [...subFavs, id];
-        salvar(); render();
-    }
-
-    function verificarAutoCompletar(gIdx) {
-        const group = OBJETIVOS[gIdx];
-        if (!group.minToComplete) return;
-        let done = group.tasks.filter((t, tIdx) => (progresso[`g${gIdx}t${tIdx}`] || 0) >= t.total).length;
-        if (done >= group.minToComplete) group.tasks.forEach((t, tIdx) => progresso[`g${gIdx}t${tIdx}`] = t.total);
-    }
-
-    function calcGroupProgress(gIdx) {
-        const group = OBJETIVOS[gIdx];
-        let done = 0;
-        group.tasks.forEach((t, tIdx) => { if ((progresso[`g${gIdx}t${tIdx}`] || 0) >= t.total) done++; });
-        const total = group.minToComplete || group.tasks.length;
-        const counted = Math.min(done, total);
-        return { done: counted, total, pct: Math.round((counted / total) * 100) };
-    }
-
-    function createTaskHTML(task, id, player, gIdx, isFavContext, readonly) {
-        const valor = progresso[id] || 0;
-        const isDone = valor >= task.total;
-        if (!readonly && esconderAtivo && isDone && !isFavContext) return null;
-
-        const isFav = subFavs.includes(id);
-        const pct = Math.min(100, Math.round((valor / task.total) * 100));
-        const div = document.createElement('div');
-        div.className = 'sub-obj' + (isDone ? ' done' : '');
-        div.innerHTML = `
-            <div class="fav-sub-star ${isFav ? 'active' : ''}" onclick="event.stopPropagation();toggleSubFav('${id}')">★</div>
-            <div class="info">
-                <span class="nome-text">${isFavContext ? '<b>[' + player + ']</b> ' : ''}${task.nome}</span>
-                <span class="count">${valor}/${task.total} &bull; ${pct}%</span>
-            </div>
-            <div class="progress-bg"><div class="progress-bar ${isDone ? 'full' : ''}" style="width:${pct}%"></div></div>
-            <div class="balls-grid"></div>
-        `;
-        const grid = div.querySelector('.balls-grid');
-        for (let i = 1; i <= task.total; i++) {
-            const ball = document.createElement('div');
-            ball.className = 'ball' + (i <= valor ? ' active' : '') + (readonly ? ' readonly' : '');
-            ball.innerText = '⚽';
-            if (!readonly) {
-                ball.onclick = () => {
-                    progresso[id] = (valor === i) ? i - 1 : i;
-                    verificarAutoCompletar(gIdx);
-                    salvar(); render();
-                };
-            }
-            grid.appendChild(ball);
-        }
-        return div;
-    }
-
-    function buildCard(group, gIdx, extraClass, readonly) {
-        const gp = calcGroupProgress(gIdx);
-        const expired = isExpired(group);
-        const card = document.createElement('div');
-        card.className = 'card' + (extraClass ? ' ' + extraClass : '');
-
-        let expiLabel = '';
-        if (!group.expira) expiLabel = `<span class="expira-label never">∞ Não expira</span>`;
-        else if (expired) expiLabel = `<span class="expira-label expired-lbl">💀 Expirado: ${group.expira}</span>`;
-        else expiLabel = `<span class="expira-label soon">⏳ Expira: ${group.expira}</span>`;
-
-        const headerRow = document.createElement('div');
-        headerRow.innerHTML = `
-            <span class="player-name">${group.minToComplete ? `<small style="color:var(--fc-green)">[Completar ${group.minToComplete} de ${group.tasks.length}]</small> ` : ''}${group.player}</span>
-            ${expiLabel}
-        `;
-        card.appendChild(headerRow);
-
-        const progRow = document.createElement('div');
-        progRow.className = 'card-progress-row';
-        progRow.innerHTML = `
-            <div class="card-progress-bar-bg"><div class="card-progress-bar ${gp.pct === 100 ? 'full' : ''}" style="width:${gp.pct}%"></div></div>
-            <span class="card-pct-label ${gp.pct === 100 ? 'full' : ''}">${gp.done}/${gp.total} (${gp.pct}%)</span>
-        `;
-        card.appendChild(progRow);
-
-        const req = document.createElement('textarea');
-        req.className = 'req-box';
-        req.placeholder = "Notas de requisitos/combos...";
-        req.value = requisitos['req-' + gIdx] || '';
-        req.oninput = (e) => { requisitos['req-' + gIdx] = e.target.value; salvar(); };
-        card.appendChild(req);
-
-        group.tasks.forEach((task, tIdx) => {
-            const html = createTaskHTML(task, `g${gIdx}t${tIdx}`, group.player, gIdx, false, readonly);
-            if (html) card.appendChild(html);
-        });
-
-        return card;
-    }
-
-    function renderSection(indices, container, catClass, readonly) {
-        let lastCat = '';
-        indices.forEach(gIdx => {
-            const group = OBJETIVOS[gIdx];
-            // Para ativos (sem catClass), não agrupa por categoria — mostra na ordem de expiração
-            // Só mostra o header de categoria se mudar (mas sem quebrar a ordenação)
-            if (catClass !== '' && group.cat !== lastCat) {
-                const catIdxs = indices.filter(i => OBJETIVOS[i].cat === group.cat);
-                let catDone = 0, catTotal = 0;
-                catIdxs.forEach(i => { const p = calcGroupProgress(i); catDone += p.done; catTotal += p.total; });
-                const catPct = catTotal > 0 ? Math.round((catDone / catTotal) * 100) : 0;
-                const h = document.createElement('div');
-                h.className = 'category-header ' + catClass;
-                h.innerHTML = `<span>${group.cat}</span><span class="cat-pct ${catPct === 100 ? 'full' : ''}">${catPct}%</span>`;
-                container.appendChild(h);
-                lastCat = group.cat;
-            } else if (catClass === '' && group.cat !== lastCat) {
-                // Para ativos: header de categoria como separador visual leve, sem quebrar ordem
-                const h = document.createElement('div');
-                h.className = 'category-header';
-                h.style.opacity = '0.5';
-                h.style.fontSize = '0.7rem';
-                h.innerHTML = `<span>${group.cat}</span>`;
-                container.appendChild(h);
-                lastCat = group.cat;
-            }
-            const card = buildCard(group, gIdx, catClass === 'exp' ? 'expired' : catClass === 'done-cat' ? 'completed' : '', readonly);
-            if (catClass === '' && esconderAtivo) {
-                const hasTasks = card.querySelectorAll('.sub-obj').length > 0;
-                if (!hasTasks) return;
-            }
-            container.appendChild(card);
-        });
-    }
-
-    function render() {
-        const appAtivos = document.getElementById('app-ativos');
-        const appConcluidos = document.getElementById('app-concluidos');
-        const appExpirados = document.getElementById('app-expirados');
-        const favCont = document.getElementById('fav-container');
-        appAtivos.innerHTML = ''; appConcluidos.innerHTML = ''; appExpirados.innerHTML = ''; favCont.innerHTML = '';
-
-        // Classificar grupos
-        const ativos = [], concluidos = [], expirados = [];
-        OBJETIVOS.forEach((group, gIdx) => {
-            if (isExpired(group)) expirados.push(gIdx);
-            else if (isGroupCompleted(gIdx)) concluidos.push(gIdx);
-            else ativos.push(gIdx);
-        });
-
-        // Ordenar ativos: mais próximo de expirar primeiro, sem data por último
-        ativos.sort((a, b) => {
-            const dA = parseExpira(OBJETIVOS[a].expira);
-            const dB = parseExpira(OBJETIVOS[b].expira);
-            if (dA && dB) return dA - dB;
-            if (dA) return -1;
-            if (dB) return 1;
-            return 0;
-        });
-
-        // Badges
-        document.getElementById('badge-ativos').textContent = ativos.length;
-        document.getElementById('badge-concluidos').textContent = concluidos.length;
-        document.getElementById('badge-expirados').textContent = expirados.length;
-
-        // Progresso geral (só ativos)
-        let gDone = 0, gTotal = 0;
-        ativos.forEach(gIdx => { const p = calcGroupProgress(gIdx); gDone += p.done; gTotal += p.total; });
-        const gPct = gTotal > 0 ? Math.round((gDone / gTotal) * 100) : 0;
-        document.getElementById('global-pct-text').textContent = gPct + '%';
-        document.getElementById('global-bar').style.width = gPct + '%';
-
-        // ⭐ Em Foco
-        if (subFavs.length > 0) {
-            const head = document.createElement('div'); head.className = 'category-header fav'; head.innerText = '⭐ Em Foco'; favCont.appendChild(head);
-            const card = document.createElement('div'); card.className = 'card';
-            let hasFavs = false;
-            OBJETIVOS.forEach((group, gIdx) => group.tasks.forEach((task, tIdx) => {
-                const id = `g${gIdx}t${tIdx}`;
-                if (subFavs.includes(id)) {
-                    const html = createTaskHTML(task, id, group.player, gIdx, true, false);
-                    if (html) { card.appendChild(html); hasFavs = true; }
-                }
-            }));
-            if (hasFavs) favCont.appendChild(card);
-        }
-
-        // Renderizar abas
-        if (ativos.length === 0) appAtivos.innerHTML = '<div class="empty-state">Nenhum objetivo ativo no momento 🎉</div>';
-        else renderSection(ativos, appAtivos, '', false);
-
-        if (concluidos.length === 0) appConcluidos.innerHTML = '<div class="empty-state">Nenhum objetivo concluído ainda.<br>Vai jogar! ⚽</div>';
-        else renderSection(concluidos, appConcluidos, 'done-cat', false);
-
-        if (expirados.length === 0) appExpirados.innerHTML = '<div class="empty-state">Nenhum objetivo expirado. Boa! 👍</div>';
-        else renderSection(expirados, appExpirados, 'exp', true);
-    }
-
-    iniciar();
-</script>
-</body>
-</html>
+  // ───────────── Marcos: América do Sul ─────────────
+  { cat: "Marcos: América do Sul", player: "South America Completionist", expira: null,
+    recompensaFinal: "Item de jogador: Carlos Alberto (Inegociável)", tasks: [
+    { nome: "Paraguai + Equador", desc: "Conclua o subgrupo Paraguai + Equador", total: 1 },
+    { nome: "Uruguai", desc: "Conclua o subgrupo Uruguai", total: 1 },
+    { nome: "Colômbia", desc: "Conclua o subgrupo Colômbia", total: 1 },
+    { nome: "Brasil", desc: "Conclua o subgrupo Brasil", total: 1 },
+    { nome: "Argentina", desc: "Conclua o subgrupo Argentina", total: 1 },
+    { nome: "The Wizard", desc: "Conclua o subgrupo The Wizard (O Mago)", total: 1 },
+    { nome: "Striker's Mindset", desc: "Conclua o subgrupo Striker's Mindset", total: 1 }
+  ]},
+  { cat: "Marcos: América do Sul", player: "Paraguai + Equador", expira: null,
+    recompensaFinal: "Itens de jogador: Kendry Páez e Damián Bobadilla & 5 Tokens", tasks: [
+    { nome: "La Albirroja", desc: "Vença 1 partida por 2+ gols de diferença em qualquer modo UT com no mín. 1 sul-americano no 11 inicial", recompensa: "Ramón Sosa e Ángelo Preciado & 2 Emblemas", total: 1 },
+    { nome: "Garra Guaraní", desc: "Jogue 3 partidas em qualquer modo UT com no mín. 1 jogador do Paraguai ou Equador no 11 inicial", recompensa: "2 Cosméticos do Paraguai & 5 Tokens", total: 3 },
+    { nome: "La Tricolor", desc: "Marque um Chute Rasteiro Cruzado em 2 partidas separadas com no mín. 1 jogador do Paraguai ou Equador", recompensa: "Pacote 2 Jog. 84+ & 2 Cosméticos do Equador", total: 2 },
+    { nome: "La 593", desc: "Sofra 1 gol ou menos em 1 partida com no mín. 1 jogador do Paraguai ou Equador no 11 inicial", recompensa: "Pacote 2 Jog. 84+, Playstyle+ Chute Rasteiro Cruzado, Consumível Evo & 5 Tokens", total: 1 }
+  ]},
+  { cat: "Marcos: América do Sul", player: "Uruguai", expira: null,
+    recompensaFinal: "Item de jogador: Manuel Ugarte & 5 Tokens", tasks: [
+    { nome: "La Celeste", desc: "Marque um gol de Chute Colocado usando um ATA com no mín. 1 sul-americano no 11 inicial", recompensa: "Nicolás De la Cruz, Playstyle+ Passe Firme & 2 Cosméticos do Uruguai", total: 1 },
+    { nome: "The Maracanazo Moment", desc: "Marque 2 gols em uma única partida com no mín. 1 jogador uruguaio no 11 inicial", recompensa: "Emblema & 1 Token", total: 1 },
+    { nome: "Garra Charrúa", desc: "Sofra menos de 2 gols em uma única partida com no mín. 1 jogador uruguaio no 11 inicial", recompensa: "Pacote 2 Jog. 84+ & 1 Token", total: 1 },
+    { nome: "The First to Conquer", desc: "Dê assistência com um meio-campista em 3 partidas separadas com no mín. 1 jogador uruguaio", recompensa: "Playstyle+ Passe Firme & Consumível de Evolução", total: 3 }
+  ]},
+  { cat: "Marcos: América do Sul", player: "Colômbia", expira: null, minToComplete: 5,
+    recompensaFinal: "Item de jogador: Jaminton Campaz & 15 Tokens", tasks: [
+    { nome: "Colombian Class", desc: "Jogue 5 partidas com no mín. 2 sul-americanos no 11 inicial", recompensa: "Marino Hinestroza, Johan Mojica e Juan David Cabal & Emblema", total: 5 },
+    { nome: "Los Cafeteros", desc: "Marque usando um jogador com 85+ de Ritmo, com no mín. 4 colombianos no 11 inicial", recompensa: "Quintero, Víctor Ibarbo, especial El Bandido & 15 Tokens", total: 1 },
+    { nome: "The Legendary 5-0", desc: "Marque 5+ gols e vença uma partida com no mín. 4 colombianos no 11 inicial", recompensa: "Pacote 2 Jog. 84+ & 2 Cosméticos da Colômbia", total: 1 },
+    { nome: "El Pibe's Passing", desc: "Assistência com Passe Enfiado usando um MEI colombiano em 3 vitórias separadas", recompensa: "Pacote 2 Jog. 84+ & 15 Tokens", total: 3 },
+    { nome: "El Bandido's Volley", desc: "Marque um gol de voleio usando um MEI colombiano em qualquer modo UT", recompensa: "Pacote 2 Jog. 84+", total: 1 },
+    { nome: "Dance Party", desc: "Marque gol em 5 partidas separadas com no mín. 4 colombianos no 11 inicial", recompensa: "Pacote 2 Jog. 84+", total: 5 }
+  ]},
+  { cat: "Marcos: América do Sul", player: "Brasil", expira: null,
+    recompensaFinal: "Item de jogador: Rayan & 15 Tokens", tasks: [
+    { nome: "Favela Flair", desc: "Marque 2+ gols em 10 partidas separadas com no mín. 2 sul-americanos no 11 inicial", recompensa: "Neymar Jr & Playstyle+: O Capitão", total: 10 },
+    { nome: "Canarinho", desc: "Assistência de primeira (jogador 80+ PAS) em 5 partidas separadas com no mín. 2 brasileiros", recompensa: "Dante e Joelinton & Tifo do Pelé", total: 5 },
+    { nome: "Gaúcho da Copa's Legacy", desc: "Vença 3 partidas com no mín. 4 brasileiros no 11 inicial", recompensa: "Emblema & Tifo do Carlos Alberto", total: 3 },
+    { nome: "Vingança", desc: "Marque 7+ gols e sofra no máx. 1 em uma única partida com no mín. 4 brasileiros", recompensa: "Fabinho & 15 Tokens", total: 1 },
+    { nome: "Joga Bonito", desc: "Marque Chute Rasteiro Cruzado com um LD em uma vitória, com no mín. 4 brasileiros", recompensa: "Playstyle+: O Capitão, 2 Cosméticos do Brasil & 15 Tokens", total: 1 }
+  ]},
+  { cat: "Marcos: América do Sul", player: "Argentina", expira: null, minToComplete: 4,
+    recompensaFinal: "Item de jogador: Thiago Almada & 15 Tokens", tasks: [
+    { nome: "Dar un pase gol", desc: "Dê 1+ assistência em 10 partidas separadas com no mín. 2 sul-americanos no 11 inicial", recompensa: "Messi, Emiliano Martínez e Cristian Romero & Emblema", total: 10 },
+    { nome: "La Albiceleste", desc: "Marque 3 gols com no mín. 3 argentinos no 11 inicial", recompensa: "Nico Gonzalez, especial O Garoto de Rosário & 15 Tokens", total: 3 },
+    { nome: "El Pibe de Oro", desc: "Marque um gol de cabeça com um jogador da Argentina", recompensa: "Bola Adidas Cnxt25 Pro & 2 Cosméticos da Argentina", total: 1 },
+    { nome: "Ankara Messi", desc: "Marque driblando o goleiro usando um PD argentino", recompensa: "Pacote 2 Jog. 84+ & 15 Tokens", total: 1 },
+    { nome: "3 Stars", desc: "Vença 3 partidas com no mín. 4 argentinos no 11 inicial", recompensa: "Pacote 2 Jog. 84+", total: 3 },
+    { nome: "La Scaloneta's Men", desc: "Assistência com Passe Enfiado em 5 partidas separadas com no mín. 4 argentinos", recompensa: "Pacote 2 Jog. 84+", total: 5 }
+  ]},
+  { cat: "Marcos: América do Sul", player: "The Wizard (O Mago)", expira: null, minToComplete: 3,
+    recompensaFinal: "Tifo 2 do Ronaldinho & 25 Tokens", tasks: [
+    { nome: "Ronaldinho Gaúcho", desc: "Marque e vença em 5 partidas (SB Classe Mundial+, Live, Rivals ou Champions) com jogador 5★ Skill e 6 brasileiros", recompensa: "20 Tokens & Empréstimo: Ronaldinho", total: 5 },
+    { nome: "The Genius or Fluke?", desc: "Marque um gol de falta direta usando qualquer versão de Ronaldinho", recompensa: "Pacote Jog. 85+ & 25 Tokens", total: 1 },
+    { nome: "Long Range Threat", desc: "Marque 15 gols de fora da área em qualquer modo UT", recompensa: "Pacote Jog. 85+ & 25 Tokens", total: 15 },
+    { nome: "Free Scoring Brasil", desc: "Marque e vença em 20 partidas (SB Classe Mundial+, Live, Rivals ou Champions) com 6 brasileiros", recompensa: "Pacote Jog. 85+", total: 20 }
+  ]},
+  { cat: "Marcos: América do Sul", player: "Striker's Mindset", expira: null, minToComplete: 4,
+    recompensaFinal: "Escolha 1 de 3 Jog. FoF GotG, Pacote 10x Jog. 85+ & 30 Tokens", tasks: [
+    { nome: "Knuckleball Nightmares", desc: "Marque 5 gols com jogador uruguaio (SB Classe Mundial+, Live, Rivals ou Champions)", recompensa: "Diego Forlán, Playstyle+ Bola Parada & Escolha 1 de 3 FoF GotG", total: 5 },
+    { nome: "El Bota de Oro", desc: "Marque 2 gols de fora da área com qualquer Diego Forlán (SB Classe Mundial+, Live, Rivals ou Champions)", recompensa: "Pacote Jog. 85+ & 30 Tokens", total: 2 },
+    { nome: "Spot Kick Specialist", desc: "Marque 2 gols de pênalti com qualquer Diego Forlán", recompensa: "Pacote Jog. 85+ & 30 Tokens", total: 2 },
+    { nome: "Cachavacha", desc: "Dê 1 assistência com qualquer Diego Forlán (SB Classe Mundial+, Live, Rivals ou Champions)", recompensa: "Pacote Jog. 85+ & 30 Tokens", total: 1 },
+    { nome: "Deadball Danger", desc: "Marque 1 gol de falta direta com qualquer Diego Forlán", recom
