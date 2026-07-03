@@ -1,840 +1,1345 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<meta name="theme-color" content="#0a0c10" />
-<title>FC Tracker PRO - João</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-<style>
-  :root {
-    --bg: #0a0c10;
-    --bg-soft: #0f1217;
-    --surface: #14171d;
-    --surface-2: #1b1f28;
-    --surface-3: #232834;
-    --border: #262b35;
-    --border-soft: #1e222b;
-    --text: #eef0f3;
-    --muted: #8a909c;
-    --muted-2: #5e636e;
-    --green: #00e676;
-    --green-dim: #0a3d29;
-    --red: #ff2d55;
-    --red-dim: #3d0f1a;
-    --gold: #ffc928;
-    --blue: #3b9dff;
-    --radius: 18px;
-    --shadow: 0 8px 24px rgba(0,0,0,0.45);
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FC Tracker PRO - Objectives</title>
+    <style>
+        :root {
+            --fc-red: #fe0000;
+            --fc-green: #00ff85;
+            --fc-amber: #f1c40f;
+            --bg: #0a0a0f;
+            --card-bg: #12121a;
+            --text: #ffffff;
+            --border: #2a2a35;
+        }
 
-  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { background: var(--bg); }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--bg) 0%, #0d0d15 50%, var(--bg) 100%);
+            color: var(--text);
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
 
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background:
-      radial-gradient(900px 500px at 80% -10%, rgba(0,230,118,0.06), transparent 60%),
-      radial-gradient(800px 500px at -10% 0%, rgba(255,45,85,0.05), transparent 55%),
-      var(--bg);
-    color: var(--text);
-    margin: 0;
-    padding: 0 0 110px;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-  }
+        /* Header */
+        .header-container {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+            padding: 16px 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
 
-  .wrap { max-width: 720px; margin: 0 auto; padding: 0 14px; }
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
 
-  /* ── Header ── */
-  .header-container {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(10,12,16,0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 14px 0;
-  }
-  .header-inner { max-width: 720px; margin: 0 auto; }
-  .header-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
-  h1 {
-    font-size: 1.05rem; font-weight: 900; letter-spacing: 1px;
-    margin: 0; display: flex; align-items: center; gap: 9px;
-  }
-  h1 .logo {
-    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0;
-    background: linear-gradient(135deg, var(--green), #00b85f);
-    display: grid; place-items: center; font-size: 1rem;
-    box-shadow: 0 4px 14px rgba(0,230,118,0.35);
-  }
-  h1 span { color: var(--green); }
-  .sync-pill {
-    font-size: 0.62rem; font-weight: 600; padding: 5px 11px; border-radius: 999px;
-    border: 1px solid var(--border); background: var(--surface);
-    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
-  }
-  .sync-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--fc-red), #ff6b35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 14px;
+        }
 
-  .global-progress { margin-bottom: 12px; }
-  .global-progress-label { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 7px; }
-  .global-progress-label span { font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1.4px; font-weight: 600; }
-  .global-progress-label strong { font-size: 1.15rem; font-weight: 900; color: var(--green); line-height: 1; }
-  .global-bar-bg { background: var(--surface-2); height: 8px; border-radius: 999px; overflow: hidden; border: 1px solid var(--border-soft); }
-  .global-bar { background: linear-gradient(90deg, var(--green), #6fffb0); height: 100%; border-radius: 999px; transition: width 0.5s cubic-bezier(.4,0,.2,1); box-shadow: 0 0 14px rgba(0,230,118,0.5); }
+        h1 {
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
 
-  .tabs { display: flex; gap: 6px; }
-  .tab-btn {
-    flex: 1; padding: 11px 4px 13px; font-size: 0.68rem; font-weight: 700;
-    background: transparent; color: var(--muted-2); border: none; cursor: pointer;
-    border-bottom: 2px solid transparent; transition: color .2s, border-color .2s;
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-  }
-  .tab-btn .ico { font-size: 0.9rem; }
-  .tab-btn.active { color: var(--text); border-bottom-color: var(--green); }
-  .tab-btn.tab-exp.active { color: var(--muted); border-bottom-color: var(--muted-2); }
-  .tab-badge {
-    background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px;
-    padding: 1px 7px; font-size: 0.6rem; font-weight: 700; min-width: 20px; color: var(--muted);
-  }
-  .tab-btn.active .tab-badge { color: var(--text); border-color: var(--green); }
+        h1 span { color: var(--fc-red); }
 
-  /* ── Toolbar ── */
-  .toolbar { display: flex; gap: 8px; align-items: center; padding: 16px 0 4px; flex-wrap: wrap; }
-  .search-box { position: relative; flex: 1; min-width: 160px; }
-  .search-box input {
-    width: 100%; padding: 11px 14px 11px 38px; border-radius: 12px;
-    background: var(--surface); border: 1px solid var(--border); color: var(--text);
-    font-size: 0.82rem; font-family: inherit; outline: none;
-  }
-  .search-box input:focus { border-color: var(--green); }
-  .search-box .s-ico { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--muted-2); font-size: 0.85rem; }
-  .toggle-btn {
-    background: var(--surface); color: var(--muted); border: 1px solid var(--border);
-    padding: 11px 15px; border-radius: 12px; font-size: 0.72rem; font-weight: 600;
-    cursor: pointer; white-space: nowrap; transition: all .2s;
-  }
-  .toggle-btn.active { background: var(--green-dim); border-color: var(--green); color: var(--green); }
+        /* Global Progress */
+        .global-progress {
+            background: linear-gradient(135deg, rgba(30,30,40,0.8), rgba(20,20,30,0.8));
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+        }
 
-  .tab-content { display: none; animation: fade .25s ease; }
-  .tab-content.active { display: block; }
-  @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+        .global-progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
 
-  /* ── Category header ── */
-  .category-header {
-    display: flex; justify-content: space-between; align-items: center; gap: 10px;
-    padding: 11px 15px; margin: 26px 0 12px; border-radius: 12px;
-    background: linear-gradient(90deg, var(--surface-2), transparent 85%);
-    border-left: 4px solid var(--green);
-    font-weight: 800; font-size: 0.82rem; letter-spacing: 0.4px;
-  }
-  .category-header.fav { border-left-color: var(--gold); color: var(--gold); }
-  .category-header.exp { border-left-color: var(--muted-2); color: var(--muted); }
-  .category-header.done-cat { border-left-color: var(--green); }
-  .cat-left { display: flex; align-items: center; gap: 9px; text-transform: uppercase; }
-  .cat-pct { font-size: 0.7rem; font-weight: 800; padding: 3px 10px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); color: var(--muted); }
-  .cat-pct.full { color: var(--green); border-color: var(--green); }
+        .global-progress-label {
+            font-size: 13px;
+            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-  /* ── Card ── */
-  .card {
-    background: linear-gradient(180deg, var(--surface), var(--bg-soft));
-    border-radius: var(--radius); padding: 18px; margin-bottom: 16px;
-    border: 1px solid var(--border); box-shadow: var(--shadow);
-  }
-  .card.expired { opacity: 0.6; }
-  .card.completed { border-color: rgba(0,230,118,0.35); }
+        .global-progress-value {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--fc-green);
+        }
 
-  .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
-  .player-name { font-size: 1.08rem; font-weight: 800; display: block; margin-bottom: 5px; line-height: 1.25; }
-  .min-badge { display: inline-block; font-size: 0.6rem; font-weight: 800; color: var(--green); background: var(--green-dim); border: 1px solid rgba(0,230,118,0.3); padding: 2px 7px; border-radius: 6px; margin-right: 7px; vertical-align: middle; }
-  .expira-label { font-size: 0.66rem; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; border-radius: 999px; }
-  .expira-label.soon { color: var(--red); background: var(--red-dim); }
-  .expira-label.urgent { color: #fff; background: var(--red); }
-  .expira-label.expired-lbl { color: var(--muted); background: var(--surface-2); }
-  .expira-label.never { color: var(--muted-2); background: var(--surface-2); }
+        .global-bar-bg {
+            background: #1a1a25;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
 
-  .reward-final {
-    display: flex; gap: 9px; align-items: flex-start;
-    background: linear-gradient(90deg, rgba(255,201,40,0.1), transparent);
-    border: 1px solid rgba(255,201,40,0.25); border-radius: 12px;
-    padding: 10px 12px; margin-bottom: 13px;
-  }
-  .reward-final .rf-ico { font-size: 0.95rem; line-height: 1.4; }
-  .reward-final .rf-txt { font-size: 0.72rem; color: #f0d98a; font-weight: 600; line-height: 1.4; }
-  .reward-final .rf-txt b { color: var(--gold); }
+        .global-bar {
+            background: linear-gradient(90deg, var(--fc-red), #ff6b35, var(--fc-amber));
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
 
-  .card-progress-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-  .card-progress-bar-bg { flex: 1; background: var(--surface-2); height: 7px; border-radius: 999px; overflow: hidden; border: 1px solid var(--border-soft); }
-  .card-progress-bar { height: 100%; border-radius: 999px; background: var(--red); transition: width .4s ease; }
-  .card-progress-bar.full { background: var(--green); }
-  .card-pct-label { font-size: 0.7rem; font-weight: 800; color: var(--muted); white-space: nowrap; }
-  .card-pct-label.full { color: var(--green); }
+        .global-bar.complete {
+            background: linear-gradient(90deg, var(--fc-green), #00cc6a);
+        }
 
-  .req-box {
-    background: var(--bg-soft); border: 1px solid var(--border-soft); border-radius: 10px;
-    padding: 10px 12px; margin-bottom: 14px; font-size: 0.74rem; color: var(--muted);
-    width: 100%; font-family: inherit; resize: vertical; min-height: 38px; outline: none;
-  }
-  .req-box:focus { border-color: var(--green); }
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-top: 1px solid var(--border);
+            margin-top: 12px;
+        }
 
-  /* ── Sub objective ── */
-  .sub-obj { background: var(--surface-2); margin-bottom: 11px; padding: 13px 14px; border-radius: 13px; border: 1px solid var(--border-soft); position: relative; transition: opacity .2s; }
-  .sub-obj.done { border-color: rgba(0,230,118,0.4); background: rgba(0,230,118,0.04); }
-  .sub-obj.done .nome-text { color: var(--muted); }
-  .fav-sub-star { position: absolute; top: 11px; right: 12px; font-size: 1.15rem; color: var(--muted-2); cursor: pointer; transition: transform .15s, color .15s; }
-  .fav-sub-star:active { transform: scale(1.3); }
-  .fav-sub-star.active { color: var(--gold); }
+        .tab-btn {
+            flex: 1;
+            padding: 12px 8px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: transparent;
+            color: #555;
+            border: none;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
 
-  .info { margin-bottom: 9px; padding-right: 30px; }
-  .nome-text { font-size: 0.84rem; color: var(--text); font-weight: 700; display: block; margin-bottom: 3px; line-height: 1.3; }
-  .nome-text .ctx { color: var(--green); font-weight: 800; }
-  .desc-text { font-size: 0.7rem; color: var(--muted); line-height: 1.45; margin-bottom: 5px; }
-  .reward-text { font-size: 0.68rem; color: #f0d98a; line-height: 1.4; display: flex; gap: 5px; align-items: flex-start; }
-  .reward-text .r-ico { color: var(--gold); }
-  .count { font-weight: 800; font-family: 'Inter', monospace; color: var(--muted); font-size: 0.7rem; }
-  .count b { color: var(--red); }
-  .count.full b { color: var(--green); }
+        .tab-btn.active {
+            color: #fff;
+        }
 
-  .progress-bg { background: var(--bg); height: 5px; border-radius: 999px; margin: 9px 0 12px; overflow: hidden; }
-  .progress-bar { background: var(--red); height: 100%; border-radius: 999px; transition: width .3s; }
-  .progress-bar.full { background: var(--green); }
+        .tab-btn[data-tab="live"].active { border-bottom-color: var(--fc-red); color: #ff6b6b; }
+        .tab-btn[data-tab="milestones"].active { border-bottom-color: var(--fc-amber); color: var(--fc-amber); }
+        .tab-btn[data-tab="campaign"].active { border-bottom-color: #3b82f6; color: #60a5fa; }
+        .tab-btn[data-tab="completed"].active { border-bottom-color: var(--fc-green); color: var(--fc-green); }
 
-  /* balls */
-  .balls-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(34px, 1fr)); gap: 8px; }
-  .ball {
-    aspect-ratio: 1/1; border: 1px solid var(--border); border-radius: 50%; background: var(--bg);
-    display: grid; place-items: center; font-size: 15px; cursor: pointer; opacity: 0.35; transition: all .15s;
-  }
-  .ball.active { opacity: 1; border-color: var(--green); background: rgba(0,230,118,0.12); box-shadow: 0 0 8px rgba(0,230,118,0.25); }
-  .ball:not(.readonly):active { transform: scale(0.88); }
-  .ball.readonly { cursor: default; }
+        .tab-badge {
+            background: #222;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+        }
 
-  /* stepper */
-  .stepper { display: flex; align-items: center; gap: 8px; }
-  .step-btn {
-    width: 40px; height: 40px; border-radius: 11px; border: 1px solid var(--border);
-    background: var(--surface-3); color: var(--text); font-size: 1.2rem; font-weight: 800;
-    cursor: pointer; display: grid; place-items: center; transition: all .15s; flex-shrink: 0;
-  }
-  .step-btn:active { transform: scale(0.92); }
-  .step-btn.plus { border-color: var(--green); color: var(--green); }
-  .step-btn.minus { border-color: var(--red); color: var(--red); }
-  .step-btn.readonly { opacity: 0.4; cursor: default; pointer-events: none; }
-  .step-val { flex: 1; text-align: center; font-size: 1.05rem; font-weight: 800; font-variant-numeric: tabular-nums; }
-  .step-val small { color: var(--muted); font-weight: 600; font-size: 0.8rem; }
-  .step-jump { font-size: 0.62rem; padding: 0 9px; height: 40px; border-radius: 11px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); font-weight: 700; cursor: pointer; flex-shrink: 0; }
-  .step-jump:active { transform: scale(0.92); }
+        .tab-btn.active .tab-badge { background: rgba(255,255,255,0.15); }
 
-  .empty-state { text-align: center; padding: 60px 20px; color: var(--muted-2); font-size: 0.9rem; line-height: 1.9; }
-  .empty-state .es-ico { font-size: 2.4rem; display: block; margin-bottom: 10px; opacity: 0.6; }
+        /* Main Content */
+        .main-content {
+            padding: 16px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-  .reset-btn { display: block; width: 90%; max-width: 360px; margin: 36px auto 0; padding: 13px; background: transparent; border: 1px solid var(--border); color: var(--muted-2); border-radius: 12px; font-size: 0.72rem; font-weight: 600; cursor: pointer; transition: all .2s; }
-  .reset-btn:active { border-color: var(--red); color: var(--red); }
-</style>
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Toggle Button */
+        .toggle-row {
+            text-align: center;
+            padding: 12px 0;
+        }
+
+        .toggle-btn {
+            background: #1a1a25;
+            color: #888;
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .toggle-btn.active {
+            background: rgba(254, 0, 0, 0.15);
+            border-color: var(--fc-red);
+            color: #ff6b6b;
+        }
+
+        /* Category Header */
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            margin: 20px 0 12px;
+            border-radius: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 13px;
+            border-left: 4px solid;
+        }
+
+        .category-header.live {
+            background: linear-gradient(90deg, rgba(254,0,0,0.1), transparent);
+            border-left-color: var(--fc-red);
+        }
+
+        .category-header.milestones {
+            background: linear-gradient(90deg, rgba(241,196,15,0.1), transparent);
+            border-left-color: var(--fc-amber);
+        }
+
+        .category-header.campaign {
+            background: linear-gradient(90deg, rgba(59,130,246,0.1), transparent);
+            border-left-color: #3b82f6;
+        }
+
+        .category-header.completed {
+            background: linear-gradient(90deg, rgba(0,255,133,0.1), transparent);
+            border-left-color: var(--fc-green);
+        }
+
+        .cat-pct {
+            font-size: 11px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .cat-pct.full { color: var(--fc-green); border-color: var(--fc-green); }
+
+        /* Partial Completion Alert */
+        .partial-alert {
+            background: linear-gradient(90deg, rgba(241,196,15,0.1), rgba(255,107,53,0.05));
+            border: 1px solid rgba(241,196,15,0.3);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: #fcd34d;
+        }
+
+        .partial-alert-icon { font-size: 18px; }
+
+        /* Card */
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .card.complete {
+            border-color: rgba(0, 255, 133, 0.3);
+            background: linear-gradient(135deg, rgba(0,60,30,0.2), rgba(0,40,20,0.1));
+        }
+
+        .card.partial {
+            border-color: rgba(241, 196, 15, 0.3);
+        }
+
+        /* Card Banner */
+        .card-banner {
+            padding: 10px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-banner.partial-banner {
+            background: linear-gradient(90deg, rgba(241,196,15,0.15), rgba(255,107,53,0.1));
+            border-bottom: 1px solid rgba(241,196,15,0.2);
+            color: #fcd34d;
+        }
+
+        .card-banner.complete-banner {
+            background: linear-gradient(90deg, rgba(0,255,133,0.15), rgba(0,200,100,0.1));
+            border-bottom: 1px solid rgba(0,255,133,0.2);
+            color: var(--fc-green);
+        }
+
+        /* Card Header */
+        .card-header {
+            padding: 16px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .card-header:hover { background: rgba(255,255,255,0.04); }
+
+        .card-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .player-name {
+            font-size: 16px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .card.complete .player-name { color: var(--fc-green); }
+
+        .expire-info {
+            font-size: 11px;
+            color: #666;
+        }
+
+        .expire-info.soon { color: #ff9500; }
+        .expire-info.urgent { color: var(--fc-red); }
+
+        .expand-icon {
+            color: #666;
+            transition: transform 0.3s;
+        }
+
+        .card.expanded .expand-icon { transform: rotate(180deg); }
+
+        /* Progress Section */
+        .card-progress {
+            padding: 0 16px 16px;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            margin-top: 12px;
+        }
+
+        .progress-values {
+            font-size: 13px;
+            font-weight: 700;
+            color: #ccc;
+        }
+
+        .card.complete .progress-values { color: var(--fc-green); }
+
+        .progress-pct {
+            font-size: 13px;
+            font-weight: 800;
+            padding: 2px 10px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .card.complete .progress-pct {
+            background: rgba(0,255,133,0.15);
+            color: var(--fc-green);
+        }
+
+        .progress-bar-bg {
+            background: #1a1a25;
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+            background: linear-gradient(90deg, var(--fc-red), #ff6b35, var(--fc-amber));
+        }
+
+        .card.complete .progress-bar {
+            background: linear-gradient(90deg, var(--fc-green), #00cc6a);
+        }
+
+        /* Threshold Marker */
+        .threshold-marker {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            border-right: 2px dashed var(--fc-amber);
+        }
+
+        .threshold-label {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 9px;
+            color: var(--fc-amber);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        /* Completion Rule */
+        .completion-rule {
+            margin-top: 12px;
+            padding: 10px 12px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            font-size: 11px;
+            color: #aaa;
+        }
+
+        .card.complete .completion-rule {
+            background: rgba(0,255,133,0.05);
+            border-color: rgba(0,255,133,0.2);
+            color: #6ee7b7;
+        }
+
+        /* Group Reward */
+        .group-reward-toggle {
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--fc-amber);
+            transition: color 0.2s;
+        }
+
+        .group-reward-toggle:hover { color: #fcd34d; }
+
+        .card.complete .group-reward-toggle { color: var(--fc-green); }
+
+        .group-reward-box {
+            margin-top: 8px;
+            padding: 12px;
+            background: linear-gradient(135deg, rgba(241,196,15,0.1), rgba(255,107,53,0.05));
+            border: 1px solid rgba(241,196,15,0.3);
+            border-radius: 8px;
+            font-size: 12px;
+            color: #fcd34d;
+            display: none;
+        }
+
+        .group-reward-box.show { display: block; }
+
+        .card.complete .group-reward-box {
+            background: rgba(0,255,133,0.08);
+            border-color: rgba(0,255,133,0.3);
+            color: var(--fc-green);
+        }
+
+        /* Tasks */
+        .tasks-container {
+            padding: 16px;
+            display: none;
+        }
+
+        .card.expanded .tasks-container { display: block; }
+
+        .tasks-header {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Sub-Objective (Task) */
+        .sub-obj {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .sub-obj.done {
+            opacity: 0.6;
+            border-color: rgba(0,255,133,0.3);
+            background: rgba(0,60,30,0.1);
+        }
+
+        .sub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .sub-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #eee;
+        }
+
+        .sub-obj.done .sub-name { color: var(--fc-green); }
+
+        .fav-star {
+            font-size: 18px;
+            color: #444;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .fav-star.active { color: var(--fc-amber); }
+        .fav-star:hover { transform: scale(1.2); }
+
+        /* Requirement Box - ALWAYS VISIBLE */
+        .req-box {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            color: #bbb;
+        }
+
+        .req-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #666;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .sub-obj.done .req-box {
+            border-color: rgba(0,255,133,0.2);
+            color: #6ee7b7;
+        }
+
+        .sub-obj.done .req-label { color: rgba(0,255,133,0.6); }
+
+        /* Reward Toggle */
+        .reward-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--fc-amber);
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .reward-box {
+            background: linear-gradient(135deg, rgba(241,196,15,0.08), rgba(255,107,53,0.05));
+            border: 1px solid rgba(241,196,15,0.2);
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            color: #fcd34d;
+            display: none;
+        }
+
+        .reward-box.show { display: block; }
+
+        .sub-obj.done .reward-box {
+            background: rgba(0,255,133,0.08);
+            border-color: rgba(0,255,133,0.2);
+            color: var(--fc-green);
+        }
+
+        /* Progress */
+        .sub-progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .sub-progress-values {
+            font-size: 12px;
+            font-weight: 700;
+            color: #aaa;
+        }
+
+        .sub-obj.done .sub-progress-values { color: var(--fc-green); }
+
+        .sub-progress-pct {
+            font-size: 12px;
+            font-weight: 800;
+            color: #888;
+        }
+
+        .sub-progress-bar-bg {
+            background: #1a1a25;
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .sub-progress-bar {
+            height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, var(--fc-red), #ff6b35);
+            transition: width 0.4s ease;
+        }
+
+        .sub-obj.done .sub-progress-bar {
+            background: var(--fc-green);
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-minus, .btn-plus {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-minus {
+            background: #1a1a25;
+            color: #888;
+            border: 1px solid var(--border);
+        }
+
+        .btn-minus:hover:not(:disabled) { background: #252530; }
+
+        .btn-plus {
+            background: linear-gradient(135deg, var(--fc-red), #ff6b35);
+            color: #fff;
+        }
+
+        .btn-plus:hover:not(:disabled) {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(254,0,0,0.3);
+        }
+
+        .btn-plus:disabled {
+            background: var(--fc-green);
+            cursor: default;
+        }
+
+        .btn-minus:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        /* Progress Balls */
+        .balls-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .ball {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid #333;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .ball.active {
+            border-color: var(--fc-green);
+            background: linear-gradient(135deg, var(--fc-green), #00cc6a);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(0,255,133,0.3);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        /* Reset Button */
+        .reset-btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto 20px;
+            padding: 14px;
+            background: transparent;
+            border: 1px solid #333;
+            color: #666;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .reset-btn:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: #555;
+            color: #aaa;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .main-content { padding: 24px; }
+            .card { border-radius: 20px; }
+        }
+    </style>
 </head>
 <body>
-
 <div class="header-container">
-  <div class="header-inner">
-    <div class="header-top">
-      <h1><span class="logo">⚽</span> FC TRACKER <span>PRO</span></h1>
-      <div class="sync-pill" id="sync-status"><span class="sync-dot"></span> —</div>
+    <div class="logo">
+        <div class="logo-icon">FC</div>
+        <h1>TRACKER <span>PRO</span></h1>
     </div>
+
     <div class="global-progress">
-      <div class="global-progress-label">
-        <span>Progresso Geral · Ativos</span>
-        <strong id="global-pct-text">0%</strong>
-      </div>
-      <div class="global-bar-bg"><div class="global-bar" id="global-bar" style="width:0%"></div></div>
+        <div class="global-progress-header">
+            <span class="global-progress-label">Progresso Geral</span>
+            <span class="global-progress-value" id="global-pct">0%</span>
+        </div>
+        <div class="global-bar-bg">
+            <div class="global-bar" id="global-bar" style="width:0%"></div>
+        </div>
     </div>
+
     <div class="tabs">
-      <button class="tab-btn active" data-tab="ativos" onclick="setTab('ativos')"><span class="ico">🎯</span> Ativos <span class="tab-badge" id="badge-ativos">0</span></button>
-      <button class="tab-btn tab-done" data-tab="concluidos" onclick="setTab('concluidos')"><span class="ico">✅</span> Feitos <span class="tab-badge" id="badge-concluidos">0</span></button>
-      <button class="tab-btn tab-exp" data-tab="expirados" onclick="setTab('expirados')"><span class="ico">💀</span> Expirados <span class="tab-badge" id="badge-expirados">0</span></button>
+        <button class="tab-btn active" data-tab="live">
+            Live Events
+            <span class="tab-badge" id="badge-live">0</span>
+        </button>
+        <button class="tab-btn" data-tab="milestones">
+            Marcos
+            <span class="tab-badge" id="badge-milestones">0</span>
+        </button>
+        <button class="tab-btn" data-tab="campaign">
+            Campanha
+            <span class="tab-badge" id="badge-campaign">0</span>
+        </button>
+        <button class="tab-btn" data-tab="completed">
+            Concluidos
+            <span class="tab-badge" id="badge-completed">0</span>
+        </button>
     </div>
-  </div>
 </div>
 
-<div class="wrap">
-  <div class="toolbar">
-    <div class="search-box">
-      <span class="s-ico">🔍</span>
-      <input type="text" id="searchInput" placeholder="Buscar objetivo, time, recompensa..." oninput="onSearch(this.value)" />
+<div class="main-content">
+    <div class="toggle-row">
+        <button class="toggle-btn" id="toggleBtn">Esconder Concluidos</button>
     </div>
-    <button id="toggleTaskBtn" class="toggle-btn" onclick="toggleFiltro()">Esconder feitos</button>
-  </div>
 
-  <div id="tab-ativos" class="tab-content active">
-    <div id="fav-container"></div>
-    <div id="app-ativos"></div>
-  </div>
-  <div id="tab-concluidos" class="tab-content">
-    <div id="app-concluidos"></div>
-  </div>
-  <div id="tab-expirados" class="tab-content">
-    <div id="app-expirados"></div>
-  </div>
+    <div id="tab-live" class="tab-content active"></div>
+    <div id="tab-milestones" class="tab-content"></div>
+    <div id="tab-campaign" class="tab-content"></div>
+    <div id="tab-completed" class="tab-content"></div>
 
-  <button class="reset-btn" onclick="limparTudo()">LIMPAR TUDO E REINICIAR</button>
+    <button class="reset-btn" onclick="resetAll()">LIMPAR TUDO E REINICIAR</button>
 </div>
 
 <script>
-/* =========================================================
-   DADOS DOS OBJETIVOS
-   Campos por tarefa: nome (título), desc (requisito), recompensa, total
-   Campos por grupo: cat, player, expira, minToComplete, recompensaFinal
-   ========================================================= */
-const OBJETIVOS = [
-  // ───────────── Season 8 ─────────────
-  { cat: "Season 8", player: "Season 8 Weekly Play Completionist", expira: "04 jul 2026", tasks: [
-    { nome: "Week 1", desc: "Complete o grupo Season 8 Weekly Play 1", total: 1 },
-    { nome: "Week 2", desc: "Complete o grupo Season 8 Weekly Play 2", total: 1 },
-    { nome: "Week 3", desc: "Complete o grupo Season 8 Weekly Play 3", total: 1 },
-    { nome: "Week 4", desc: "Complete o grupo Season 8 Weekly Play 4", total: 1 }
-  ]},
-  { cat: "Season 8", player: "Season 8 Weekly Play 2", expira: "04 jul 2026", tasks: [
-    { nome: "Champions", desc: "Jogue 5 partidas no Champions", total: 5 },
-    { nome: "Live Event", desc: "Jogue 5 partidas em qualquer Amistoso ao Vivo (Live Event)", total: 5 }
-  ]},
-  { cat: "Season 8", player: "Objetivos Semanais S8 · Week 2", expira: "04 jul 2026", tasks: [
-    { nome: "Listar no Mercado", desc: "Liste 10 itens no Mercado", total: 10 },
-    { nome: "Comprar no Mercado", desc: "Compre 10 itens no Mercado", total: 10 },
-    { nome: "Gols México", desc: "Marque 10 gols em qualquer modo usando um jogador do México", total: 10 }
-  ]},
-
-  // ───────────── Live Events ─────────────
-  { cat: "Live Events", player: "Journey of Nations: América do Sul", expira: "03 jul 2026",
-    recompensaFinal: "Pacote de 3 Jogadores Ouro Raro 84+ (Inegociável)", tasks: [
-    { nome: "Play 2", desc: "Jogue 2 partidas no Amistoso 'Journey of Nations South America'", recompensa: "Estilo de Entrosamento: Caçador (Hunter)", total: 2 },
-    { nome: "Win 1", desc: "Vença 1 partida no Amistoso 'Journey of Nations South America'", recompensa: "Pacote de 3 Jogadores Ouro Raro 83+", total: 1 },
-    { nome: "Play 4", desc: "Jogue 4 partidas no Amistoso 'Journey of Nations South America'", recompensa: "Estilo de Entrosamento: Sombra (Shadow)", total: 4 },
-    { nome: "Win 2", desc: "Vença 2 partidas no Amistoso 'Journey of Nations South America'", recompensa: "Pacote de 3 Jogadores Ouro Raro 83+", total: 2 },
-    { nome: "Score 5", desc: "Marque 5 gols no Amistoso 'Journey of Nations South America'", recompensa: "Item de Celebração (Award)", total: 5 },
-    { nome: "Win 3", desc: "Vença 3 partidas no Amistoso 'Journey of Nations South America'", recompensa: "Pacote de 3 Jogadores Ouro Raro 83+", total: 3 }
-  ]},
-  { cat: "Live Events", player: "Moment of Glory", expira: "03 jul 2026",
-    recompensaFinal: "Pacote de 7 Jog. Ouro Raro 87+, Escolha de 2 de 8 Playstyles+ & 150 Tokens (Inegociável)", tasks: [
-    { nome: "Score 1", desc: "Marque 1 gol no Amistoso 'Moment of Glory'", recompensa: "5.000 Moedas", total: 1 },
-    { nome: "Score 5", desc: "Marque 5 gols no Amistoso 'Moment of Glory'", recompensa: "Escolha de 2 de 8 Playstyles+", total: 5 },
-    { nome: "Score 10", desc: "Marque 10 gols no Amistoso 'Moment of Glory'", recompensa: "Item de Celebração (Award)", total: 10 },
-    { nome: "Score in 3 · Ásia/Oceania", desc: "Marque em 3 partidas separadas com no mín. 6 jogadores da Ásia/Oceania no 11 inicial", recompensa: "Pacote de 3 Jogadores Ouro Raro 85+", total: 3 },
-    { nome: "Score in 3 · África", desc: "Marque em 3 partidas separadas com no mín. 6 jogadores da África no 11 inicial", recompensa: "Pacote de 3 Jogadores Ouro Raro 85+", total: 3 },
-    { nome: "Score in 3 · Europa", desc: "Marque em 3 partidas separadas com no mín. 6 jogadores da Europa no 11 inicial", recompensa: "Playstyle+: Implacável (Anticipate+)", total: 3 },
-    { nome: "Win 3 · Europa", desc: "Vença 3 partidas com no mín. 6 jogadores da Europa no 11 inicial", recompensa: "Pacote de 3 Jogadores Ouro Raro 86+", total: 3 },
-    { nome: "Win 3 · América do Sul", desc: "Vença 3 partidas com no mín. 6 jogadores da América do Sul no 11 inicial", recompensa: "Pacote de 3 Jogadores Ouro Raro 86+", total: 3 },
-    { nome: "Win 3 · América do Norte", desc: "Vença 3 partidas com no mín. 6 jogadores da América do Norte no 11 inicial", recompensa: "Playstyle+: Passe Guiado (Given the Keys)", total: 3 }
-  ]},
-
-  // ───────────── Marcos: América do Sul ─────────────
-  { cat: "Marcos: América do Sul", player: "South America Completionist", expira: null,
-    recompensaFinal: "Item de jogador: Carlos Alberto (Inegociável)", tasks: [
-    { nome: "Paraguai + Equador", desc: "Conclua o subgrupo Paraguai + Equador", total: 1 },
-    { nome: "Uruguai", desc: "Conclua o subgrupo Uruguai", total: 1 },
-    { nome: "Colômbia", desc: "Conclua o subgrupo Colômbia", total: 1 },
-    { nome: "Brasil", desc: "Conclua o subgrupo Brasil", total: 1 },
-    { nome: "Argentina", desc: "Conclua o subgrupo Argentina", total: 1 },
-    { nome: "The Wizard", desc: "Conclua o subgrupo The Wizard (O Mago)", total: 1 },
-    { nome: "Striker's Mindset", desc: "Conclua o subgrupo Striker's Mindset", total: 1 }
-  ]},
-  { cat: "Marcos: América do Sul", player: "Paraguai + Equador", expira: null,
-    recompensaFinal: "Itens de jogador: Kendry Páez e Damián Bobadilla & 5 Tokens", tasks: [
-    { nome: "La Albirroja", desc: "Vença 1 partida por 2+ gols de diferença em qualquer modo UT com no mín. 1 sul-americano no 11 inicial", recompensa: "Ramón Sosa e Ángelo Preciado & 2 Emblemas", total: 1 },
-    { nome: "Garra Guaraní", desc: "Jogue 3 partidas em qualquer modo UT com no mín. 1 jogador do Paraguai ou Equador no 11 inicial", recompensa: "2 Cosméticos do Paraguai & 5 Tokens", total: 3 },
-    { nome: "La Tricolor", desc: "Marque um Chute Rasteiro Cruzado em 2 partidas separadas com no mín. 1 jogador do Paraguai ou Equador", recompensa: "Pacote 2 Jog. 84+ & 2 Cosméticos do Equador", total: 2 },
-    { nome: "La 593", desc: "Sofra 1 gol ou menos em 1 partida com no mín. 1 jogador do Paraguai ou Equador no 11 inicial", recompensa: "Pacote 2 Jog. 84+, Playstyle+ Chute Rasteiro Cruzado, Consumível Evo & 5 Tokens", total: 1 }
-  ]},
-  { cat: "Marcos: América do Sul", player: "Uruguai", expira: null,
-    recompensaFinal: "Item de jogador: Manuel Ugarte & 5 Tokens", tasks: [
-    { nome: "La Celeste", desc: "Marque um gol de Chute Colocado usando um ATA com no mín. 1 sul-americano no 11 inicial", recompensa: "Nicolás De la Cruz, Playstyle+ Passe Firme & 2 Cosméticos do Uruguai", total: 1 },
-    { nome: "The Maracanazo Moment", desc: "Marque 2 gols em uma única partida com no mín. 1 jogador uruguaio no 11 inicial", recompensa: "Emblema & 1 Token", total: 1 },
-    { nome: "Garra Charrúa", desc: "Sofra menos de 2 gols em uma única partida com no mín. 1 jogador uruguaio no 11 inicial", recompensa: "Pacote 2 Jog. 84+ & 1 Token", total: 1 },
-    { nome: "The First to Conquer", desc: "Dê assistência com um meio-campista em 3 partidas separadas com no mín. 1 jogador uruguaio", recompensa: "Playstyle+ Passe Firme & Consumível de Evolução", total: 3 }
-  ]},
-  { cat: "Marcos: América do Sul", player: "Colômbia", expira: null, minToComplete: 5,
-    recompensaFinal: "Item de jogador: Jaminton Campaz & 15 Tokens", tasks: [
-    { nome: "Colombian Class", desc: "Jogue 5 partidas com no mín. 2 sul-americanos no 11 inicial", recompensa: "Marino Hinestroza, Johan Mojica e Juan David Cabal & Emblema", total: 5 },
-    { nome: "Los Cafeteros", desc: "Marque usando um jogador com 85+ de Ritmo, com no mín. 4 colombianos no 11 inicial", recompensa: "Quintero, Víctor Ibarbo, especial El Bandido & 15 Tokens", total: 1 },
-    { nome: "The Legendary 5-0", desc: "Marque 5+ gols e vença uma partida com no mín. 4 colombianos no 11 inicial", recompensa: "Pacote 2 Jog. 84+ & 2 Cosméticos da Colômbia", total: 1 },
-    { nome: "El Pibe's Passing", desc: "Assistência com Passe Enfiado usando um MEI colombiano em 3 vitórias separadas", recompensa: "Pacote 2 Jog. 84+ & 15 Tokens", total: 3 },
-    { nome: "El Bandido's Volley", desc: "Marque um gol de voleio usando um MEI colombiano em qualquer modo UT", recompensa: "Pacote 2 Jog. 84+", total: 1 },
-    { nome: "Dance Party", desc: "Marque gol em 5 partidas separadas com no mín. 4 colombianos no 11 inicial", recompensa: "Pacote 2 Jog. 84+", total: 5 }
-  ]},
-  { cat: "Marcos: América do Sul", player: "Brasil", expira: null,
-    recompensaFinal: "Item de jogador: Rayan & 15 Tokens", tasks: [
-    { nome: "Favela Flair", desc: "Marque 2+ gols em 10 partidas separadas com no mín. 2 sul-americanos no 11 inicial", recompensa: "Neymar Jr & Playstyle+: O Capitão", total: 10 },
-    { nome: "Canarinho", desc: "Assistência de primeira (jogador 80+ PAS) em 5 partidas separadas com no mín. 2 brasileiros", recompensa: "Dante e Joelinton & Tifo do Pelé", total: 5 },
-    { nome: "Gaúcho da Copa's Legacy", desc: "Vença 3 partidas com no mín. 4 brasileiros no 11 inicial", recompensa: "Emblema & Tifo do Carlos Alberto", total: 3 },
-    { nome: "Vingança", desc: "Marque 7+ gols e sofra no máx. 1 em uma única partida com no mín. 4 brasileiros", recompensa: "Fabinho & 15 Tokens", total: 1 },
-    { nome: "Joga Bonito", desc: "Marque Chute Rasteiro Cruzado com um LD em uma vitória, com no mín. 4 brasileiros", recompensa: "Playstyle+: O Capitão, 2 Cosméticos do Brasil & 15 Tokens", total: 1 }
-  ]},
-  { cat: "Marcos: América do Sul", player: "Argentina", expira: null, minToComplete: 4,
-    recompensaFinal: "Item de jogador: Thiago Almada & 15 Tokens", tasks: [
-    { nome: "Dar un pase gol", desc: "Dê 1+ assistência em 10 partidas separadas com no mín. 2 sul-americanos no 11 inicial", recompensa: "Messi, Emiliano Martínez e Cristian Romero & Emblema", total: 10 },
-    { nome: "La Albiceleste", desc: "Marque 3 gols com no mín. 3 argentinos no 11 inicial", recompensa: "Nico Gonzalez, especial O Garoto de Rosário & 15 Tokens", total: 3 },
-    { nome: "El Pibe de Oro", desc: "Marque um gol de cabeça com um jogador da Argentina", recompensa: "Bola Adidas Cnxt25 Pro & 2 Cosméticos da Argentina", total: 1 },
-    { nome: "Ankara Messi", desc: "Marque driblando o goleiro usando um PD argentino", recompensa: "Pacote 2 Jog. 84+ & 15 Tokens", total: 1 },
-    { nome: "3 Stars", desc: "Vença 3 partidas com no mín. 4 argentinos no 11 inicial", recompensa: "Pacote 2 Jog. 84+", total: 3 },
-    { nome: "La Scaloneta's Men", desc: "Assistência com Passe Enfiado em 5 partidas separadas com no mín. 4 argentinos", recompensa: "Pacote 2 Jog. 84+", total: 5 }
-  ]},
-  { cat: "Marcos: América do Sul", player: "The Wizard (O Mago)", expira: null, minToComplete: 3,
-    recompensaFinal: "Tifo 2 do Ronaldinho & 25 Tokens", tasks: [
-    { nome: "Ronaldinho Gaúcho", desc: "Marque e vença em 5 partidas (SB Classe Mundial+, Live, Rivals ou Champions) com jogador 5★ Skill e 6 brasileiros", recompensa: "20 Tokens & Empréstimo: Ronaldinho", total: 5 },
-    { nome: "The Genius or Fluke?", desc: "Marque um gol de falta direta usando qualquer versão de Ronaldinho", recompensa: "Pacote Jog. 85+ & 25 Tokens", total: 1 },
-    { nome: "Long Range Threat", desc: "Marque 15 gols de fora da área em qualquer modo UT", recompensa: "Pacote Jog. 85+ & 25 Tokens", total: 15 },
-    { nome: "Free Scoring Brasil", desc: "Marque e vença em 20 partidas (SB Classe Mundial+, Live, Rivals ou Champions) com 6 brasileiros", recompensa: "Pacote Jog. 85+", total: 20 }
-  ]},
-  { cat: "Marcos: América do Sul", player: "Striker's Mindset", expira: null, minToComplete: 4,
-    recompensaFinal: "Escolha 1 de 3 Jog. FoF GotG, Pacote 10x Jog. 85+ & 30 Tokens", tasks: [
-    { nome: "Knuckleball Nightmares", desc: "Marque 5 gols com jogador uruguaio (SB Classe Mundial+, Live, Rivals ou Champions)", recompensa: "Diego Forlán, Playstyle+ Bola Parada & Escolha 1 de 3 FoF GotG", total: 5 },
-    { nome: "El Bota de Oro", desc: "Marque 2 gols de fora da área com qualquer Diego Forlán (SB Classe Mundial+, Live, Rivals ou Champions)", recompensa: "Pacote Jog. 85+ & 30 Tokens", total: 2 },
-    { nome: "Spot Kick Specialist", desc: "Marque 2 gols de pênalti com qualquer Diego Forlán", recompensa: "Pacote Jog. 85+ & 30 Tokens", total: 2 },
-    { nome: "Cachavacha", desc: "Dê 1 assistência com qualquer Diego Forlán (SB Classe Mundial+, Live, Rivals ou Champions)", recompensa: "Pacote Jog. 85+ & 30 Tokens", total: 1 },
-    { nome: "Deadball Danger", desc: "Marque 1 gol de falta direta com qualquer Diego Forlán", recompensa: "Pacote Jog. 85+", total: 1 },
-    { nome: "Vicious Volley", desc: "Marque um gol de voleio com qualquer Diego Forlán", recompensa: "Pacote Jog. 85+", total: 1 }
-  ]},
-
-  // ───────────── Campaign ─────────────
-  { cat: "Campaign", player: "Glory Hunters · Week 1", expira: "03 jul 2026",
-    recompensaFinal: "2.000 XP (SP) & 40 Tokens", tasks: [
-    { nome: "Play 3", desc: "Jogue 3 partidas (SB Semiprofissional+, Live, Rivals ou Champions)", recompensa: "300 XP (SP) & 2.000 XP do grupo", total: 3 },
-    { nome: "Score in 5", desc: "Marque em 5 partidas separadas (SB Semiprofissional+, Live, Rivals ou Champions)", recompensa: "30 Tokens & 300 XP (SP)", total: 5 },
-    { nome: "Play 10", desc: "Jogue 10 partidas (SB Semiprofissional+, Live, Rivals ou Champions)", recompensa: "30 Tokens & 300 XP (SP)", total: 10 },
-    { nome: "Score in 15", desc: "Marque em 15 partidas separadas (SB Semiprofissional+, Live, Rivals ou Champions)", recompensa: "30 Tokens & 300 XP (SP)", total: 15 }
-  ]},
-  { cat: "Campaign", player: "Chase the Glory", expira: null,
-    recompensaFinal: "Consumíveis Evo: GH 4th Finesse Shot+ & GH 4th Intercept+", tasks: [
-    { nome: "Assist in 10", desc: "Dê 1 assistência em 10 partidas com no mín. 3 'Glory Hunters' no 11 inicial", recompensa: "GH 4th Pinged Pass+ & Incisive Pass+", total: 10 },
-    { nome: "Defiant Defender", desc: "Sofra 3 gols ou menos em 15 partidas com no mín. 3 'Glory Hunters' no 11 inicial", recompensa: "GH 4th Anticipate+ & Bruiser+", total: 15 },
-    { nome: "Win in 30", desc: "Vença 30 partidas separadas com no mín. 3 'Glory Hunters' no 11 inicial", recompensa: "GH 4th Rapid+ & Quick Step+", total: 30 },
-    { nome: "Score in 50", desc: "Marque gol em 50 partidas separadas com no mín. 3 'Glory Hunters' no 11 inicial", recompensa: "GH 4th Technical+ & Low Driven Shot", total: 50 }
-  ]}
+// ==================== DATA ====================
+const OBJECTIVES = [
+    // === LIVE EVENTS ===
+    {
+        id: 'journey-europe',
+        category: 'live',
+        name: 'Journey of Nations Europe',
+        completionRule: 'Exige 6 de 6 (100% das missoes)',
+        expiresIn: '7 dias',
+        groupReward: 'Pacote de Jogadores Ouro Raro 87+ (Inegociavel)',
+        tasks: [
+            { id: 'je-1', name: 'Play 1', requirement: 'Jogue 1 partida no Amistoso ao Vivo "Journey of Nations Europe"', reward: 'Pacote de 5 Jogadores Ouro Raro 80+', total: 1 },
+            { id: 'je-2', name: 'Win 1', requirement: 'Venca 1 partida no Amistoso ao Vivo "Journey of Nations Europe"', reward: 'Pacote de 5 Jogadores Ouro Raro 81+', total: 1 },
+            { id: 'je-3', name: 'Play 2', requirement: 'Jogue 2 partidas no Amistoso ao Vivo "Journey of Nations Europe"', reward: 'Pacote de 2 Jogadores Ouro Raro 84+', total: 2 },
+            { id: 'je-4', name: 'Win 2', requirement: 'Venca 2 partidas no Amistoso ao Vivo "Journey of Nations Europe"', reward: 'Estilo de Entrosamento: Cacador (Hunter)', total: 2 },
+            { id: 'je-5', name: 'Play 3', requirement: 'Jogue 3 partidas no Amistoso ao Vivo "Journey of Nations Europe"', reward: 'Item de Celebracao (Award)', total: 3 },
+            { id: 'je-6', name: 'Win 3', requirement: 'Venca 3 partidas no Amistoso ao Vivo "Journey of Nations Europe"', reward: 'Estilo de Entrosamento: Sombra (Shadow)', total: 3 },
+        ]
+    },
+    {
+        id: 'festival-gauntlet-2',
+        category: 'live',
+        name: 'Festival of Football Gauntlet 2',
+        completionRule: 'Exige 10 de 10 (100% das missoes)',
+        expiresIn: '7 dias',
+        groupReward: 'Item de jogador Lenda: Ruud Gullit (Emprestimo) ou Recompensa Suprema de Gauntlet de Temporada',
+        tasks: [
+            { id: 'fg2-1', name: 'Round Runner', requirement: 'Jogue 5 partidas no modo Festival of Football Gauntlet 2', reward: '20 Tokens', total: 5 },
+            { id: 'fg2-2', name: 'Hat Trick', requirement: 'Venca pelo menos 3 partidas em uma unica rodada (single round) no Gauntlet 2', reward: '30 Tokens', total: 3 },
+            { id: 'fg2-3', name: 'Double Down', requirement: 'Venca pelo menos 3 partidas em uma unica rodada no Gauntlet 2, por duas vezes', reward: 'Pacote de 4 Jogadores Ouro Raro 85+', total: 2 },
+            { id: 'fg2-4', name: 'Triple Crown', requirement: 'Venca pelo menos 3 partidas em uma unica rodada no Gauntlet 2, por tres vezes', reward: 'Consumivel de Desbloqueio de Evolucao', total: 3 },
+            { id: 'fg2-5', name: 'Quad Strike', requirement: 'Venca pelo menos 4 partidas em uma unica rodada no Gauntlet 2', reward: 'Escolha de 1 de 4 Jogadores Ouro Raro 88+', total: 4 },
+            { id: 'fg2-6', name: 'Double Quad', requirement: 'Venca pelo menos 4 partidas em uma unica rodada no Gauntlet 2, por duas vezes', reward: 'Pacote de 10 Jogadores Ouro Raro 85+', total: 2 },
+            { id: 'fg2-7', name: 'Quad Dynasty', requirement: 'Venca pelo menos 4 partidas em uma unica rodada no Gauntlet 2, por tres vezes', reward: 'Pacote de 5 Jogadores Ouro Raro 86+ & Escolha de 1 de 2 Jogadores Ouro Raro 89+', total: 3 },
+            { id: 'fg2-8', name: 'Perfect Round', requirement: 'Conclua uma Rodada Perfeita (vencer todas as partidas permitidas da rodada) no Gauntlet 2', reward: 'Escolha de 1 de 4 Jogadores Ouro Raro 88+ & Escolha de 1 de 4 Jogadores Ouro Raro 89+', total: 1 },
+            { id: 'fg2-9', name: 'Double Perfect', requirement: 'Conclua uma Rodada Perfeita por duas vezes no Gauntlet 2', reward: 'Pacote de 4 Jogadores Ouro Raro 90+', total: 2 },
+            { id: 'fg2-10', name: 'Triple Perfect', requirement: 'Conclua uma Rodada Perfeita por tres vezes no Gauntlet 2', reward: 'Pacote de 7 Jogadores Ouro Raro 88+ & Pacote de 3 Jogadores FoF 93+ Garantidos', total: 3 },
+        ]
+    },
+    {
+        id: 'knockout-glory-1-tournament',
+        category: 'live',
+        name: 'Knockout Glory 1 - Tournament Obj',
+        completionRule: 'Exige 4 de 4 (100% das missoes)',
+        expiresIn: '5 dias',
+        groupReward: 'Desbloqueio de Evolucao Especial Mata-Mata',
+        tasks: [
+            { id: 'kg1t-1', name: 'Win Round of 16', requirement: 'Venca a partida de Oitavas de Final na Copa Knockout Glory', reward: 'Pacote de 4 Jogadores Ouro Raro 85+', total: 1 },
+            { id: 'kg1t-2', name: 'Win Quarter-Finals', requirement: 'Venca a partida de Quartas de Final na Copa Knockout Glory', reward: 'Consumivel de Desbloqueio de Evolucao', total: 1 },
+            { id: 'kg1t-3', name: 'Win Semi-Finals', requirement: 'Venca a partida de Semifinal na Copa Knockout Glory', reward: 'Pacote de 5 Jogadores Ouro Raro 87+', total: 1 },
+            { id: 'kg1t-4', name: 'Win Tournament', requirement: 'Venca a Grande Final do Torneio Knockout Glory', reward: 'Item de Jogador Especial do Evento', total: 1 },
+        ]
+    },
+    {
+        id: 'knockout-glory-1-bonus',
+        category: 'live',
+        name: 'Knockout Glory 1 - Bonus Completionist',
+        completionRule: 'Exige 4 de 4 objetivos de sequencia de Copas',
+        expiresIn: '5 dias',
+        groupReward: 'Pacote do Ultimate TOTS Garantido',
+        tasks: [
+            { id: 'kg1b-1', name: 'Win Tournament Once', requirement: 'Venca o torneio Knockout Glory 1 vez', reward: 'Pacote de 2 Jogadores Ouro Raro 87+', total: 1 },
+            { id: 'kg1b-2', name: 'Win Tournament Twice', requirement: 'Venca o torneio Knockout Glory 2 vezes', reward: 'Pacote de 10 Jogadores Ouro Raro 84+', total: 2 },
+            { id: 'kg1b-3', name: 'Win Tournament 3 Times', requirement: 'Venca o torneio Knockout Glory 3 vezes', reward: 'Pacote de 15 Jogadores Ouro Raro 84+', total: 3 },
+            { id: 'kg1b-4', name: 'Perfect Campaign', requirement: 'Venca o torneio Knockout Glory 4 vezes no total', reward: 'Pacote de 5 Jogadores Ouro Raro 88+', total: 4 },
+        ]
+    },
+    {
+        id: 'knockout-glory-bonus-multi',
+        category: 'live',
+        name: 'Knockout Glory Bonus Completionist',
+        completionRule: 'Objetivo Geral de Conclusao de Abas Multiplas',
+        groupReward: 'Escolha de Jogador 96+ FoF PTG Garantido',
+        tasks: [
+            { id: 'kgbm-1', name: 'Complete Knockout Glory 1', requirement: 'Complete a aba Knockout Glory 1', reward: 'Progresso desbloqueado', total: 1 },
+            { id: 'kgbm-2', name: 'Complete Knockout Glory 2', requirement: 'Complete a aba Knockout Glory 2 (quando lancada)', reward: 'Progresso desbloqueado', total: 1 },
+            { id: 'kgbm-3', name: 'Complete Knockout Glory 3', requirement: 'Complete a aba Knockout Glory 3 (quando lancada)', reward: 'Recompensa Final: Escolha de Jogador 96+ FoF PTG Garantido', total: 1 },
+        ]
+    },
+    // === MILESTONES - EUROPE ===
+    {
+        id: 'europe-completionist',
+        category: 'milestones',
+        name: 'Europe Completionist',
+        completionRule: 'Complete os 8 subgrupos regionais europeus',
+        groupReward: 'Item de jogador Heroi Classico: Zinedine Zidane (Inegociavel)',
+        tasks: [
+            { id: 'ec-1', name: 'England + Spain', requirement: 'Complete o grupo "England + Spain"', reward: 'Itens de jogador: Cole Palmer e Lamine Yamal & 15 Tokens', total: 1 },
+            { id: 'ec-2', name: 'Germany + France', requirement: 'Complete o grupo "Germany + France"', reward: 'Itens de jogador: Florian Wirtz e Eduardo Camavinga & 15 Tokens', total: 1 },
+            { id: 'ec-3', name: 'Portugal + Netherlands', requirement: 'Complete o grupo "Portugal + Netherlands"', reward: 'Itens de jogador: Rafael Leao e Xavi Simons & 15 Tokens', total: 1 },
+            { id: 'ec-4', name: 'Norway + Belgium', requirement: 'Complete o grupo "Norway + Belgium"', reward: 'Itens de jogador: Erling Haaland e Kevin De Bruyne & 15 Tokens', total: 1 },
+            { id: 'ec-5', name: 'Turkiye + Sweden', requirement: 'Complete o grupo "Turkiye + Sweden"', reward: 'Itens de jogador: Arda Guler e Alexander Isak & 5 Tokens', total: 1 },
+            { id: 'ec-6', name: 'Austria + Scotland', requirement: 'Complete o grupo "Austria + Scotland"', reward: 'Itens de jogador: Marcel Sabitzer e Andrew Robertson & 5 Tokens', total: 1 },
+            { id: 'ec-7', name: 'Switzerland + Croatia', requirement: 'Complete o grupo "Switzerland + Croatia"', reward: 'Itens de jogador: Granit Xhaka e Luka Modric & 5 Tokens', total: 1 },
+            { id: 'ec-8', name: 'Bosnia + Czechia', requirement: 'Complete o grupo "Bosnia and Herzegovina + Czechia"', reward: 'Itens de jogador: Edin Dzeko e Patrik Schick & 5 Tokens', total: 1 },
+        ]
+    },
+    {
+        id: 'england-spain',
+        category: 'milestones',
+        name: 'England + Spain',
+        completionRule: 'Exige 4 de 4 (100% das missoes)',
+        groupReward: 'Itens de jogador: Cole Palmer e Lamine Yamal & 15 Tokens',
+        tasks: [
+            { id: 'es-1', name: 'Three Lions', requirement: 'Marque 3 gols usando jogadores da Inglaterra em qualquer modo do UT', reward: 'Tifo de Fundo da Inglaterra & Emblema', total: 3 },
+            { id: 'es-2', name: 'La Furia Roja', requirement: 'De 3 assistencias de Chute Colocado usando jogadores da Espanha em qualquer modo do UT', reward: 'Tifo de Fundo da Espanha', total: 3 },
+            { id: 'es-3', name: 'European Royalty', requirement: 'Venca 4 partidas tendo no minimo 3 jogadores ingleses e 3 espanhois no seu 11 inicial', reward: 'Pacote de 2 Jogadores Ouro Raro 84+ & 15 Tokens', total: 4 },
+            { id: 'es-4', name: 'Tiki-Taka Master', requirement: 'De uma assistencia com Passe de Primeira (First Touch) usando um jogador espanhol em 3 vitorias separadas', reward: 'Consumivel de Desbloqueio de Evolucao', total: 3 },
+        ]
+    },
+    {
+        id: 'germany-france',
+        category: 'milestones',
+        name: 'Germany + France',
+        completionRule: 'Exige 4 de 4 (100% das missoes)',
+        groupReward: 'Itens de jogador: Florian Wirtz e Eduardo Camavinga & 15 Tokens',
+        tasks: [
+            { id: 'gf-1', name: 'Die Mannschaft', requirement: 'Marque 1 gol de fora da area com um jogador alemao em qualquer modo do UT', reward: 'Tifo de Fundo da Alemanha', total: 1 },
+            { id: 'gf-2', name: 'Les Bleus', requirement: 'Venca 3 partidas mantendo uma Clean Sheet (sem sofrer gols) tendo no minimo 2 jogadores franceses no seu 11 inicial', reward: 'Tifo de Fundo da Franca', total: 3 },
+            { id: 'gf-3', name: 'Continental Powerhouse', requirement: 'Marque usando jogadores franceses em 5 partidas separadas com no minimo 3 alemaes titulares', reward: 'Pacote de 2 Jogadores Ouro Raro 84+ & 15 Tokens', total: 5 },
+            { id: 'gf-4', name: 'Gegenpressing', requirement: 'Sofra 1 gol ou menos em 4 partidas separadas com no minimo 4 jogadores combinados entre Alemanha e Franca no seu 11 inicial', reward: 'Consumivel de Desbloqueio de Evolucao', total: 4 },
+        ]
+    },
+    {
+        id: 'portugal-netherlands',
+        category: 'milestones',
+        name: 'Portugal + Netherlands',
+        completionRule: 'Exige 4 de 4 (100% das missoes)',
+        groupReward: 'Itens de jogador: Rafael Leao e Xavi Simons & 15 Tokens',
+        tasks: [
+            { id: 'pn-1', name: 'Selecao das Quinas', requirement: 'Marque 2 gols de cabeca usando jogadores de Portugal em qualquer modo do UT', reward: 'Tifo de Portugal', total: 2 },
+            { id: 'pn-2', name: 'Oranje', requirement: 'De 5 assistencias com passes enfiados usando jogadores da Holanda em qualquer modo do UT', reward: 'Tifo da Holanda', total: 5 },
+            { id: 'pn-3', name: 'Total Football', requirement: 'Venca 3 partidas marcando pelo menos 3 gols por jogo tendo no minimo 2 jogadores de Portugal e 2 da Holanda titulares', reward: 'Pacote de 2 Jogadores Ouro Raro 84+ & 15 Tokens', total: 3 },
+            { id: 'pn-4', name: 'Flying Dutchmen & Co.', requirement: 'Marque um gol de voleio em 2 partidas separadas usando jogadores deste grupo regional', reward: 'Consumivel de Desbloqueio de Evolucao', total: 2 },
+        ]
+    },
+    {
+        id: 'norway-belgium',
+        category: 'milestones',
+        name: 'Norway + Belgium',
+        completionRule: 'Exige 4 de 4 (100% das missoes)',
+        groupReward: 'Itens de jogador: Erling Haaland e Kevin De Bruyne & 15 Tokens',
+        tasks: [
+            { id: 'nb-1', name: 'The Red Devils', requirement: 'De 4 assistencias usando meio-campistas da Belgica em qualquer modo do UT', reward: 'Tifo da Belgica', total: 4 },
+            { id: 'nb-2', name: 'Lions of the North', requirement: 'Marque 5 gols com atacantes da Noruega em qualquer modo do UT', reward: 'Tifo da Noruega', total: 5 },
+            { id: 'nb-3', name: 'Physical Domination', requirement: 'Venca 4 partidas por pelo menos 2 gols de diferenca com no minimo 1 jogador da Noruega e 1 da Belgica nos titulares', reward: 'Pacote de 2 Jogadores Ouro Raro 84+ & 15 Tokens', total: 4 },
+            { id: 'nb-4', name: 'Clinical Finishers', requirement: 'Marque 2 gols de Superchute (Power Shot) com jogadores belgas ou noruegueses', reward: 'Consumivel de Desbloqueio de Evolucao', total: 2 },
+        ]
+    },
+    {
+        id: 'turkiye-sweden',
+        category: 'milestones',
+        name: 'Turkiye + Sweden',
+        completionRule: 'Exige 4 de 4 (100% das missoes)',
+        groupReward: 'Itens de jogador: Arda Guler e Alexander Isak & 5 Tokens',
+        tasks: [
+            { id: 'ts-1', name: 'Biz Biziz', requirement: 'Marque um gol de Chute Colocado com um jogador da Turquia em 3 partidas separadas', reward: 'Tifo da Turquia', total: 3 },
+            { id: 'ts-2', name: 'Blagult', requirement: 'Jogue 4 partidas tendo no minimo 2 jogadores da Suecia no seu 11 inicial', reward: 'Tifo da Suecia', total: 4 },
+            { id: 'ts-3', name: 'Bosphorus & Baltic', requirement: 'Venca 3 partidas marcando com um jogador turco ou sueco', reward: 'Pacote de 2 Jogadores Ouro Raro 84+ & 5 Tokens', total: 3 },
+            { id: 'ts-4', name: "Sultan's Flair", requirement: 'De 3 assistencias usando cruzamentos com jogadores deste grupo', reward: 'Consumivel de Desbloqueio de Evolucao', total: 3 },
+        ]
+    },
+    {
+        id: 'austria-scotland',
+        category: 'milestones',
+        name: 'Austria + Scotland',
+        completionRule: 'Exige 4 de 4 (100% das missoes)',
+        groupReward: 'Itens de jogador: Marcel Sabitzer e Andrew Robertson & 5 Tokens',
+        tasks: [
+            { id: 'as-1', name: 'Das Team', requirement: 'Sofra 1 gol ou menos em 3 partidas separadas com no minimo 2 jogadores da Austria titulares', reward: 'Tifo da Austria', total: 3 },
+            { id: 'as-2', name: 'The Tartan Army', requirement: 'Marque 4 gols usando defensores ou alas da Escocia em qualquer modo do UT', reward: 'Tifo da Escocia', total: 4 },
+            { id: 'as-3', name: 'Highland Grit', requirement: 'Venca 3 partidas tendo no minimo 2 austricos e 2 escoceses no seu 11 inicial', reward: 'Pacote de 2 Jogadores Ouro Raro 84+ & 5 Tokens', total: 3 },
+            { id: 'as-4', name: 'Alpen Express', requirement: 'De uma assistencia com passe enfiado por cobertura em 2 partidas separadas usando jogadores deste grupo', reward: 'Consumivel de Desbloqueio de Evolucao', total: 2 },
+        ]
+    },
+    {
+        id: 'switzerland-croatia',
+        category: 'milestones',
+        name: 'Switzerland + Croatia',
+        completionRule: 'Exige 4 de 4 (100% das missoes)',
+        groupReward: 'Itens de jogador: Granit Xhaka e Luka Modric & 5 Tokens',
+        tasks: [
+            { id: 'sc-1', name: 'Nati', requirement: 'De 3 assistencias usando jogadores da Suica em qualquer modo do UT', reward: 'Tifo da Suica', total: 3 },
+            { id: 'sc-2', name: 'Vatreni', requirement: 'Marque 3 gols de fora da area usando jogadores da Croacia em qualquer modo do UT', reward: 'Tifo da Croacia', total: 3 },
+            { id: 'sc-3', name: 'Alpine & Adriatic', requirement: 'Venca 3 partidas com no minimo 2 suicos e 2 croatas no seu 11 inicial', reward: 'Pacote de 2 Jogadores Ouro Raro 84+ & 5 Tokens', total: 3 },
+            { id: 'sc-4', name: 'Midfield Masters', requirement: 'De uma assistencia de primeira (sem dominar) usando um meio-campista da Croacia ou Suica em 2 vitorias separadas', reward: 'Consumivel de Desbloqueio de Evolucao', total: 2 },
+        ]
+    },
+    {
+        id: 'bosnia-czechia',
+        category: 'milestones',
+        name: 'Bosnia and Herzegovina + Czechia',
+        completionRule: 'Exige 4 de 4 (100% das missoes)',
+        groupReward: 'Itens de jogador: Edin Dzeko e Patrik Schick & 5 Tokens',
+        tasks: [
+            { id: 'bc-1', name: 'Zmajevi', requirement: 'Marque 3 gols usando jogadores da Bosnia em qualquer modo do UT', reward: 'Tifo da Bosnia', total: 3 },
+            { id: 'bc-2', name: 'Nasi', requirement: 'De 3 assistencias com cruzamentos usando jogadores da Chequia em qualquer modo do UT', reward: 'Tifo da Chequia', total: 3 },
+            { id: 'bc-3', name: 'Eastern Resilience', requirement: 'Jogue 4 partidas tendo no minimo 1 bosnio e 1 checo no seu 11 inicial', reward: 'Pacote de 2 Jogadores Ouro Raro 84+ & 5 Tokens', total: 4 },
+            { id: 'bc-4', name: 'Towering Headers', requirement: 'Marque um gol de cabeca em 2 partidas separadas usando jogadores deste grupo', reward: 'Consumivel de Desbloqueio de Evolucao', total: 2 },
+        ]
+    },
+    // === CAMPAIGN ===
+    {
+        id: 'glory-hunters-w2',
+        category: 'campaign',
+        name: 'Glory Hunters Week 2',
+        completionRule: 'Exige 4 de 4 (100% das missoes)',
+        expiresIn: '7 dias',
+        groupReward: '2.000 XP (SP) & 40 Tokens',
+        tasks: [
+            { id: 'ghw2-1', name: 'Play 4', requirement: 'Jogue 4 partidas no Squad Battles (Min. Semiprofissional), Live Events, Rivals ou Champions', reward: '300 XP (SP)', total: 4 },
+            { id: 'ghw2-2', name: 'Score in 6', requirement: 'Marque pelo menos 1 gol em 6 partidas separadas no Squad Battles (Min. Semiprofissional), Live Events, Rivals ou Champions', reward: '30 Tokens & 300 XP (SP)', total: 6 },
+            { id: 'ghw2-3', name: 'Play 12', requirement: 'Jogue 12 partidas no Squad Battles (Min. Semiprofissional), Live Events, Rivals ou Champions', reward: '30 Tokens & 300 XP (SP)', total: 12 },
+            { id: 'ghw2-4', name: 'Score in 18', requirement: 'Marque pelo menos 1 gol em 18 partidas separadas no Squad Battles (Min. Semiprofissional), Live Events, Rivals ou Champions', reward: '30 Tokens & 300 XP (SP)', total: 18 },
+        ]
+    },
+    {
+        id: 'chase-glory-2',
+        category: 'campaign',
+        name: 'Chase the Glory 2',
+        completionRule: 'Exige 4 de 4 (100% das missoes)',
+        groupReward: 'Consumiveis de Evolucao: GH 5th Power Shot+ & GH 5th Block+',
+        tasks: [
+            { id: 'ctg2-1', name: 'Assist in 15', requirement: 'De 1 assistencia em 15 partidas separadas com no minimo 3 Glory Hunters titulares', reward: 'Consumiveis: GH 5th Whipped Pass+ & GH 5th Long Ball Pass+', total: 15 },
+            { id: 'ctg2-2', name: 'Defiant Defender 2', requirement: 'Sofra 2 gols ou menos em 20 partidas separadas com no minimo 3 Glory Hunters titulares', reward: 'Consumiveis: GH 5th Jockey+ & GH 5th Slide Tackle+', total: 20 },
+            { id: 'ctg2-3', name: 'Win in 35', requirement: 'Venca 35 partidas separadas com no minimo 3 Glory Hunters titulares', reward: 'Consumiveis: GH 5th Relentless+ & GH 5th Press Proven+', total: 35 },
+            { id: 'ctg2-4', name: 'Score in 60', requirement: 'Marque gol em 60 partidas separadas com no minimo 3 Glory Hunters titulares', reward: 'Consumiveis: GH 5th Trivela+ & GH 5th Power Header+', total: 60 },
+        ]
+    },
+    {
+        id: 'festival-sp-chase',
+        category: 'campaign',
+        name: 'Festival of Football SP Chase',
+        completionRule: 'Exige 5 de 5 (100% das missoes)',
+        expiresIn: 'Fim da Temporada',
+        groupReward: 'Super Pacote de 20 Jogadores Ouro Raro 85+',
+        tasks: [
+            { id: 'fsc-1', name: 'Daily Crafting', requirement: 'Complete o DME/SBC de Melhoria Diaria de Festival de Futebol 5 vezes', reward: '500 XP (SP)', total: 5 },
+            { id: 'fsc-2', name: 'Rivals Warrior', requirement: 'Venca 5 partidas no modo Rivals', reward: '750 XP (SP)', total: 5 },
+            { id: 'fsc-3', name: 'Champions Extravaganza', requirement: 'Jogue 10 partidas nas Finais ou Eliminatorias do Champions', reward: '1.000 XP (SP)', total: 10 },
+            { id: 'fsc-4', name: 'Rush Master', requirement: 'Ganhe 50.000 pontos de Rush no modo Ultimate Team Rush', reward: '750 XP (SP)', total: 5000 },
+            { id: 'fsc-5', name: 'Squad Battles Grind', requirement: 'Venca 10 partidas de Squad Battles na dificuldade Min. Profissional', reward: '500 XP (SP)', total: 10 },
+        ]
+    }
 ];
 
-const CAT_ICONS = {
-  "Season 8": "📅",
-  "Live Events": "🔴",
-  "Marcos: América do Sul": "🌎",
-  "Campaign": "🏆"
-};
+// ==================== STATE ====================
+let progress = JSON.parse(localStorage.getItem('fc-tracker-progress-v4')) || {};
+let favorites = JSON.parse(localStorage.getItem('fc-tracker-favs-v4')) || [];
+let hideCompleted = false;
 
-/* ── JSONBin Cloud Sync ── */
-const JSONBIN_KEY = '$2a$10$rkJwuFm6CQYGT0xS8jLZrOh80qsO7Q7Hz0VaNdLIGRnxtOcImy6Aa';
-const BIN_NAME = 'fc-tracker-joao';
-const FIXED_BIN_ID = '6a19ee8921f9ee59d29b5db1';
-let BIN_ID = FIXED_BIN_ID;
-localStorage.setItem('fc_bin_id', FIXED_BIN_ID);
-let syncTimeout = null;
-let isSyncing = false;
-
-function setSyncStatus(status) {
-  const el = document.getElementById('sync-status');
-  if (!el) return;
-  const map = {
-    ok:      { icon: '☁️', text: 'Salvo', color: '#00e676' },
-    saving:  { icon: '⏳', text: 'Salvando...', color: '#ffc928' },
-    loading: { icon: '⏳', text: 'Carregando...', color: '#ffc928' },
-    error:   { icon: '⚠️', text: 'Erro de sinc', color: '#ff2d55' },
-    offline: { icon: '📴', text: 'Offline', color: '#8a909c' }
-  };
-  const s = map[status] || map.ok;
-  el.innerHTML = `<span class="sync-dot" style="background:${s.color}"></span><span style="color:${s.color}">${s.text}</span>`;
+function save() {
+    localStorage.setItem('fc-tracker-progress-v4', JSON.stringify(progress));
+    localStorage.setItem('fc-tracker-favs-v4', JSON.stringify(favorites));
 }
 
-async function criarBin(dados) {
-  try {
-    const res = await fetch('https://api.jsonbin.io/v3/b', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY, 'X-Bin-Name': BIN_NAME, 'X-Bin-Private': 'true' },
-      body: JSON.stringify(dados)
+function resetAll() {
+    if (!confirm('Deseja resetar todo o progresso?')) return;
+    progress = {};
+    favorites = [];
+    save();
+    render();
+}
+
+// ==================== HELPERS ====================
+function getProgress(taskId) {
+    return progress[taskId] || 0;
+}
+
+function isComplete(group) {
+    const needed = group.minToComplete || group.tasks.length;
+    let done = 0;
+    group.tasks.forEach(t => {
+        if (getProgress(t.id) >= t.total) done++;
     });
-    const json = await res.json();
-    BIN_ID = json.metadata.id;
-    localStorage.setItem('fc_bin_id', BIN_ID);
-    return true;
-  } catch(e) { return false; }
+    return done >= needed;
 }
 
-async function carregarNuvem() {
-  if (!BIN_ID) return false;
-  try {
-    setSyncStatus('loading');
-    const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-      headers: { 'X-Master-Key': JSONBIN_KEY }
+function calcGroupProgress(group) {
+    const needed = group.minToComplete || group.tasks.length;
+    let done = 0;
+    group.tasks.forEach(t => {
+        if (getProgress(t.id) >= t.total) done++;
     });
-    if (!res.ok) { setSyncStatus('error'); return false; }
-    const json = await res.json();
-    const dados = json.record;
-    progresso  = dados.progresso  || {};
-    subFavs    = dados.subFavs    || [];
-    requisitos = dados.requisitos || {};
-    localStorage.setItem('fc_joao_full_v1', JSON.stringify(progresso));
-    localStorage.setItem('fc_favs_full_v1',  JSON.stringify(subFavs));
-    localStorage.setItem('fc_reqs_full_v1',  JSON.stringify(requisitos));
-    setSyncStatus('ok');
-    return true;
-  } catch(e) { setSyncStatus('offline'); return false; }
+    return { done: Math.min(done, needed), total: needed, pct: Math.round((Math.min(done, needed) / needed) * 100) };
 }
 
-async function salvarNuvem() {
-  isSyncing = true;
-  setSyncStatus('saving');
-  const dados = { progresso, subFavs, requisitos };
-  try {
-    if (!BIN_ID) {
-      await criarBin(dados);
-    } else {
-      const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
-        body: JSON.stringify(dados)
-      });
-      if (!res.ok) throw new Error('Falha');
-    }
-    localStorage.setItem('fc_joao_full_v1', JSON.stringify(progresso));
-    localStorage.setItem('fc_favs_full_v1',  JSON.stringify(subFavs));
-    localStorage.setItem('fc_reqs_full_v1',  JSON.stringify(requisitos));
-    localStorage.setItem('fc_bin_id', BIN_ID);
-    setSyncStatus('ok');
-  } catch(e) {
-    setSyncStatus('error');
-    localStorage.setItem('fc_joao_full_v1', JSON.stringify(progresso));
-    localStorage.setItem('fc_favs_full_v1',  JSON.stringify(subFavs));
-    localStorage.setItem('fc_reqs_full_v1',  JSON.stringify(requisitos));
-  }
-  isSyncing = false;
-}
-
-function salvar() {
-  localStorage.setItem('fc_joao_full_v1', JSON.stringify(progresso));
-  localStorage.setItem('fc_favs_full_v1',  JSON.stringify(subFavs));
-  localStorage.setItem('fc_reqs_full_v1',  JSON.stringify(requisitos));
-  clearTimeout(syncTimeout);
-  syncTimeout = setTimeout(salvarNuvem, 1500);
-}
-
-/* ── Datas / Estado ── */
-const MESES = {jan:0,fev:1,mar:2,abr:3,mai:4,jun:5,jul:6,ago:7,set:8,out:9,nov:10,dez:11};
-function parseExpira(str) {
-  if (!str) return null;
-  const p = str.trim().toLowerCase().split(' ');
-  if (p.length < 3) return null;
-  const d = parseInt(p[0]), m = MESES[p[1]], y = parseInt(p[2]);
-  if (isNaN(d) || m === undefined || isNaN(y)) return null;
-  return new Date(y, m, d, 5, 0, 0);
-}
-function isExpired(group) {
-  const d = parseExpira(group.expira);
-  return d ? new Date() >= d : false;
-}
-function diasRestantes(group) {
-  const d = parseExpira(group.expira);
-  if (!d) return null;
-  return Math.ceil((d - new Date()) / 86400000);
-}
-function isGroupCompleted(gIdx) {
-  const group = OBJETIVOS[gIdx];
-  const needed = group.minToComplete || group.tasks.length;
-  let done = 0;
-  group.tasks.forEach((t, tIdx) => { if ((progresso[`g${gIdx}t${tIdx}`] || 0) >= t.total) done++; });
-  return done >= needed;
-}
-
-let progresso  = JSON.parse(localStorage.getItem('fc_joao_full_v1')) || {};
-let subFavs    = JSON.parse(localStorage.getItem('fc_favs_full_v1')) || [];
-let requisitos = JSON.parse(localStorage.getItem('fc_reqs_full_v1')) || {};
-let esconderAtivo = false;
-let termoBusca = '';
-
-async function limparTudo() {
-  if (!confirm("Deseja resetar TODO o progresso? Isso não pode ser desfeito.")) return;
-  progresso = {}; subFavs = []; requisitos = {};
-  await salvarNuvem();
-  localStorage.clear();
-  location.reload();
-}
-
-async function iniciar() {
-  setSyncStatus('loading');
-  const ok = await carregarNuvem();
-  if (!ok && !BIN_ID) {
-    await criarBin({ progresso, subFavs, requisitos });
-    setSyncStatus('ok');
-  }
-  render();
-}
-
-function setTab(tab) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-  document.querySelector(`.tab-btn[data-tab="${tab}"]`).classList.add('active');
-  document.getElementById('tab-' + tab).classList.add('active');
-}
-
-function toggleFiltro() {
-  esconderAtivo = !esconderAtivo;
-  document.getElementById('toggleTaskBtn').classList.toggle('active', esconderAtivo);
-  render();
-}
-
-function onSearch(v) {
-  termoBusca = v.trim().toLowerCase();
-  render();
-}
-
-function matchBusca(group) {
-  if (!termoBusca) return true;
-  if (group.player.toLowerCase().includes(termoBusca)) return true;
-  if (group.cat.toLowerCase().includes(termoBusca)) return true;
-  if ((group.recompensaFinal || '').toLowerCase().includes(termoBusca)) return true;
-  return group.tasks.some(t =>
-    (t.nome || '').toLowerCase().includes(termoBusca) ||
-    (t.desc || '').toLowerCase().includes(termoBusca) ||
-    (t.recompensa || '').toLowerCase().includes(termoBusca)
-  );
-}
-
-function toggleSubFav(id) {
-  subFavs = subFavs.includes(id) ? subFavs.filter(f => f !== id) : [...subFavs, id];
-  salvar(); render();
-}
-
-function verificarAutoCompletar(gIdx) {
-  const group = OBJETIVOS[gIdx];
-  if (!group.minToComplete) return;
-  let done = group.tasks.filter((t, tIdx) => (progresso[`g${gIdx}t${tIdx}`] || 0) >= t.total).length;
-  if (done >= group.minToComplete) group.tasks.forEach((t, tIdx) => progresso[`g${gIdx}t${tIdx}`] = t.total);
-}
-
-function calcGroupProgress(gIdx) {
-  const group = OBJETIVOS[gIdx];
-  let done = 0;
-  group.tasks.forEach((t, tIdx) => { if ((progresso[`g${gIdx}t${tIdx}`] || 0) >= t.total) done++; });
-  const total = group.minToComplete || group.tasks.length;
-  const counted = Math.min(done, total);
-  return { done: counted, total, pct: Math.round((counted / total) * 100) };
-}
-
-function setProgresso(id, val, gIdx) {
-  progresso[id] = Math.max(0, val);
-  verificarAutoCompletar(gIdx);
-  salvar(); render();
-}
-
-/* ── Render de uma tarefa ── */
-function createTaskHTML(task, id, player, gIdx, isFavContext, readonly) {
-  const valor = progresso[id] || 0;
-  const isDone = valor >= task.total;
-  if (!readonly && esconderAtivo && isDone && !isFavContext) return null;
-  const isFav = subFavs.includes(id);
-  const pct = Math.min(100, Math.round((valor / task.total) * 100));
-
-  const div = document.createElement('div');
-  div.className = 'sub-obj' + (isDone ? ' done' : '');
-
-  const rewardHTML = task.recompensa
-    ? `<div class="reward-text"><span class="r-ico">🎁</span><span>${task.recompensa}</span></div>` : '';
-  const descHTML = task.desc ? `<div class="desc-text">${task.desc}</div>` : '';
-
-  div.innerHTML = `
-    <div class="fav-sub-star ${isFav ? 'active' : ''}" onclick="event.stopPropagation();toggleSubFav('${id}')">★</div>
-    <div class="info">
-      <span class="nome-text">${isFavContext ? '<span class="ctx">[' + player + ']</span> ' : ''}${task.nome}</span>
-      ${descHTML}
-      ${rewardHTML}
-      <span class="count ${isDone ? 'full' : ''}"><b>${valor}/${task.total}</b> &bull; ${pct}%</span>
-    </div>
-    <div class="progress-bg"><div class="progress-bar ${isDone ? 'full' : ''}" style="width:${pct}%"></div></div>
-    <div class="counter-zone"></div>
-  `;
-
-  const zone = div.querySelector('.counter-zone');
-
-  if (task.total <= 12) {
-    // Grid de bolinhas
-    const grid = document.createElement('div');
-    grid.className = 'balls-grid';
-    for (let i = 1; i <= task.total; i++) {
-      const ball = document.createElement('div');
-      ball.className = 'ball' + (i <= valor ? ' active' : '') + (readonly ? ' readonly' : '');
-      ball.innerText = '⚽';
-      if (!readonly) ball.onclick = () => setProgresso(id, (valor === i) ? i - 1 : i, gIdx);
-      grid.appendChild(ball);
-    }
-    zone.appendChild(grid);
-  } else {
-    // Stepper para metas grandes
-    const stp = document.createElement('div');
-    stp.className = 'stepper';
-    const jump = task.total >= 30 ? 10 : 5;
-    stp.innerHTML = `
-      <button class="step-btn minus ${readonly ? 'readonly' : ''}" data-act="dec">−</button>
-      <button class="step-jump ${readonly ? 'readonly' : ''}" data-act="dec5">-${jump}</button>
-      <div class="step-val">${valor}<small>/${task.total}</small></div>
-      <button class="step-jump ${readonly ? 'readonly' : ''}" data-act="inc5">+${jump}</button>
-      <button class="step-btn plus ${readonly ? 'readonly' : ''}" data-act="inc">+</button>
-    `;
-    if (!readonly) {
-      stp.querySelectorAll('[data-act]').forEach(btn => {
-        btn.onclick = () => {
-          const act = btn.dataset.act;
-          let v = valor;
-          if (act === 'inc') v = Math.min(task.total, valor + 1);
-          else if (act === 'dec') v = Math.max(0, valor - 1);
-          else if (act === 'inc5') v = Math.min(task.total, valor + jump);
-          else if (act === 'dec5') v = Math.max(0, valor - jump);
-          setProgresso(id, v, gIdx);
-        };
-      });
-    }
-    zone.appendChild(stp);
-  }
-  return div;
-}
-
-/* ── Render de um card ── */
-function buildCard(group, gIdx, extraClass, readonly) {
-  const gp = calcGroupProgress(gIdx);
-  const expired = isExpired(group);
-  const dias = diasRestantes(group);
-
-  const card = document.createElement('div');
-  card.className = 'card' + (extraClass ? ' ' + extraClass : '');
-
-  let expiLabel;
-  if (!group.expira) expiLabel = `<span class="expira-label never">∞ Não expira</span>`;
-  else if (expired) expiLabel = `<span class="expira-label expired-lbl">💀 ${group.expira}</span>`;
-  else if (dias !== null && dias <= 1) expiLabel = `<span class="expira-label urgent">🔥 ${dias <= 0 ? 'Hoje' : '1 dia'}</span>`;
-  else expiLabel = `<span class="expira-label soon">⏳ ${dias} dias</span>`;
-
-  const head = document.createElement('div');
-  head.className = 'card-head';
-  head.innerHTML = `
-    <span class="player-name">${group.minToComplete ? `<span class="min-badge">${group.minToComplete}/${group.tasks.length}</span>` : ''}${group.player}</span>
-    ${expiLabel}
-  `;
-  card.appendChild(head);
-
-  if (group.recompensaFinal) {
-    const rf = document.createElement('div');
-    rf.className = 'reward-final';
-    rf.innerHTML = `<span class="rf-ico">🏅</span><span class="rf-txt"><b>Recompensa final:</b> ${group.recompensaFinal}</span>`;
-    card.appendChild(rf);
-  }
-
-  const progRow = document.createElement('div');
-  progRow.className = 'card-progress-row';
-  progRow.innerHTML = `
-    <div class="card-progress-bar-bg"><div class="card-progress-bar ${gp.pct === 100 ? 'full' : ''}" style="width:${gp.pct}%"></div></div>
-    <span class="card-pct-label ${gp.pct === 100 ? 'full' : ''}">${gp.done}/${gp.total} · ${gp.pct}%</span>
-  `;
-  card.appendChild(progRow);
-
-  const req = document.createElement('textarea');
-  req.className = 'req-box';
-  req.placeholder = "📝 Notas / combos / lembretes...";
-  req.value = requisitos['req-' + gIdx] || '';
-  req.oninput = (e) => { requisitos['req-' + gIdx] = e.target.value; salvar(); };
-  card.appendChild(req);
-
-  group.tasks.forEach((task, tIdx) => {
-    const html = createTaskHTML(task, `g${gIdx}t${tIdx}`, group.player, gIdx, false, readonly);
-    if (html) card.appendChild(html);
-  });
-  return card;
-}
-
-/* ── Render de uma seção ── */
-function renderSection(indices, container, catClass, readonly) {
-  let lastCat = '';
-  indices.forEach(gIdx => {
-    const group = OBJETIVOS[gIdx];
-    if (group.cat !== lastCat) {
-      const catIdxs = indices.filter(i => OBJETIVOS[i].cat === group.cat);
-      let catDone = 0, catTotal = 0;
-      catIdxs.forEach(i => { const p = calcGroupProgress(i); catDone += p.done; catTotal += p.total; });
-      const catPct = catTotal > 0 ? Math.round((catDone / catTotal) * 100) : 0;
-      const h = document.createElement('div');
-      h.className = 'category-header ' + catClass;
-      h.innerHTML = `<span class="cat-left">${CAT_ICONS[group.cat] || '📁'} ${group.cat}</span><span class="cat-pct ${catPct === 100 ? 'full' : ''}">${catPct}%</span>`;
-      container.appendChild(h);
-      lastCat = group.cat;
-    }
-    const card = buildCard(group, gIdx, catClass === 'exp' ? 'expired' : catClass === 'done-cat' ? 'completed' : '', readonly);
-    if (catClass === '' && esconderAtivo) {
-      const hasTasks = card.querySelectorAll('.sub-obj').length > 0;
-      if (!hasTasks) return;
-    }
-    container.appendChild(card);
-  });
-}
-
-/* ── Render principal ── */
+// ==================== RENDER ====================
 function render() {
-  const appAtivos = document.getElementById('app-ativos');
-  const appConcluidos = document.getElementById('app-concluidos');
-  const appExpirados = document.getElementById('app-expirados');
-  const favCont = document.getElementById('fav-container');
-  appAtivos.innerHTML = ''; appConcluidos.innerHTML = ''; appExpirados.innerHTML = ''; favCont.innerHTML = '';
+    const containers = {
+        live: document.getElementById('tab-live'),
+        milestones: document.getElementById('tab-milestones'),
+        campaign: document.getElementById('tab-campaign'),
+        completed: document.getElementById('tab-completed')
+    };
 
-  const ativos = [], concluidos = [], expirados = [];
-  OBJETIVOS.forEach((group, gIdx) => {
-    if (!matchBusca(group)) return;
-    if (isExpired(group)) expirados.push(gIdx);
-    else if (isGroupCompleted(gIdx)) concluidos.push(gIdx);
-    else ativos.push(gIdx);
-  });
+    Object.values(containers).forEach(c => c.innerHTML = '');
 
-  ativos.sort((a, b) => {
-    const dA = parseExpira(OBJETIVOS[a].expira);
-    const dB = parseExpira(OBJETIVOS[b].expira);
-    if (dA && dB) return dA - dB;
-    if (dA) return -1;
-    if (dB) return 1;
-    return 0;
-  });
+    const categorized = { live: [], milestones: [], campaign: [], completed: [] };
+    const partialGroups = [];
 
-  document.getElementById('badge-ativos').textContent = ativos.length;
-  document.getElementById('badge-concluidos').textContent = concluidos.length;
-  document.getElementById('badge-expirados').textContent = expirados.length;
+    OBJECTIVES.forEach(group => {
+        const complete = isComplete(group);
+        if (complete) {
+            categorized.completed.push(group);
+        } else {
+            categorized[group.category].push(group);
+        }
+        if (group.minToComplete && group.minToComplete < group.tasks.length) {
+            partialGroups.push(group);
+        }
+    });
 
-  let gDone = 0, gTotal = 0;
-  ativos.forEach(gIdx => { const p = calcGroupProgress(gIdx); gDone += p.done; gTotal += p.total; });
-  const gPct = gTotal > 0 ? Math.round((gDone / gTotal) * 100) : 0;
-  document.getElementById('global-pct-text').textContent = gPct + '%';
-  document.getElementById('global-bar').style.width = gPct + '%';
+    // Update global progress
+    let totalNeeded = 0, totalDone = 0;
+    OBJECTIVES.forEach(g => {
+        if (!isComplete(g)) {
+            const p = calcGroupProgress(g);
+            totalNeeded += p.total;
+            totalDone += p.done;
+        }
+    });
+    const globalPct = totalNeeded > 0 ? Math.round((totalDone / totalNeeded) * 100) : 100;
+    document.getElementById('global-pct').textContent = globalPct + '%';
+    document.getElementById('global-bar').style.width = globalPct + '%';
+    document.getElementById('global-bar').className = 'global-bar' + (globalPct === 100 ? ' complete' : '');
 
-  // Favoritos
-  if (subFavs.length > 0) {
-    const card = document.createElement('div'); card.className = 'card';
-    let hasFavs = false;
-    OBJETIVOS.forEach((group, gIdx) => group.tasks.forEach((task, tIdx) => {
-      const id = `g${gIdx}t${tIdx}`;
-      if (subFavs.includes(id)) {
-        const html = createTaskHTML(task, id, group.player, gIdx, true, false);
-        if (html) { card.appendChild(html); hasFavs = true; }
-      }
-    }));
-    if (hasFavs) {
-      const head = document.createElement('div'); head.className = 'category-header fav';
-      head.innerHTML = `<span class="cat-left">⭐ Em Foco</span>`;
-      favCont.appendChild(head);
-      favCont.appendChild(card);
-    }
-  }
+    // Update badges
+    document.getElementById('badge-live').textContent = categorized.live.length;
+    document.getElementById('badge-milestones').textContent = categorized.milestones.length;
+    document.getElementById('badge-campaign').textContent = categorized.campaign.length;
+    document.getElementById('badge-completed').textContent = categorized.completed.length;
 
-  if (ativos.length === 0) appAtivos.innerHTML = '<div class="empty-state"><span class="es-ico">🎉</span>Nenhum objetivo ativo no momento</div>';
-  else renderSection(ativos, appAtivos, '', false);
+    // Render each category
+    renderCategory('live', categorized.live, containers.live, 'Live Events');
+    renderCategory('milestones', categorized.milestones, containers.milestones, 'Marcos de Paises (Europa)', partialGroups.filter(g => g.category === 'milestones'));
+    renderCategory('campaign', categorized.campaign, containers.campaign, 'Campanha e Temporada');
+    renderCategory('completed', categorized.completed, containers.completed, 'Objetivos Concluidos');
 
-  if (concluidos.length === 0) appConcluidos.innerHTML = '<div class="empty-state"><span class="es-ico">⚽</span>Nenhum objetivo concluído ainda.<br>Vai jogar!</div>';
-  else renderSection(concluidos, appConcluidos, 'done-cat', false);
-
-  if (expirados.length === 0) appExpirados.innerHTML = '<div class="empty-state"><span class="es-ico">👍</span>Nenhum objetivo expirado. Boa!</div>';
-  else renderSection(expirados, appExpirados, 'exp', true);
+    // Empty states
+    Object.entries(containers).forEach(([key, container]) => {
+        if (container.innerHTML === '') {
+            const msg = key === 'completed' ? 'Nenhum objetivo concluido ainda.<br>Vai jogar!' : 'Nenhum objetivo ativo.';
+            container.innerHTML = `<div class="empty-state">${msg}</div>`;
+        }
+    });
 }
 
-iniciar();
+function renderCategory(catClass, groups, container, title, partialGroupsList = []) {
+    if (groups.length === 0) return;
+
+    // Category header
+    let catDone = 0, catTotal = 0;
+    groups.forEach(g => {
+        const p = calcGroupProgress(g);
+        catDone += p.done;
+        catTotal += p.total;
+    });
+    const catPct = Math.round((catDone / catTotal) * 100);
+
+    container.innerHTML += `
+        <div class="category-header ${catClass}">
+            <span>${title}</span>
+            <span class="cat-pct ${catPct === 100 ? 'full' : ''}">${catPct}%</span>
+        </div>
+    `;
+
+    // Partial completion alert
+    if (partialGroupsList.length > 0) {
+        container.innerHTML += `
+            <div class="partial-alert">
+                <span class="partial-alert-icon">!</span>
+                <span><b>${partialGroupsList.length} grupo${partialGroupsList.length > 1 ? 's' : ''}</b> com conclusao parcial - voce nao precisa completar 100% das missoes!</span>
+            </div>
+        `;
+    }
+
+    groups.forEach(group => renderCard(group, container));
+}
+
+function renderCard(group, container) {
+    const gp = calcGroupProgress(group);
+    const complete = isComplete(group);
+    const isPartial = group.minToComplete && group.minToComplete < group.tasks.length;
+
+    let thresholdHtml = '';
+    if (isPartial && !complete) {
+        const thresholdPct = (group.minToComplete / group.tasks.length) * 100;
+        thresholdHtml = `
+            <div class="threshold-marker" style="left: ${thresholdPct}%;">
+                <span class="threshold-label">Min: ${group.minToComplete}</span>
+            </div>
+        `;
+    }
+
+    let bannerHtml = '';
+    if (isPartial && !complete) {
+        bannerHtml = `
+            <div class="card-banner partial-banner">
+                <span>!</span>
+                <span><b>${group.minToComplete} de ${group.tasks.length}</b> missoes necessarias (nao precisa completar todas!)</span>
+            </div>
+        `;
+    } else if (complete) {
+        bannerHtml = `<div class="card-banner complete-banner"><span>OK</span><span>Grupo completo!</span></div>`;
+    }
+
+    let tasksHtml = '';
+    group.tasks.forEach(task => {
+        const val = getProgress(task.id);
+        const taskDone = val >= task.total;
+        if (hideCompleted && taskDone) return;
+
+        const isFav = favorites.includes(task.id);
+        const pct = Math.min(100, Math.round((val / task.total) * 100));
+
+        let ballsHtml = '';
+        if (task.total > 1 && task.total <= 20) {
+            for (let i = 1; i <= task.total; i++) {
+                ballsHtml += `<div class="ball ${i <= val ? 'active' : ''}" onclick="setProgress('${task.id}', ${i}, ${task.total})">${i <= val ? 'OK' : i}</div>`;
+            }
+        }
+
+        tasksHtml += `
+            <div class="sub-obj ${taskDone ? 'done' : ''}">
+                <div class="sub-header">
+                    <span class="sub-name">${task.name}</span>
+                    <span class="fav-star ${isFav ? 'active' : ''}" onclick="toggleFav('${task.id}')">★</span>
+                </div>
+                <div class="req-box">
+                    <span class="req-label">Requisito</span>
+                    ${task.requirement}
+                </div>
+                <div class="reward-toggle" onclick="this.nextElementSibling.classList.toggle('show')">
+                    <span>+ Ver recompensa</span>
+                </div>
+                <div class="reward-box">${task.reward}</div>
+                <div class="sub-progress-header">
+                    <span class="sub-progress-values">${val}/${task.total}</span>
+                    <span class="sub-progress-pct">${pct}%</span>
+                </div>
+                <div class="sub-progress-bar-bg">
+                    <div class="sub-progress-bar ${taskDone ? 'complete' : ''}" style="width:${pct}%"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <div class="balls-grid">${ballsHtml}</div>
+                    <div class="btn-group">
+                        <button class="btn-minus" onclick="decProgress('${task.id}')" ${val <= 0 ? 'disabled' : ''}>-</button>
+                        <button class="btn-plus" onclick="incProgress('${task.id}', ${task.total})" ${taskDone ? 'disabled' : ''}>${taskDone ? 'OK' : '+'}</button>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    if (hideCompleted) {
+        const hiddenCount = group.tasks.filter(t => getProgress(t.id) >= t.total).length;
+        if (hiddenCount > 0) {
+            tasksHtml += `<div style="text-align:center;padding:8px;color:#555;font-size:11px;">+ ${hiddenCount} missoes ja completadas (ocultas)</div>`;
+        }
+    }
+
+    container.innerHTML += `
+        <div class="card ${complete ? 'complete' : ''} ${isPartial && !complete ? 'partial' : ''} expanded" id="card-${group.id}">
+            ${bannerHtml}
+            <div class="card-header" onclick="toggleCard('${group.id}')">
+                <div class="card-title-row">
+                    <div>
+                        <div class="player-name">${group.name}</div>
+                        ${group.expiresIn ? `<span class="expire-info ${parseInt(group.expiresIn) <= 5 ? 'soon' : ''}">Expira em: ${group.expiresIn}</span>` : ''}
+                    </div>
+                    <span class="expand-icon">v</span>
+                </div>
+            </div>
+            <div class="card-progress">
+                <div class="progress-header">
+                    <span class="progress-values">${gp.done}/${gp.total} objetivos</span>
+                    <span class="progress-pct">${gp.pct}%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    ${thresholdHtml}
+                    <div class="progress-bar ${complete ? 'complete' : ''}" style="width:${gp.pct}%"></div>
+                </div>
+                <div class="completion-rule">${group.completionRule}</div>
+                ${group.groupReward ? `
+                    <div class="group-reward-toggle" onclick="this.nextElementSibling.classList.toggle('show')">
+                        <span>Recompensa do grupo</span>
+                    </div>
+                    <div class="group-reward-box">${group.groupReward}</div>
+                ` : ''}
+            </div>
+            <div class="tasks-container">
+                <div class="tasks-header">Missoes (${group.tasks.filter(t => getProgress(t.id) >= t.total).length}/${group.tasks.length} completas${isPartial ? ` - minimo ${group.minToComplete} necessarias` : ''})</div>
+                ${tasksHtml || '<div class="empty-state">Todas as missoes completas!</div>'}
+            </div>
+        </div>
+    `;
+}
+
+// ==================== ACTIONS ====================
+function setProgress(taskId, val, max) {
+    const current = getProgress(taskId);
+    progress[taskId] = val === current ? val - 1 : val;
+    if (progress[taskId] < 0) progress[taskId] = 0;
+    if (progress[taskId] > max) progress[taskId] = max;
+    save();
+    render();
+}
+
+function incProgress(taskId, max) {
+    const current = getProgress(taskId);
+    if (current < max) {
+        progress[taskId] = current + 1;
+        save();
+        render();
+    }
+}
+
+function decProgress(taskId) {
+    const current = getProgress(taskId);
+    if (current > 0) {
+        progress[taskId] = current - 1;
+        save();
+        render();
+    }
+}
+
+function toggleFav(taskId) {
+    if (favorites.includes(taskId)) {
+        favorites = favorites.filter(f => f !== taskId);
+    } else {
+        favorites.push(taskId);
+    }
+    save();
+    render();
+}
+
+function toggleCard(groupId) {
+    document.getElementById('card-' + groupId).classList.toggle('expanded');
+}
+
+// ==================== TABS ====================
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const tab = this.dataset.tab;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById('tab-' + tab).classList.add('active');
+    });
+});
+
+// ==================== TOGGLE ====================
+document.getElementById('toggleBtn').addEventListener('click', function() {
+    hideCompleted = !hideCompleted;
+    this.classList.toggle('active', hideCompleted);
+    this.textContent = hideCompleted ? 'Mostrar Concluidos' : 'Esconder Concluidos';
+    render();
+});
+
+// ==================== INIT ====================
+render();
 </script>
 </body>
 </html>
